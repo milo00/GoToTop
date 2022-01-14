@@ -34,11 +34,9 @@ public class MountainAreaController {
 
     @PutMapping(path = {"{mountainAreaId}"})
     public void updateMountainArea(@PathVariable("mountainAreaId") Long id,
-                              @RequestParam(required = false) String firstName,
-                              @RequestParam(required = false)String lastName,
-                              @RequestParam(required = false) String email)
+                              @RequestParam(required = false) String name)
     {
-        mountainAreaService.updateMountainArea();
+        mountainAreaService.updateMountainArea(id, name);
     }
 
 

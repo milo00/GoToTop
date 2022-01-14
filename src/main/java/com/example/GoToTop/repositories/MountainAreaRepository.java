@@ -10,6 +10,4 @@ public interface MountainAreaRepository extends JpaRepository<MountainArea, Long
 
     @Query("SELECT a FROM MountainArea a WHERE a.name = ?1")
     Optional<MountainArea> findAreaByName(String name);
-
-
 }

@@ -1,4 +1,3 @@
-/*
 package com.example.GoToTop.model;
 
 import javax.persistence.*;
@@ -133,4 +132,3 @@ public class ScoredStretch {
         return id;
     }
 }
-*/

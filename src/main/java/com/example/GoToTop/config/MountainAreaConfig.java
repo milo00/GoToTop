@@ -11,7 +11,7 @@ import java.util.List;
 @Configuration
 public class MountainAreaConfig {
 
-    @Bean
+//    @Bean
     CommandLineRunner commandLineRunner(MountainAreaRepository repository) {
         return args -> {
             MountainArea tatryWysokie = new MountainArea(

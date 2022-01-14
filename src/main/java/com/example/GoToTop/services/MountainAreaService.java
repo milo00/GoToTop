@@ -37,6 +37,10 @@ public class MountainAreaService {
         mountainAreaRepository.delete(mountainAreaById.get());
     }
 
+    public Optional<MountainArea> getMountainAreaById(Long id){
+        return mountainAreaRepository.findById(id);
+    }
+
     @Transactional
     public void updateMountainArea(Long id, String name) {
         Optional<MountainArea> mountainAreaById = mountainAreaRepository.findById(id);
@@ -52,11 +56,6 @@ public class MountainAreaService {
                 }
                 mountainAreaToUpdate.setName(name);
             }
-
         }
-
-
     }
-
-
 }

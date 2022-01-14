@@ -16,7 +16,7 @@ public class RoutePoint {
     private float latitude;
     private float altitude;
     private Set<MountainArea> mountainAreas;
-    private Set<ScoredStretch> scoredStretches;
+  //  private Set<ScoredStretch> scoredStretches;
 
     public RoutePoint() {
     }
@@ -28,7 +28,7 @@ public class RoutePoint {
         this.altitude = altitude;
         this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
         this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
-        scoredStretches = new HashSet<>();
+      //  scoredStretches = new HashSet<>();
     }
 
     public RoutePoint(float longitude, float latitude, float altitude, MountainArea ... mountainAreas) {
@@ -37,7 +37,7 @@ public class RoutePoint {
         this.altitude = altitude;
         this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
         this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
-        scoredStretches = new HashSet<>();
+      //  scoredStretches = new HashSet<>();
     }
 
     public float getLongitude() {
@@ -64,7 +64,7 @@ public class RoutePoint {
         this.altitude = altitude;
     }
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "areas_of_points",
             joinColumns = @JoinColumn(name = "mountain_area_id"),
@@ -77,14 +77,14 @@ public class RoutePoint {
         this.mountainAreas = mountainAreas;
     }
 
-    @OneToMany(cascade = CascadeType.ALL)
+   /* @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     public Set<ScoredStretch> getScoredStretches() {
         return scoredStretches;
     }
 
     public void setScoredStretches(Set<ScoredStretch> scoredStretches) {
         this.scoredStretches = scoredStretches;
-    }
+    }*/
 
     public void setId(Long id) {
         this.id = id;

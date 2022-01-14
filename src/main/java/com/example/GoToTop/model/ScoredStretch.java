@@ -1,16 +1,122 @@
+/*
 package com.example.GoToTop.model;
 
 import javax.persistence.*;
+import java.sql.Time;
 
 @Entity
 @Table
 @Access(AccessType.PROPERTY)
 public class ScoredStretch {
     private Long id;
+    private RoutePoint startPoint;
+    private RoutePoint endPoint;
+    //TODO: middlePoint should be string or point?
+    private String middlePoint;
+    private int score;
+    private float length;
+    private float heightDifference;
+    private Time walkingTime;
+    private MountainArea mountainArea;
 
+    public ScoredStretch() {
+
+    }
+
+    public ScoredStretch(Long id, RoutePoint startPoint, RoutePoint endPoint, String middlePoint, int score,
+                         float length, float heightDifference, Time walkingTime, MountainArea mountainArea) {
+        this.id = id;
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
+        this.middlePoint = middlePoint;
+        this.score = score;
+        this.length = length;
+        this.heightDifference = heightDifference;
+        this.walkingTime = walkingTime;
+        this.mountainArea = mountainArea;
+    }
+
+    public ScoredStretch(RoutePoint startPoint, RoutePoint endPoint, String middlePoint, int score, float length,
+                         float heightDifference, Time walkingTime, MountainArea mountainArea) {
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
+        this.middlePoint = middlePoint;
+        this.score = score;
+        this.length = length;
+        this.heightDifference = heightDifference;
+        this.walkingTime = walkingTime;
+        this.mountainArea = mountainArea;
+    }
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    @ManyToOne
+    public RoutePoint getStartPoint() {
+        return startPoint;
+    }
+
+    public void setStartPoint(RoutePoint startPoint) {
+        this.startPoint = startPoint;
+    }
+
+    @ManyToOne
+    public RoutePoint getEndPoint() {
+        return endPoint;
+    }
+
+    public void setEndPoint(RoutePoint endPoint) {
+        this.endPoint = endPoint;
+    }
+
+    public String getMiddlePoint() {
+        return middlePoint;
+    }
+
+    public void setMiddlePoint(String middlePoint) {
+        this.middlePoint = middlePoint;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public float getLength() {
+        return length;
+    }
+
+    public void setLength(float length) {
+        this.length = length;
+    }
+
+    public float getHeightDifference() {
+        return heightDifference;
+    }
+
+    public void setHeightDifference(float heightDifference) {
+        this.heightDifference = heightDifference;
+    }
+
+    public Time getWalkingTime() {
+        return walkingTime;
+    }
+
+    public void setWalkingTime(Time walkingTime) {
+        this.walkingTime = walkingTime;
+    }
+
+    @ManyToOne
+    public MountainArea getMountainArea() {
+        return mountainArea;
+    }
+
+    public void setMountainArea(MountainArea mountainArea) {
+        this.mountainArea = mountainArea;
     }
 
     @Id
@@ -27,3 +133,4 @@ public class ScoredStretch {
         return id;
     }
 }
+*/

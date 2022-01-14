@@ -11,7 +11,7 @@ import java.util.List;
 @Configuration
 public class MountainAreaConfig {
 
-
+    @Bean
     CommandLineRunner commandLineRunner(MountainAreaRepository repository) {
         return args -> {
             MountainArea tatryWysokie = new MountainArea(
@@ -57,7 +57,7 @@ public class MountainAreaConfig {
                     "Podgórze Rożanowskie"
             );
 
-            repository.saveAll(List.of(tatryWysokie,tatryZachodnie,podtatrze,beskidŚląski,beskidMały,beskidŚląski,
+            repository.saveAll(List.of(tatryWysokie, tatryZachodnie, podtatrze, beskidŚląski, beskidMały, beskidŚląski,
                     gorce, beskidWyspowy, orawa, spiszIPininy, podgórzeWielickie, podgórzeWiśnieckie, podgórzeRożanowskie
             ));
         };

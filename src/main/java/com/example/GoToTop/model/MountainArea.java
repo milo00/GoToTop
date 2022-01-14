@@ -27,6 +27,7 @@ public class MountainArea {
         this.routePoints = new HashSet<>();
     }
 
+    @Column(unique = true)
     public String getName() {
         return name;
     }
@@ -35,7 +36,7 @@ public class MountainArea {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "mountainAreas")
+    @ManyToMany(mappedBy = "mountainAreas", cascade = CascadeType.ALL)
     public Set<RoutePoint> getRoutePoints() {
         return routePoints;
     }

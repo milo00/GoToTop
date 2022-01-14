@@ -1,6 +1,7 @@
 package com.example.GoToTop.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,6 +16,7 @@ public class RoutePoint {
     private float latitude;
     private float altitude;
     private Set<MountainArea> mountainAreas;
+    private Set<ScoredStretch> scoredStretches;
 
     public RoutePoint() {
     }
@@ -26,6 +28,7 @@ public class RoutePoint {
         this.altitude = altitude;
         this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
         this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
+        scoredStretches = new HashSet<>();
     }
 
     public RoutePoint(float longitude, float latitude, float altitude, MountainArea ... mountainAreas) {
@@ -34,6 +37,7 @@ public class RoutePoint {
         this.altitude = altitude;
         this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
         this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
+        scoredStretches = new HashSet<>();
     }
 
     public float getLongitude() {
@@ -71,6 +75,15 @@ public class RoutePoint {
 
     public void setMountainAreas(Set<MountainArea> mountainAreas) {
         this.mountainAreas = mountainAreas;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL)
+    public Set<ScoredStretch> getScoredStretches() {
+        return scoredStretches;
+    }
+
+    public void setScoredStretches(Set<ScoredStretch> scoredStretches) {
+        this.scoredStretches = scoredStretches;
     }
 
     public void setId(Long id) {

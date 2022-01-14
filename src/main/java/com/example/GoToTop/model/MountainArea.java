@@ -1,6 +1,7 @@
 package com.example.GoToTop.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -21,27 +22,21 @@ public class MountainArea {
     private Long id;
     private String name;
 
-    @ManyToMany
-    @JoinTable(
-            name = "areas_of_points",
-            joinColumns = @JoinColumn(name = "mountain_area_id"),
-            inverseJoinColumns = @JoinColumn(name = "route_point_id"))
+    @ManyToMany(mappedBy = "mountainAreas")
     Set<RoutePoint> routePoints;
 
     public MountainArea() {
     }
 
-    public MountainArea(Long id, String name, RoutePoint... routePoints) {
+    public MountainArea(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.routePoints = Stream.of(routePoints).collect(Collectors.toSet());
-        this.routePoints.forEach(x -> x.getMountainAreas().add(this));
+        this.routePoints = new HashSet<>();
     }
 
-    public MountainArea(String name, RoutePoint... routePoints) {
+    public MountainArea(String name) {
         this.name = name;
-        this.routePoints = Stream.of(routePoints).collect(Collectors.toSet());
-        this.routePoints.forEach(x -> x.getMountainAreas().add(this));
+        this.routePoints = new HashSet<>();
     }
 
     public String getName() {
@@ -50,6 +45,14 @@ public class MountainArea {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Set<RoutePoint> getRoutePoints() {
+        return routePoints;
+    }
+
+    public void setRoutePoints(Set<RoutePoint> routePoints) {
+        this.routePoints = routePoints;
     }
 
     public void setId(Long id) {

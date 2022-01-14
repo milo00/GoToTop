@@ -3,12 +3,14 @@ package com.example.GoToTop.config;
 import com.example.GoToTop.model.MountainArea;
 import com.example.GoToTop.repositories.MountainAreaRepository;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
 @Configuration
 public class MountainAreaConfig {
+
 
     CommandLineRunner commandLineRunner(MountainAreaRepository repository) {
         return args -> {

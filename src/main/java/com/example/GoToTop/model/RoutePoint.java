@@ -8,47 +8,20 @@ import java.util.stream.Stream;
 
 @Entity
 @Table
+@Access(AccessType.PROPERTY)
 public class RoutePoint {
-    @Id
-    @SequenceGenerator(
-            name = "route_point_sequence",
-            sequenceName = "route_point_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "route_point_sequence"
-    )
+
     private Long id;
     private float longitude;
     private float latitude;
     private float altitude;
 
-    @ManyToMany
-    @JoinTable(
-            name = "areas_of_points",
-            joinColumns = @JoinColumn(name = "mountain_area_id"),
-            inverseJoinColumns = @JoinColumn(name = "route_point_id"))
+
     Set<MountainArea> mountainAreas;
 
     public RoutePoint(){}
 
-    public RoutePoint(Long id, float longitude, float latitude, float altitude, MountainArea... mountainAreas) {
-        this.id = id;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.altitude = altitude;
-        this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
-        this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
-    }
 
-    public RoutePoint(float longitude, float latitude, float altitude, MountainArea... mountainAreas) {
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.altitude = altitude;
-        this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
-        this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
-    }
 
     public float getLongitude() {
         return longitude;
@@ -74,6 +47,11 @@ public class RoutePoint {
         this.altitude = altitude;
     }
 
+    @ManyToMany
+    @JoinTable(
+            name = "areas_of_points",
+            joinColumns = @JoinColumn(name = "mountain_area_id"),
+            inverseJoinColumns = @JoinColumn(name = "route_point_id"))
     public Set<MountainArea> getMountainAreas() {
         return mountainAreas;
     }
@@ -87,6 +65,15 @@ public class RoutePoint {
     }
 
     @Id
+    @SequenceGenerator(
+            name = "route_point_sequence",
+            sequenceName = "route_point_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "route_point_sequence"
+    )
     public Long getId() {
         return id;
     }

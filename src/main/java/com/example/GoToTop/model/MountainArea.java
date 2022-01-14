@@ -8,21 +8,13 @@ import java.util.stream.Stream;
 
 @Entity
 @Table
+@Access(AccessType.PROPERTY)
 public class MountainArea {
-    @Id
-    @SequenceGenerator(
-            name = "mountain_area_sequence",
-            sequenceName = "mountain_area_sequence",
-            allocationSize = 1
-    )
-    @GeneratedValue(
-            strategy = GenerationType.SEQUENCE,
-            generator = "mountain_area_sequence"
-    )
+
     private Long id;
     private String name;
 
-    @ManyToMany(mappedBy = "mountainAreas")
+
     Set<RoutePoint> routePoints;
 
     public MountainArea() {
@@ -47,6 +39,7 @@ public class MountainArea {
         this.name = name;
     }
 
+    @ManyToMany(mappedBy = "mountainAreas")
     public Set<RoutePoint> getRoutePoints() {
         return routePoints;
     }
@@ -59,7 +52,16 @@ public class MountainArea {
         this.id = id;
     }
 
-    @javax.persistence.Id
+    @Id
+    @SequenceGenerator(
+            name = "mountain_area_sequence",
+            sequenceName = "mountain_area_sequence",
+            allocationSize = 1
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "mountain_area_sequence"
+    )
     public Long getId() {
         return id;
     }

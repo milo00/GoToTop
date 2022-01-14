@@ -1,6 +1,9 @@
 package com.example.GoToTop.model;
 
 import javax.persistence.*;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Entity
 @Table
@@ -18,16 +21,27 @@ public class MountainArea {
     private Long id;
     private String name;
 
+    @ManyToMany
+    @JoinTable(
+            name = "areas_of_points",
+            joinColumns = @JoinColumn(name = "mountain_area_id"),
+            inverseJoinColumns = @JoinColumn(name = "route_point_id"))
+    Set<RoutePoint> routePoints;
+
     public MountainArea() {
     }
 
-    public MountainArea(Long id, String name) {
-        id = id;
+    public MountainArea(Long id, String name, RoutePoint... routePoints) {
+        this.id = id;
         this.name = name;
+        this.routePoints = Stream.of(routePoints).collect(Collectors.toSet());
+        this.routePoints.forEach(x -> x.getMountainAreas().add(this));
     }
 
-    public MountainArea(String name) {
+    public MountainArea(String name, RoutePoint... routePoints) {
         this.name = name;
+        this.routePoints = Stream.of(routePoints).collect(Collectors.toSet());
+        this.routePoints.forEach(x -> x.getMountainAreas().add(this));
     }
 
     public String getName() {

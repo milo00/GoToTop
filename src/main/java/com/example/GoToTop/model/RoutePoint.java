@@ -1,7 +1,6 @@
 package com.example.GoToTop.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -15,13 +14,27 @@ public class RoutePoint {
     private float longitude;
     private float latitude;
     private float altitude;
+    private Set<MountainArea> mountainAreas;
 
+    public RoutePoint() {
+    }
 
-    Set<MountainArea> mountainAreas;
+    public RoutePoint(Long id, float longitude, float latitude, float altitude, MountainArea ... mountainAreas) {
+        this.id = id;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.altitude = altitude;
+        this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
+        this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
+    }
 
-    public RoutePoint(){}
-
-
+    public RoutePoint(float longitude, float latitude, float altitude, MountainArea ... mountainAreas) {
+        this.longitude = longitude;
+        this.latitude = latitude;
+        this.altitude = altitude;
+        this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
+        this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
+    }
 
     public float getLongitude() {
         return longitude;

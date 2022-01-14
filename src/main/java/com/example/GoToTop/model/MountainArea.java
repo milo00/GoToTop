@@ -3,8 +3,6 @@ package com.example.GoToTop.model;
 import javax.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Entity
 @Table
@@ -13,9 +11,7 @@ public class MountainArea {
 
     private Long id;
     private String name;
-
-
-    Set<RoutePoint> routePoints;
+    private Set<RoutePoint> routePoints;
 
     public MountainArea() {
     }

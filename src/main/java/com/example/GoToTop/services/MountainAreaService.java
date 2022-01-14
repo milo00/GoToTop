@@ -46,7 +46,7 @@ public class MountainAreaService {
 
             MountainArea mountainAreaToUpdate = mountainAreaById.get();
             if (name != null && !name.equals(mountainAreaToUpdate.getName()) && name.length() > 0) {
-                Optional<MountainArea> mountainAreaByName = mountainAreaRepository.findAreaByName(mountainAreaToUpdate.getName());
+                Optional<MountainArea> mountainAreaByName = mountainAreaRepository.findAreaByName(name);
                 if (mountainAreaByName.isPresent()) {
                     throw new IllegalStateException("area with given name already exist");
                 }

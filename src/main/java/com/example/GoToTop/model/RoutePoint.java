@@ -12,32 +12,41 @@ import java.util.stream.Stream;
 public class RoutePoint {
 
     private Long id;
+    private String name;
     private float longitude;
     private float latitude;
     private float altitude;
     private Set<MountainArea> mountainAreas;
-  //  private Set<ScoredStretch> scoredStretches;
 
     public RoutePoint() {
     }
 
-    public RoutePoint(Long id, float longitude, float latitude, float altitude, MountainArea ... mountainAreas) {
+    public RoutePoint(Long id, String name, float longitude, float latitude, float altitude, MountainArea ... mountainAreas) {
         this.id = id;
+        this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude = altitude;
         this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
         this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
-      //  scoredStretches = new HashSet<>();
     }
 
-    public RoutePoint(float longitude, float latitude, float altitude, MountainArea ... mountainAreas) {
+    public RoutePoint(String name, float longitude, float latitude, float altitude, MountainArea ... mountainAreas) {
+        this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;
         this.altitude = altitude;
         this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
         this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
-      //  scoredStretches = new HashSet<>();
+    }
+
+    @Column(unique = true)
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public float getLongitude() {
@@ -77,14 +86,6 @@ public class RoutePoint {
         this.mountainAreas = mountainAreas;
     }
 
-   /* @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    public Set<ScoredStretch> getScoredStretches() {
-        return scoredStretches;
-    }
-
-    public void setScoredStretches(Set<ScoredStretch> scoredStretches) {
-        this.scoredStretches = scoredStretches;
-    }*/
 
     public void setId(Long id) {
         this.id = id;

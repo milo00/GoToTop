@@ -1,6 +1,7 @@
 package com.example.GoToTop.controllers;
 
 import com.example.GoToTop.model.ScoredStretch;
+import com.example.GoToTop.model.projection.ScoredStretchProjection;
 import com.example.GoToTop.services.ScoredStretchService;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +21,7 @@ public class ScoredStretchController {
     }
 
     @GetMapping
-    public List<ScoredStretch> getScoredStretch() {
+    public List<ScoredStretchProjection> getScoredStretch() {
         return scoredStretchService.getScoredStretch();
     }
 

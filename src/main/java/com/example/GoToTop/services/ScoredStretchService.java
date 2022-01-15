@@ -3,6 +3,7 @@ package com.example.GoToTop.services;
 import com.example.GoToTop.model.MountainArea;
 import com.example.GoToTop.model.RoutePoint;
 import com.example.GoToTop.model.ScoredStretch;
+import com.example.GoToTop.model.projection.ScoredStretchProjection;
 import com.example.GoToTop.repositories.ScoredStretchRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,8 +25,8 @@ public class ScoredStretchService {
         this.mountainAreaService = mountainAreaService;
     }
 
-    public List<ScoredStretch> getScoredStretch() {
-        return scoredStretchRepository.findAll();
+    public List<ScoredStretchProjection> getScoredStretch() {
+        return scoredStretchRepository.findAllStretches();
     }
 
     public void addNewScoredStretch(ScoredStretch scoredStretch) {

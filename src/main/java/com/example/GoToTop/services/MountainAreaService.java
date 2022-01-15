@@ -1,6 +1,6 @@
 package com.example.GoToTop.services;
 
-import com.example.GoToTop.model.MountainAreaProjection;
+import com.example.GoToTop.model.projection.MountainAreaProjection;
 import com.example.GoToTop.repositories.MountainAreaRepository;
 import com.example.GoToTop.model.MountainArea;
 import org.springframework.stereotype.Service;

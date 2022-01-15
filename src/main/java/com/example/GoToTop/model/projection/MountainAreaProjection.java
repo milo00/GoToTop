@@ -1,4 +1,4 @@
-package com.example.GoToTop.model;
+package com.example.GoToTop.model.projection;
 
 public interface MountainAreaProjection {
     Long getId();

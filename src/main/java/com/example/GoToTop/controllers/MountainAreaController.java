@@ -1,7 +1,7 @@
 package com.example.GoToTop.controllers;
 
 import com.example.GoToTop.model.MountainArea;
-import com.example.GoToTop.model.MountainAreaProjection;
+import com.example.GoToTop.model.projection.MountainAreaProjection;
 import com.example.GoToTop.services.MountainAreaService;
 import org.springframework.web.bind.annotation.*;
 

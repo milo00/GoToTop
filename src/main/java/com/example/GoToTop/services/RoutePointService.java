@@ -2,6 +2,7 @@ package com.example.GoToTop.services;
 
 import com.example.GoToTop.model.MountainArea;
 import com.example.GoToTop.model.RoutePoint;
+import com.example.GoToTop.model.projection.RoutePointProjection;
 import com.example.GoToTop.repositories.RoutePointRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +20,7 @@ public class RoutePointService {
         this.routePointRepository = routePointRepository;
     }
 
-    public List<RoutePoint> getRoutePoints() {return routePointRepository.findAll();}
+    public List<RoutePointProjection> getRoutePoints() {return routePointRepository.findAllRoutes();}
 
     public void addNewRoutePoint(RoutePoint routePoint) {
         Optional<RoutePoint> routePointByName = routePointRepository.findRouteByName(routePoint.getName());

@@ -2,6 +2,7 @@ package com.example.GoToTop.controllers;
 
 import com.example.GoToTop.model.MountainArea;
 import com.example.GoToTop.model.RoutePoint;
+import com.example.GoToTop.model.projection.RoutePointProjection;
 import com.example.GoToTop.services.RoutePointService;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +20,7 @@ public class RoutePointController {
         this.routePointService = routePointService;
     }
     @GetMapping
-    public List<RoutePoint> getRoutePoints(){
+    public List<RoutePointProjection> getRoutePoints(){
         return routePointService.getRoutePoints();
     }
 

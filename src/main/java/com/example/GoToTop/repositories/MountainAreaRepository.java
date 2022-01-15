@@ -1,7 +1,7 @@
 package com.example.GoToTop.repositories;
 
 import com.example.GoToTop.model.MountainArea;
-import com.example.GoToTop.model.MountainAreaProjection;
+import com.example.GoToTop.model.projection.MountainAreaProjection;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

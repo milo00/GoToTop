@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/scoredStretch")
-@CrossOrigin
+@CrossOrigin("*")
 public class ScoredStretchController {
 
     private final ScoredStretchService scoredStretchService;
@@ -21,13 +21,17 @@ public class ScoredStretchController {
 
     @GetMapping
     public List<ScoredStretch> getScoredStretch() {
+
         return scoredStretchService.getScoredStretch();
     }
 
     @PostMapping
     public void registerNewScoredStretch(@RequestBody ScoredStretch scoredStretch) {
-
-        scoredStretchService.addNewScoredStretch(scoredStretch);
+        try {
+            scoredStretchService.addNewScoredStretch(scoredStretch);
+        } catch (Exception e) {
+            System.out.println("dupa.");
+        }
     }
 
     @DeleteMapping(path = "{scoredStretchId}")

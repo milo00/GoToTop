@@ -9,7 +9,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping(path = "/mountainArea")
-@CrossOrigin
+@CrossOrigin("*")
 public class MountainAreaController {
 
     private final MountainAreaService mountainAreaService;

@@ -1,5 +1,6 @@
 package com.example.GoToTop.services;
 
+import com.example.GoToTop.model.MountainAreaProjection;
 import com.example.GoToTop.repositories.MountainAreaRepository;
 import com.example.GoToTop.model.MountainArea;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,11 @@ public class MountainAreaService {
         this.mountainAreaRepository = mountainAreaRepository;
     }
 
-    public List<MountainArea> getMountainArea() {
-        return mountainAreaRepository.findAll();
+    public List<MountainAreaProjection> getMountainArea() {
+        for (MountainAreaProjection mountainArea: mountainAreaRepository.findAreas()) {
+            System.out.println(mountainArea.getName() + mountainArea.getId());
+        }
+        return mountainAreaRepository.findAreas();
     }
 
     public void addNewMountainArea(MountainArea mountainArea) {

@@ -25,7 +25,11 @@ public class RoutePointController {
 
     @PostMapping
     public void registerNewRoutePoint(@RequestBody RoutePoint routePoint){
-        routePointService.addNewRoutePoint(routePoint);
+        try {
+            routePointService.addNewRoutePoint(routePoint);
+        } catch (Exception e) {
+            System.out.println("dupa.");
+        }
     }
 
     @DeleteMapping(path = "{routePointsId}")

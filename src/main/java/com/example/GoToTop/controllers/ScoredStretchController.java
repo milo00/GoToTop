@@ -26,6 +26,7 @@ public class ScoredStretchController {
 
     @PostMapping
     public void registerNewScoredStretch(@RequestBody ScoredStretch scoredStretch) {
+
         scoredStretchService.addNewScoredStretch(scoredStretch);
     }
 

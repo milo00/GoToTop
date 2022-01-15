@@ -34,6 +34,11 @@ public class ScoredStretchService {
         if (scoredStretchByKey.isPresent()) {
             throw new IllegalStateException("stretch with given name already exist");
         }
+
+        Optional<MountainArea> mountainAreaByKey = mountainAreaService.getMountainAreaByName(scoredStretch.getMountainArea().getName());
+        if (mountainAreaByKey.isEmpty()) {
+            throw new IllegalStateException("given area does not exist");
+        }
         scoredStretchRepository.save(scoredStretch);
     }
 

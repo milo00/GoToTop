@@ -11,11 +11,6 @@ import java.util.List;
 @Configuration
 public class MountainAreaConfig {
 
-<<<<<<< Updated upstream
-//    @Bean
-=======
-    //@Bean
->>>>>>> Stashed changes
     CommandLineRunner commandLineRunner(MountainAreaRepository repository) {
         return args -> {
             MountainArea tatryWysokie = new MountainArea(

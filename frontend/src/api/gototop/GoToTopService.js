@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 
 class GoToTopService {
 
@@ -8,22 +8,16 @@ class GoToTopService {
     
         const fetchAreas = () => {
             axios.get('http://localhost:8080/mountainArea').then(res => {
-               console.log(res);
+               
                setMountainAreasData(res.data);
            })
         };
     
         useEffect(() => {
             fetchAreas();
-        }, []);
-    
-        return MountainAreasData.map((area,index) => {
-            return (
-                <div key={index}>
-                    <h3>{area.name}</h3>
-                </div>
-            );
         });
+    
+        return MountainAreasData;
     };
 
     RoutePointsData = () => {
@@ -31,24 +25,16 @@ class GoToTopService {
     
         const fetchPoints = () => {
             axios.get('http://localhost:8080/routePoint').then(res => {
-               console.log(res);
+               
                setRoutePointsData(res.data);
            })
         };
     
         useEffect(() => {
             fetchPoints();
-        }, []);
-    
-        return RoutePointsData.map((point,index) => {
-            return (
-                <div key={index}>
-                    <h3>{point.name}</h3>
-                    <p>({point.latitude},{point.longitude},{point.altitude})</p>
-
-                </div>
-            );
         });
+    
+        return RoutePointsData;
     };
 
     ScoredStretchData = () => {
@@ -56,22 +42,16 @@ class GoToTopService {
     
         const fetchStretches = () => {
             axios.get('http://localhost:8080/scoredStretch').then(res => {
-               console.log(res);
+               
                setScoredStretchData(res.data);
            })
         };
     
         useEffect(() => {
             fetchStretches();
-        }, []);
-    
-        return ScoredStretchData.map((stretch,index) => {
-            return (
-                <div key={index}>
-                    <h3>{stretch.score}</h3>
-                </div>
-            );
         });
+    
+        return ScoredStretchData;
     };
 
 }

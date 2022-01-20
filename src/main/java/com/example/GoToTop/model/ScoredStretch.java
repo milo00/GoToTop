@@ -2,6 +2,7 @@ package com.example.GoToTop.model;
 
 import javax.persistence.*;
 import java.sql.Time;
+import java.util.Optional;
 
 @Entity
 @Table
@@ -23,28 +24,50 @@ public class ScoredStretch {
     }
 
     public ScoredStretch(Long id, RoutePoint startPoint, RoutePoint endPoint, String middlePoint, int score,
-                         float length, float heightDifference, Time walkingTime, MountainArea mountainArea) {
+                         float length, Time walkingTime) {
+        Optional<MountainArea> common = findCommonArea(startPoint, endPoint);
+
+        if (common.isEmpty()) {
+            throw new IllegalArgumentException("Points does not have the same mountain area");
+        }
+
         this.id = id;
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.middlePoint = middlePoint;
         this.score = score;
         this.length = length;
-        this.heightDifference = heightDifference;
+        this.heightDifference = Math.abs(startPoint.getAltitude() - endPoint.getAltitude());
         this.walkingTime = walkingTime;
-        this.mountainArea = mountainArea;
+        this.mountainArea = common.get();
     }
 
     public ScoredStretch(RoutePoint startPoint, RoutePoint endPoint, String middlePoint, int score, float length,
-                         float heightDifference, Time walkingTime, MountainArea mountainArea) {
+            Time walkingTime) {
+        Optional<MountainArea> common = findCommonArea(startPoint, endPoint);
+
+        if (common.isEmpty()) {
+            throw new IllegalArgumentException("Points does not have the same mountain area");
+        }
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.middlePoint = middlePoint;
         this.score = score;
         this.length = length;
-        this.heightDifference = heightDifference;
+        this.heightDifference = Math.abs(startPoint.getAltitude() - endPoint.getAltitude());
         this.walkingTime = walkingTime;
-        this.mountainArea = mountainArea;
+        this.mountainArea = common.get();
+    }
+
+    private Optional<MountainArea> findCommonArea(RoutePoint startPoint, RoutePoint endPoint) {
+        MountainArea common;
+        for (MountainArea mountainArea : startPoint.getMountainAreas()) {
+            if (endPoint.getMountainAreas().contains(mountainArea)) {
+                common = mountainArea;
+                return Optional.of(common);
+            }
+        }
+        return Optional.empty();
     }
 
     public void setId(Long id) {

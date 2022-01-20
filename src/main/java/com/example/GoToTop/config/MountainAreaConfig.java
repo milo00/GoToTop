@@ -11,10 +11,10 @@ import java.util.List;
 @Configuration
 public class MountainAreaConfig {
 
-    @Bean
+ //   @Bean
     CommandLineRunner commandLineRunnerMountainAreas(MountainAreaRepository repository) {
         return args -> repository.saveAll(List.of(
-              /*  new MountainArea("Tatry Wysokie"),
+                new MountainArea("Tatry Wysokie"),
                 new MountainArea("Tatry Zachodnie"),
                 new MountainArea("Podtatrze"),
                 new MountainArea("Beskid Śląski "),
@@ -27,7 +27,7 @@ public class MountainAreaConfig {
                 new MountainArea("Spisz i Pininy"),
                 new MountainArea("Podgórze Wielickie"),
                 new MountainArea("Podgórze Wiśnieckie"),
-                new MountainArea("Podgórze Rożanowskie"),*/
+                new MountainArea("Podgórze Rożanowskie"),
                 new MountainArea("Karkonosze"),
                 new MountainArea("Bieszczady")
         ));

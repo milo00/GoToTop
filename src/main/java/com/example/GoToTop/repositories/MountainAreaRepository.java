@@ -10,8 +10,7 @@ import java.util.Optional;
 
 public interface MountainAreaRepository extends JpaRepository<MountainArea, Long> {
 
-    @Query("SELECT a FROM MountainArea a WHERE a.name = ?1")
-    Optional<MountainArea> findAreaByName(String name);
+    Optional<MountainArea> findByName(String name);
 
     @Query("SELECT a.id AS id, a.name AS name FROM MountainArea a")
     List<MountainAreaProjection> findAreas();

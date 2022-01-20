@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface RoutePointRepository extends JpaRepository<RoutePoint, Long> {
-    @Query("SELECT a FROM RoutePoint a WHERE a.name = ?1")
-    Optional<RoutePoint> findRouteByName(String name);
+    Optional<RoutePoint> findByName(String name);
 
     @Query("SELECT a FROM RoutePoint a")
     List<RoutePointProjection> findAllRoutes();

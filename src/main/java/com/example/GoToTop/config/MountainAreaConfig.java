@@ -11,58 +11,25 @@ import java.util.List;
 @Configuration
 public class MountainAreaConfig {
 
-
-    CommandLineRunner commandLineRunner(MountainAreaRepository repository) {
-        return args -> {
-            MountainArea tatryWysokie = new MountainArea(
-                    "Tatry Wysokie"
-            );
-            MountainArea tatryZachodnie = new MountainArea(
-                    "Tatry Zachodnie"
-            );
-            MountainArea podtatrze = new MountainArea(
-                    "Podtatrze"
-            );
-            MountainArea beskidŚląski = new MountainArea(
-                    "Beskid Śląski "
-            );
-            MountainArea beskidŻywiecki = new MountainArea(
-                    "Beskid Żywiecki"
-            );
-            MountainArea beskidMały = new MountainArea(
-                    "Beskid Mały"
-            );
-            MountainArea beskidŚredni = new MountainArea(
-                    "Beskid Średni"
-            );
-            MountainArea gorce = new MountainArea(
-                    "Gorce"
-            );
-            MountainArea beskidWyspowy = new MountainArea(
-                    "Beskid Wyspowy"
-            );
-            MountainArea orawa = new MountainArea(
-                    "Orawa"
-            );
-            MountainArea spiszIPininy = new MountainArea(
-                    "Spisz i Pininy"
-            );
-            MountainArea podgórzeWielickie = new MountainArea(
-                    "Podgórze Wielickie"
-            );
-            MountainArea podgórzeWiśnieckie = new MountainArea(
-                    "Podgórze Wiśnieckie"
-            );
-            MountainArea podgórzeRożanowskie = new MountainArea(
-                    "Podgórze Rożanowskie"
-            );
-
-            repository.saveAll(List.of(tatryWysokie, tatryZachodnie, podtatrze, beskidŚląski, beskidMały, beskidŚląski,
-                    gorce, beskidWyspowy, orawa, spiszIPininy, podgórzeWielickie, podgórzeWiśnieckie, podgórzeRożanowskie
-            ));
-        };
-
+    @Bean
+    CommandLineRunner commandLineRunnerMountainAreas(MountainAreaRepository repository) {
+        return args -> repository.saveAll(List.of(
+              /*  new MountainArea("Tatry Wysokie"),
+                new MountainArea("Tatry Zachodnie"),
+                new MountainArea("Podtatrze"),
+                new MountainArea("Beskid Śląski "),
+                new MountainArea("Beskid Żywiecki"),
+                new MountainArea("Beskid Mały"),
+                new MountainArea("Beskid Średni"),
+                new MountainArea("Gorce"),
+                new MountainArea("Beskid Wyspowy"),
+                new MountainArea("Orawa"),
+                new MountainArea("Spisz i Pininy"),
+                new MountainArea("Podgórze Wielickie"),
+                new MountainArea("Podgórze Wiśnieckie"),
+                new MountainArea("Podgórze Rożanowskie"),*/
+                new MountainArea("Karkonosze"),
+                new MountainArea("Bieszczady")
+        ));
     }
-
-
 }

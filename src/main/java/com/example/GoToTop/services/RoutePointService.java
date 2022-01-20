@@ -24,7 +24,7 @@ public class RoutePointService {
     public List<RoutePointProjection> getRoutePoints() {return routePointRepository.findAllRoutes();}
 
     public void addNewRoutePoint(RoutePoint routePoint) {
-        Optional<RoutePoint> routePointByName = routePointRepository.findRouteByName(routePoint.getName());
+        Optional<RoutePoint> routePointByName = routePointRepository.findByName(routePoint.getName());
         if (routePointByName.isPresent()) {
             throw new IllegalStateException("route with given name already exist");
         }

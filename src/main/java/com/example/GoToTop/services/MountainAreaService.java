@@ -26,7 +26,7 @@ public class MountainAreaService {
     }
 
     public void addNewMountainArea(MountainArea mountainArea) {
-        Optional<MountainArea> mountainAreaByName = mountainAreaRepository.findAreaByName(mountainArea.getName());
+        Optional<MountainArea> mountainAreaByName = mountainAreaRepository.findByName(mountainArea.getName());
         if (mountainAreaByName.isPresent()) {
             throw new IllegalStateException("area with given name already exist");
         }
@@ -46,7 +46,7 @@ public class MountainAreaService {
     }
 
     public Optional<MountainArea> getMountainAreaByName(String name) {
-        return mountainAreaRepository.findAreaByName(name);
+        return mountainAreaRepository.findByName(name);
     }
 
 
@@ -59,7 +59,7 @@ public class MountainAreaService {
 
             MountainArea mountainAreaToUpdate = mountainAreaById.get();
             if (name != null && !name.equals(mountainAreaToUpdate.getName()) && name.length() > 0) {
-                Optional<MountainArea> mountainAreaByName = mountainAreaRepository.findAreaByName(name);
+                Optional<MountainArea> mountainAreaByName = mountainAreaRepository.findByName(name);
                 if (mountainAreaByName.isPresent()) {
                     throw new IllegalStateException("area with given name already exist");
                 }

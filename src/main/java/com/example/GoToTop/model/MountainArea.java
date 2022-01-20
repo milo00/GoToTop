@@ -36,7 +36,7 @@ public class MountainArea {
         this.name = name;
     }
 
-    @ManyToMany(mappedBy = "mountainAreas", cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "mountainAreas", cascade = CascadeType.ALL)
     public Set<RoutePoint> getRoutePoints() {
         return routePoints;
     }

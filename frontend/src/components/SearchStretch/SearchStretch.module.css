@@ -1,0 +1,9 @@
+.StretchLoading {
+    text-align: center;
+    color: white;
+  }
+  
+  .StretchError {
+    text-align: center;
+    color: red;
+  }

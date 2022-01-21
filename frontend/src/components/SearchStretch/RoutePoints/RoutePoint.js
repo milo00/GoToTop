@@ -6,8 +6,8 @@ const RoutePoint = ({point, onPointClickHandler}) => {
     
 
   return (
-    <Card className='route-point'>
-        <li className='route-point__name' onClick={ () => onPointClickHandler(point)}>
+    <Card className='list-elem'>
+        <li className='list-elem__name' onClick={ () => onPointClickHandler(point)}>
             <p>{point.name}</p>
         </li>      
     </Card>

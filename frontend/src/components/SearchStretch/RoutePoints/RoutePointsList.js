@@ -10,12 +10,12 @@ const RoutePointsList = ({points, getCickedPointHandler}) => {
   */
 
   return (
-    <ul>
+    <ul className="list__scrollable">
       {points.map((point) => (
         <RoutePoint
           key={point.id}
           point={point}
-          onPointClickHandler={() =>getCickedPointHandler(point)}
+          onPointClickHandler={(point) => getCickedPointHandler(point)}
         />
       ))}
     </ul>

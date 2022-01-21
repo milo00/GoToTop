@@ -7,12 +7,12 @@ function StartList({stretches, getStartPoint}) {
   const uniqueStartPoints = startPoints.filter( (elem, idx) => idx === startPoints.findIndex(point => point.id === elem.id));
   
   return (
-    <section>
-    <RoutePointsList 
+    <>
+    <RoutePointsList className='list__scrollabe'
         getCickedPointHandler={ (point) => getStartPoint((point))}
         points={uniqueStartPoints} 
       />
-    </section> 
+    </> 
   );
 }
 

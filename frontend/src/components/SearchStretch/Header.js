@@ -1,10 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Header({title}) {
+function Header({title, subtitle=null}) {
   return (
-  <section className='header__container'>
+  <section className='title'>
       <h1>{title}</h1>
+      <h3>{subtitle || ''}</h3>
   </section>
   );
 }

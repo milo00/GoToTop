@@ -10,12 +10,12 @@ function EndList({stretches, getEndPoint, startPoint}) {
     
   
   return (
-    <section>
-    <RoutePointsList 
+    <>
+    <RoutePointsList className ='list__scrollable'
         getCickedPointHandler={ (point) => getEndPoint((point))}
         points={uniqueEndPoints} 
       />
-    </section> 
+    </> 
   );
 }
 

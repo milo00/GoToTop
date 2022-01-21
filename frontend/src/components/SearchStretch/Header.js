@@ -5,7 +5,7 @@ function Header({title, subtitle=null}) {
   return (
   <section className='title'>
       <h1>{title}</h1>
-      <h3>{subtitle || ''}</h3>
+      <div className='subtitle'><h3 >{subtitle || ''}</h3></div>
   </section>
   );
 }

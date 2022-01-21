@@ -35,6 +35,10 @@ function SearchStretchController() {
 
     };
 
+    const backButtonHandler = () => {
+        setMode(prevMode => prevMode - 1)
+    }
+
     if (loading) {
         return (
             <section className={
@@ -59,25 +63,26 @@ function SearchStretchController() {
     const map = <div className='map'><img src={
       require('../../images/map.png')
     } alt='map'/></div>;
+    const button = <button className='button__back' onClick={backButtonHandler}>Cofnij</button>
     switch (mode) {
-        case 2: content = <><Header title={
+        case 2: content = <>{button}<section><Header title={
                     selectedStartPoint.name
                 }
-                subtitle={'Choose end point:'}/>
+                subtitle={'Wybierz punkt końcowy:'}/>
              <section className = 'search__conteiner'><EndList getEndPoint={saveEndPointHandler}
                 stretches={response}
-                startPoint={selectedStartPoint}/> {map}</section></>
+                startPoint={selectedStartPoint}/> {map}</section></section></>
 
             break;
-        case 3: content = <><Header title={
+        case 3: content = <>{button}<section><Header title={
                 selectedStartPoint.name + ' - ' + selectedEndPoint.name
             }/>
             <section className = 'search__conteiner'><ScoredStretch stretches={response}
                 startPoint={selectedStartPoint}
                 endPoint={selectedEndPoint}/> {map}</section>
-             </>
+             </section></>
             break;
-        default: content = <><Header title={'Choose start point'}/>
+        default: content = <><Header title={'Wybierz punkt początkowy'}/>
             <section className = 'search__conteiner'><StartList getStartPoint={saveStartPointHandler}
                 stretches={response}/> {map} </section></>
             break;

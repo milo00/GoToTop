@@ -5,10 +5,8 @@ const Home = () => {
 	return (
 		<>
 			<div
+				className="conteiner"
 				style={{
-					display: "flex",
-					justifyContent: "center",
-					alignItems: "center",
 					height: "70vh",
 				}}
 			>

@@ -1,4 +1,4 @@
-import "./App.css";
+import "./index.css";
 import GoToTopService from "./api/gototop/GoToTopService.js";
 import MountainAreaList from "./components/SearchStretch/MountainAreas/MountainAreaList.js";
 import Bar from "./Bar";

@@ -26,11 +26,12 @@ const Navbar = () => {
 						<img src={require("../../images/search.png")} alt="search" />
 						SZUKAJ TRASY
 					</NavLink>
-					<NavLink to="/stretch" activestyle="true">
+					<NavLink to="/stretches" activestyle>
 						<img src={require("../../images/path.png")} alt="paths" />
 						ODCINKI
 					</NavLink>
 				</NavMenu>
+
 				<NavBtn style={{ justifyContent: "flex-end" }}>
 					<img src={require("../../images/logout.png")} alt="home" />
 					<NavBtnLink to="/logout">wyloguj</NavBtnLink>

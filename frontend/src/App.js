@@ -1,19 +1,13 @@
-<<<<<<< Updated upstream
 import "./index.css";
-=======
-
-import "./App.css";
->>>>>>> Stashed changes
 import GoToTopService from "./api/gototop/GoToTopService.js";
 import Bar from "./Bar";
-import { useState } from 'react';
-import MountainAreaList from './components/MountainAreas/MountainAreaList.js'
-import SearchStretchController from './components/SearchStretch/SearchStretch.js';
-import useAxios from './utils/useAxios.js'
-
+import { useState } from "react";
+import MountainAreaList from "./components/MountainAreas/MountainAreaList.js";
+import SearchStretchController from "./components/SearchStretch/SearchStretch.js";
+import useAxios from "./utils/useAxios.js";
 
 function App() {
-    /*
+	/*
 	const areas = GoToTopService.MountainAreasData();
 
 
@@ -32,33 +26,32 @@ function App() {
 	);
     */
 
-    
-    const { response, error, loading } = useAxios({
-        method: 'get',
-        url: 'http://localhost:8080/mountainArea'})
+	const { response, error, loading } = useAxios({
+		method: "get",
+		url: "http://localhost:8080/mountainArea",
+	});
 
-    //const areas = GoToTopService.MountainAreasData();
+	//const areas = GoToTopService.MountainAreasData();
 
-    const saveCickedAreaHandler = (area) => {
+	const saveCickedAreaHandler = (area) => {
+		console.log(area);
+	};
 
-         console.log(area);
-          
-      };
+	let content;
+	content = loading ? (
+		<p>loading</p>
+	) : (
+		<MountainAreaList
+			getCickedAreaHandler={saveCickedAreaHandler}
+			areas={response}
+		/>
+	);
 
-      let content;
-      content = loading? <p>loading</p> : 
-    <MountainAreaList
-        getCickedAreaHandler={saveCickedAreaHandler}
-        areas={response}/>
-
-    return (       
-        <div>
-            <Bar></Bar>            
-        </div>
-        
-        
-    )        
-
+	return (
+		<div>
+			<Bar></Bar>
+		</div>
+	);
 }
 
 export default App;

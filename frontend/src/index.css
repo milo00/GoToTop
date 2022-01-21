@@ -99,6 +99,7 @@ Global Styles
 .form {
 	background: var(--clr-white);
 	max-width: fit-content;
+	max-height: fit-content;
 	margin: 2rem auto;
 	margin-bottom: 4rem;
 	padding: 1rem 2rem;
@@ -111,6 +112,11 @@ Global Styles
 	margin-left: 2rem;
 	white-space: nowrap;
 	width: fit-content;
+}
+
+.select {
+	margin-left: 6rem;
+	width: 30vw;
 }
 
 .form input {

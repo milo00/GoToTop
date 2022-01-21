@@ -16,6 +16,7 @@ export const Nav = styled.nav`
 
 export const NavLink = styled(Link)`
 	color: #b6ee9f;
+	font-weight: 300;
 	display: flex;
 	align-items: center;
 	text-decoration: none;
@@ -71,6 +72,7 @@ export const NavBtn = styled.nav`
 
 export const NavBtnLink = styled(Link)`
 	border-radius: 4px;
+	font-weight: 300;
 	background: #57b42f;
 	padding: 10px 22px;
 	color: #fff;

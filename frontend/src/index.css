@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap%27");
+
 :root {
 	/* dark shades of primary color*/
 	--clr-primary-1: hsl(205, 86%, 17%);
@@ -29,7 +31,7 @@
 	--clr-red-light: hsl(360, 71%, 66%);
 	--clr-green-dark: hsl(125, 67%, 44%);
 	--clr-green-light: hsl(125, 71%, 66%);
-	--clr-black: #222;
+	--clr-black: #707070;
 	--transition: all 0.3s linear;
 	--spacing: 0.1rem;
 	--radius: 0.25rem;
@@ -68,17 +70,83 @@ Global Styles
 	height: 90vh;
 }
 
+.title {
+	margin-left: 5rem;
+	margin-top: 1.75rem;
+}
+
+.title h1 {
+	font-weight: 300;
+	color: #57b42f;
+}
+
+.title h3 {
+	font-weight: 300;
+	color: #707070;
+	margin-top: 1rem;
+	text-transform: none;
+}
+
 *,
 ::after,
 ::before {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
+	font-family: "Poppins", sans-serif;
+}
+
+.form {
+	background: var(--clr-white);
+	max-width: fit-content;
+	margin: 2rem auto;
+	margin-bottom: 4rem;
+	padding: 1rem 2rem;
+	border-radius: 25px;
+}
+
+.form label {
+	font-weight: 300;
+	color: #707070;
+	margin-left: 2rem;
+	white-space: nowrap;
+	width: fit-content;
+}
+
+.form input {
+	border-color: transparent;
+	border-bottom-color: #707070;
+	border-width: 1px;
+	padding: 0.5rem;
+	margin-left: 6rem;
+	margin-right: 2rem;
+	width: 30vw;
+}
+.form-control {
+	margin: 0.5rem 0;
+	display: grid;
+	grid-template-columns: 100px 1fr;
+	align-items: center;
+}
+.form button {
+	background: #57b42f;
+	color: var(--clr-white);
+	border-color: transparent;
+	margin-top: 2rem;
+
+	letter-spacing: var(--spacing);
+	padding: 0.15rem 0.25rem;
+	text-transform: capitalize;
+	border-radius: 25px;
+	cursor: pointer;
+	width: 94%;
+	margin-right: 3%;
+	margin-left: 3%;
+	height: 3vw;
+	font-size: 1.5rem;
 }
 
 body {
-	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
-		Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
 	background: #f6f4eb;
 	color: var(--clr-grey-1);
 	line-height: 1.5;
@@ -195,11 +263,6 @@ main {
 
 .loading {
 	text-align: center;
-}
-
-.title {
-	text-align: center;
-	margin-bottom: 4rem;
 }
 
 .underline {
@@ -470,11 +533,6 @@ main {
 
 .loading {
 	text-align: center;
-}
-
-.title {
-	text-align: center;
-	margin-bottom: 4rem;
 }
 
 .underline {

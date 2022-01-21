@@ -1,10 +1,9 @@
 import React from "react";
+import SearchStretchController from "../components/SearchStretch/SearchStretch";
 
 const Search = () => {
 	return (
-		<div className="conteiner">
-			<h1>Search</h1>
-		</div>
+		<SearchStretchController/>
 	);
 };
 

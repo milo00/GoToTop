@@ -1,65 +1,112 @@
 import { useState } from 'react';
 import GoToTopService from '../../api/gototop/GoToTopService.js'
 import RoutePointsList from './RoutePoints/RoutePointsList.js';
+import Select from 'react-select';
+import useAxios from '../../utils/useAxios.js'
+import Header from './Header.js';
+import StartList from './StartList.js';
+import classes from './SearchStretch.module.css'
+import EndList from './EndList.js';
+import ScoredStretch from './ScoredStretch/ScoredStretch.js';
+
+const URI_STRETCHES = 'http://localhost:8080/scoredStretch';
 
 function SearchStretchController() {
 
-    const [mode, setMode] = useState([1]);
+    const { response, error, loading } = useAxios({
+        method: 'get',
+        url: URI_STRETCHES});
 
-    const stretches = GoToTopService.ScoredStretchData();
+    const [stretches, setStretches] = useState([])
+    const [startPoints, setStartPoints] = useState([])
+    const [endPoints, setEndPoints] = useState([])
+    const [mode, setMode] = useState([1])
+    const [selectedStartPoint, setSelectedStartPoint] = useState([])
+    const [selectedEndPoint, setSelectedEndPoint] = useState([])
+
+    
+
 
     const stretchStartRoutePoints = stretches.map(stretch => {
         return stretch.startPoint;
     });
 
+    const saveEndPointHandler = (point) => {
 
+        console.log(point);
+        setSelectedEndPoint(point);
+        setMode(3);
 
-    const stretchAreas = GoToTopService.ScoredStretchData().map(stretch => {
-        return stretch.mountainArea;
-    });
+      };
+      
+      const saveStartPointHandler = (point) => {
 
-    const [savedStartPoint, setsavedStartPoint] = useState([]);
-    const [savedEndPoint, setsavedEndPoint] = useState([]);
-
-
-    const saveCickedPointHandler = (point) => {
-
-        setsavedStartPoint(point);
-        const endPoints = stretches
-          .filter(stretch => stretch.startPoint.id === point.id)
-          .map(filteredStretch => {return filteredStretch.endPoint});
-          console.log(endPoints);
-          
+        console.log(point);
+        setSelectedStartPoint(point);
+        setMode(2);
       };
 
-      const saveCickedAreaHandler = (area) => {
+      if (loading) {
+        return (
+          <section className={classes.StretchLoading}>
+            <p>Loading...</p>
+          </section>
+        );
+      }
+    
+      if (error) {
+        return (
+          <error className={classes.StretchError}>
+            <p>{error}</p>
+          </error>
+        );
+      }
 
-        //setsavedStartPoint(point);
-        const startPoints = stretches
-          .filter(stretch => stretch.mountainArea.id === area.id)
-          .map(filteredStretch => {return filteredStretch.startPoint});
-          console.log(startPoints);
-          
-      };
-
-      let content; 
+      let content;
+      const map = <img src={require('../../images/map.png')} alt='map'/>; 
       switch (mode) {
         case 2:
-            //list = 
-        case 3:
+            content =
+            <div><Header title = {'Choose end point'}/>
+            <div>
+            <EndList 
+            getEndPoint={saveEndPointHandler}
+            stretches={response}
+            startPoint = {selectedStartPoint} />
+            {map}
+            </div>
+            </div>
+            
             break;
-        default:          
-            content = <RoutePointsList 
-            getCickedPointHandler={saveCickedPointHandler}
-            points={stretchStartRoutePoints} />
+        case 3:
+            content =
+            <div><Header title = {selectedStartPoint.name + ' - ' + selectedEndPoint.name }/>
+            <div>
+            <ScoredStretch 
+            stretches={response}
+            startPoint = {selectedStartPoint}
+            endPoint = {selectedEndPoint} />
+            {map}
+            </div>
+            </div>
+            break;
+        default:
+            content =
+            <div><Header title = {'Choose start point'}/>
+            <div>
+            < StartList
+            getStartPoint={saveStartPointHandler}
+            stretches={response} />
+            {map}
+            </div>
+            </div>
             break;
     }           
         
 
-    return (
-        
-        <div>
-            content
+    return (        
+        <div>            
+            {content}
         </div>
     )        
     

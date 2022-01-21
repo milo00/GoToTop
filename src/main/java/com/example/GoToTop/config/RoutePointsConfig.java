@@ -21,7 +21,7 @@ public class RoutePointsConfig {
         this.mountainAreaRepository = mountainAreaRepository;
     }
 
-   @Bean
+   //@Bean
     CommandLineRunner commandLineRunnerRoutePoints(RoutePointRepository repository) {
         return args -> repository.saveAll(List.of(
                 new RoutePoint("Rusinowa Polana", 49.262862f, 20.090297f, 1210, mountainAreaRepository.findByName("Tatry Wysokie").get()),

@@ -1,92 +1,27 @@
-import React, { useState } from "react";
-import Select from "react-select";
+import React from "react";
+import AddFormNewPointElement from "./AddFormNewPointElement";
 
-function customTheme(theme) {
-	return {
-		...theme,
-		colors: {
-			...theme.colors,
-			primary25: "#57b42f",
-			primary: "#57b42f",
-		},
-	};
-}
+const handleSubmit = (e) => {
+	e.preventDefault();
+	console.log(e.target.monutainAreas.value);
+};
 
 const AddForm = ({ stretches, startPoints }) => {
-	const [endPoints, setEndPoints] = useState([]);
-	const [customPlaceholder, setCustomPlaceholder] = useState(
-		"Najpier wybierz punkt początkowy"
-	);
-	const [value, setValue] = useState();
-
-	const handleChange2 = (selectedOption) => {
-		setValue(selectedOption);
-	};
-
-	const handleChange = (selectedOption) => {
-		let end = stretches
-			.filter((element) => element.startPoint.id == selectedOption.value)
-			.map((stretch) => stretch.endPoint)
-			.map((point) => {
-				return { value: point.id, label: point.name };
-			});
-
-		console.log(end);
-
-		end = end.filter(
-			(ele, ind) =>
-				ind ===
-				end.findIndex(
-					(elem) => elem.value === ele.value && elem.label === ele.label
-				)
-		);
-
-		setEndPoints(end);
-		setValue(null);
-		setCustomPlaceholder("Wybierz punkt końcowy");
-	};
-
 	return (
-		<div>
+		<form onSubmit={handleSubmit}>
 			<div className="form">
-				<div className="new-checkox-included">
-					<input type="checkbox" id="new1" name="new1" value="new1" />
-					<label id="new" for="new1">
-						nowy
-					</label>
-					<label htmlFor="startPoint">Punkt początkowy: </label>
-					<Select
-						className="select"
-						theme={customTheme}
-						options={startPoints}
-						isSearchable
-						placeholder="Wybierz punkt początkowy"
-						onChange={handleChange}
-					/>
-				</div>
-				<div className="new-checkox-included">
-					<input type="checkbox" id="new1" name="new1" value="new1" />
-					<label id="new" for="new1">
-						nowy
-					</label>
-					<label htmlFor="endPoint">Punkt końcowy: </label>
-					<Select
-						className="select"
-						theme={customTheme}
-						options={endPoints}
-						isSearchable
-						placeholder={customPlaceholder}
-						value={value}
-						onChange={handleChange2}
-					/>
-				</div>
+				<AddFormNewPointElement
+					stretches={stretches}
+					startPoints={startPoints}
+				/>
+
 				<div className="form-control">
 					<label htmlFor="middlePoint">Punkt pośredni: </label>
 					<input type="text" id="middlePoint" name="middlePoint" />
 				</div>
 				<div className="form-control">
 					<label htmlFor="length">Długość: </label>
-					<input type="number" id="length" name="length" />
+					<input type="number" step="0.01" id="length" name="length" />
 				</div>
 				<div className="form-control">
 					<label htmlFor="heightDifference">Suma przewyższeń: </label>
@@ -102,7 +37,7 @@ const AddForm = ({ stretches, startPoints }) => {
 				</div>
 				<button type="submit">DODAJ</button>
 			</div>
-		</div>
+		</form>
 	);
 };
 

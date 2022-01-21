@@ -109,31 +109,44 @@ Global Styles
 .form label {
 	font-weight: 300;
 	color: #707070;
-	margin-left: 2rem;
+	margin-left: 6rem;
 	white-space: nowrap;
 	width: fit-content;
 }
 
 .select {
-	margin-left: 6rem;
+	margin-left: 10rem;
 	width: 30vw;
 }
 
-.form input {
+.form .form-control input {
 	border-color: transparent;
 	border-bottom-color: #707070;
 	border-width: 1px;
 	padding: 0.5rem;
-	margin-left: 6rem;
+	margin-left: 10rem;
 	margin-right: 2rem;
 	width: 30vw;
 }
+
 .form-control {
 	margin: 0.5rem 0;
 	display: grid;
 	grid-template-columns: 100px 1fr;
 	align-items: center;
 }
+
+.new-checkox-included {
+	margin: 0.5rem 0;
+	display: grid;
+	grid-template-columns: 0px 0px 100px 1fr;
+	align-items: center;
+}
+
+#new {
+	margin-left: 1rem;
+}
+
 .form button {
 	background: #57b42f;
 	color: var(--clr-white);

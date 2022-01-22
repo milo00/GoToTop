@@ -9,6 +9,7 @@ import LogOut from "./pages/logout";
 import Remove from "./pages/stretches/remove";
 import Add from "./pages/stretches/add";
 import Edit from "./pages/stretches/edit";
+import EditSpecificStretch from "./pages/stretches/EditSpecificStretch";
 
 const Bar = () => {
 	return (
@@ -23,6 +24,7 @@ const Bar = () => {
 				<Route path="/stretches/remove" element={<Remove />} />
 				<Route path="/stretches/add" element={<Add />} />
 				<Route path="/stretches/edit" element={<Edit />} />
+				<Route path="/stretches/edit/:id" element={<EditSpecificStretch />} />
 			</Routes>
 		</Router>
 	);

@@ -1,21 +1,14 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
 function getRoutePoint(stretches, id) {
-	const pointWithrepetitions = stretches
-		.filter((stretch) => stretch.startPoint.id == id)
-		.map((stretch) => stretch.startPoint);
-
-	return pointWithrepetitions.find(
-		(ele, ind) =>
-			ind ===
-			pointWithrepetitions.findIndex(
-				(elem) => elem.id == ele.id && elem.name == ele.name
-			)
-	);
+	return stretches
+		.map((stretch) => stretch.startPoint)
+		.find((stretch) => stretch.id == id);
 }
 
-function SerachForEdit({ stretches, startPoints, handleOnSelected }) {
+function SerachForEdit({ stretches, startPoints }) {
 	const [endPoints, setEndPoints] = useState([]);
 	const [middlePoints, setMiddlePoints] = useState([]);
 
@@ -29,6 +22,8 @@ function SerachForEdit({ stretches, startPoints, handleOnSelected }) {
 	const [endPointValue, setEndPointValue] = useState();
 	const [middlePointValue, setMiddlePointValue] = useState();
 
+	const navigate = useNavigate();
+
 	function customTheme(theme) {
 		return {
 			...theme,
@@ -38,12 +33,6 @@ function SerachForEdit({ stretches, startPoints, handleOnSelected }) {
 				primary: "#57b42f",
 			},
 		};
-	}
-
-	function getRoutePoint(stretches, id) {
-		return stretches
-			.map((stretch) => stretch.startPoint)
-			.find((stretch) => stretch.id == id);
 	}
 
 	const handleChangeStartPoint = (selectedOption) => {
@@ -102,32 +91,29 @@ function SerachForEdit({ stretches, startPoints, handleOnSelected }) {
 		}
 	};
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		console.log("jestem");
+
+		let id = stretches.find(
+			(element) =>
+				element.startPoint.id === startPointValue.value &&
+				element.endPoint.id === endPointValue.value &&
+				element.middlePoint ===
+					(middlePointValue == "" ? "" : middlePointValue.label)
+		).id;
+
+		console.log(id);
+		navigate("/stretches/edit/" + id);
+	};
+
 	/*const allFieldsFilled =endPointValues.every((field) => {
         constendPointValue = `${field}`.trim();
         returnendPointValue !== '' &&endPointValue !== '0';
     });*/
 
-	const submitHandler = (e) => {
-		e.preventDefault();
-
-		let start = getRoutePoint(stretches, e.target.startPoint.value);
-		let end = getRoutePoint(stretches, e.target.endPoint.value);
-
-		console.log(start);
-
-		const stretch = stretches.find(
-			(s) => s.startPoint.id === start.id && s.endPoint.id === end.id
-		);
-
-		console.log(stretch);
-		if (stretch != null) {
-			console.log(stretch);
-			this.handleOnSelected(stretch);
-		}
-	};
-
 	return (
-		<form onSubmit={submitHandler}>
+		<form onSubmit={handleSubmit}>
 			<div className="form">
 				<div className="form-control">
 					<label htmlFor="startPoint">Punkt początkowy:</label>

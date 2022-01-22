@@ -12,54 +12,55 @@ function customTheme(theme) {
 	};
 }
 
-const EditForm = ({ stretches, startPoints, stretchToEdit }) => {
-	const [endPoints, setEndPoints] = useState([]);
-	const [customPlaceholder, setCustomPlaceholder] = useState(
-		"Najpier wybierz punkt początkowy"
-	);
+const EditForm = ({ props }) => {
+	// const [endPoints, setEndPoints] = useState([]);
+	// const [customPlaceholder, setCustomPlaceholder] = useState(
+	// 	"Najpier wybierz punkt początkowy"
+	// );
 
-	console.log(stretchToEdit);
+	// console.log(stretchToEdit);
 
-    const [stretch, setStretch] = useState({
-        middlePoint: stretchToEdit ? stretchToEdit.middlePoint : '',
-        distance: stretchToEdit ? stretchToEdit.length : '',
-        heightDifference: stretchToEdit ? stretchToEdit.heightDifference : '',
-        walkingTime: stretchToEdit ? stretchToEdit.walkingTime : '',
-        score: stretchToEdit ? stretchToEdit.score : ''
-      });
+	// const [stretch, setStretch] = useState({
+	// 	middlePoint: stretchToEdit ? stretchToEdit.middlePoint : "",
+	// 	distance: stretchToEdit ? stretchToEdit.length : "",
+	// 	heightDifference: stretchToEdit ? stretchToEdit.heightDifference : "",
+	// 	walkingTime: stretchToEdit ? stretchToEdit.walkingTime : "",
+	// 	score: stretchToEdit ? stretchToEdit.score : "",
+	// });
 
-	const [value, setValue] = useState();
+	// const [value, setValue] = useState();
 
-	const handleChange2 = (selectedOption) => {
-		setValue(selectedOption);
-	};
+	// const handleChange2 = (selectedOption) => {
+	// 	setValue(selectedOption);
+	// };
 
-	const handleChange = (selectedOption) => {
-		let end = stretches
-			.filter((element) => element.startPoint.id == selectedOption.value)
-			.map((stretch) => stretch.endPoint)
-			.map((point) => {
-				return { value: point.id, label: point.name };
-			});
+	// const handleChange = (selectedOption) => {
+	// 	let end = stretches
+	// 		.filter((element) => element.startPoint.id == selectedOption.value)
+	// 		.map((stretch) => stretch.endPoint)
+	// 		.map((point) => {
+	// 			return { value: point.id, label: point.name };
+	// 		});
 
-		console.log(end);
+	// 	console.log(end);
 
-		end = end.filter(
-			(ele, ind) =>
-				ind ===
-				end.findIndex(
-					(elem) => elem.value === ele.value && elem.label === ele.label
-				)
-		);
+	// 	end = end.filter(
+	// 		(ele, ind) =>
+	// 			ind ===
+	// 			end.findIndex(
+	// 				(elem) => elem.value === ele.value && elem.label === ele.label
+	// 			)
+	// 	);
 
-		setEndPoints(end);
-		setValue(null);
-		setCustomPlaceholder("Wybierz punkt końcowy");
-	};
+	// 	setEndPoints(end);
+	// 	setValue(null);
+	// 	setCustomPlaceholder("Wybierz punkt końcowy");
+	// };
 
 	return (
 		<div>
-			<div className="form">
+			<h2>{props.match.params.id}</h2>
+			{/* <div className="form">
 				
 				<div className="form-control">
 					<label htmlFor="middlePoint">Punkt pośredni: </label>
@@ -82,7 +83,7 @@ const EditForm = ({ stretches, startPoints, stretchToEdit }) => {
 					<input type="time" id="walkingTime" name="walkingTime" />
 				</div>
 				<button type="submit">DODAJ</button>
-			</div>
+			</div> */}
 		</div>
 	);
 };

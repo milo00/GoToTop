@@ -27,7 +27,7 @@ const Navbar = () => {
 						SZUKAJ TRASY
 					</NavLink>
 					<NavLink to="/stretches" activestyle>
-						<img src={require("../../images/path.png")} alt="paths" />
+						<img src={require("../../images/path.png")} alt="stretches" />
 						ODCINKI
 					</NavLink>
 				</NavMenu>

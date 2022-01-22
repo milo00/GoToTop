@@ -263,6 +263,20 @@ tbody:before {
 	font-size: 1.5rem;
 }
 
+.form p {
+	text-align: center;
+	color:#707070;
+}
+
+.form button.cancel {
+	width: 30%;
+}
+
+.form button.submit {
+	width: 30%;
+	float: right;
+}
+
 body {
 	background: #f6f4eb;
 	color: var(--clr-grey-1);

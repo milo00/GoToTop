@@ -1,6 +1,13 @@
 import React from "react";
 import { useState } from "react";
 import AddFormNewPointElement from "./AddFormNewPointElement";
+import moment from "moment";
+
+function getDateFromHours(time) {
+    time = time.split(':');
+    let now = new Date();
+    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), ...time);
+}
 
 function getRoutePoint(stretches, id) {
 	const pointWithrepetitions = stretches
@@ -16,8 +23,8 @@ function getRoutePoint(stretches, id) {
 	)[0];
 }
 
-const AddForm = ({ stretches, startPoints }) => {
-	const [stretch, setStretch] = useState();
+const AddForm = ({ stretches, startPoints, onAddStretch }) => {
+	//const [stretch, setStretch] = useState();
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -60,15 +67,20 @@ const AddForm = ({ stretches, startPoints }) => {
 		score = Number(e.target.score.value);
 		walkingTime = e.target.walkingTime.value;
 
-		setStretch({
+		walkingTime = moment(getDateFromHours(walkingTime)).format("hh:mm:ss");
+
+		const stretch = {
 			startPoint: startPoint,
 			endPoint: endPoint,
 			middlePoint: middlePoint,
 			length: length,
 			heightDifference: heightDifference,
 			score: score,
-			walkingTime: walkingTime,
-		});
+			walkingTime: walkingTime
+		};
+
+		console.log(JSON.stringify(stretch));
+		onAddStretch(stretch);
 	};
 	return (
 		<form onSubmit={handleSubmit}>
@@ -104,7 +116,7 @@ const AddForm = ({ stretches, startPoints }) => {
 					<input type="time" required id="walkingTime" name="walkingTime" />
 				</div>
 				<button type="submit">DODAJ</button>
-				<h4>{JSON.stringify(stretch)}</h4>
+				
 			</div>
 		</form>
 	);

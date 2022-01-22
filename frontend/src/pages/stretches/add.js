@@ -1,50 +1,59 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import useAxios from "../../utils/useAxios";
 import AddForm from "./AddForm";
+import axios from "axios";
 
 const URI_STRETCHES = "http://localhost:8080/scoredStretch";
 
 const Add = () => {
-	const { response, error, loading } = useAxios({
-		method: "get",
-		url: URI_STRETCHES,
-	});
-	const stretches = response;
+    const {response, error, loading} = useAxios({method: "get", url: URI_STRETCHES});
+    const stretches = response;
 
-	if (loading) {
-		return <h1>Loading...</h1>;
-	} else if (error) {
-		return (
-			<error>
-				<p>{error}</p>
-			</error>
-		);
-	} else {
-		const stretchStartRoutePoints = stretches
-			.map((stretch) => stretch.startPoint)
-			.filter(
-				(ele, ind) =>
-					ind ===
-					stretches.findIndex(
-						(elem) =>
-							elem.startPoint.id === ele.id && elem.startPoint.name === ele.name
-					)
-			);
+    if (loading) {
+        return <h1>Loading...</h1>;
+    } else if (error) {
+        return (
+            <error>
+                <p>{error}</p>
+            </error>
+        );
+    } else {
+        const stretchStartRoutePoints = stretches.map((stretch) => stretch.startPoint).filter((ele, ind) => ind === stretches.findIndex((elem) => elem.startPoint.id === ele.id && elem.startPoint.name === ele.name));
 
-		const startPoints = stretchStartRoutePoints.map((stretch) => {
-			return { value: stretch.id, label: stretch.name };
-		});
+        const startPoints = stretchStartRoutePoints.map((stretch) => {
+            return {value: stretch.id, label: stretch.name};
+        });
 
-		return (
-			<>
-				<section className="title">
-					<h1>DODAJ NOWY ODCINEK</h1>
-					<h3>Podaj szczegóły:</h3>
-					<AddForm stretches={stretches} startPoints={startPoints} />
-				</section>
-			</>
-		);
-	}
+        async function addStretchHandler (stretch) {
+			console.log(stretch)
+
+            axios.post(URI_STRETCHES,stretch)
+	        .then(response => {console.log(response)});
+            /*
+            const response = await fetch(URI_STRETCHES, {
+                method: 'POST',
+                body: JSON.stringify(stretch),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            console.log(response);
+            const data = await response.json();
+            console.log(data);*/
+        }
+
+        return (
+            <>
+                <section className="title">
+                    <h1>DODAJ NOWY ODCINEK</h1>
+                    <h3>Podaj szczegóły:</h3>
+                    <AddForm stretches={stretches}
+                        startPoints={startPoints}
+                        onAddStretch={(stretch) => addStretchHandler(stretch)}/>
+                </section>
+            </>
+        );
+    }
 };
 
 export default Add;

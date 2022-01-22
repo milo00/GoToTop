@@ -3,64 +3,65 @@ import PropTypes from "prop-types";
 import findDistance from '../../../utils/findDistance.js'
 
 
-function ScoredStretch({stretches, startPoint, endPoint}) {
+function ScoredStretch({stretches, startPoint, endPoint, middlePoint=''}) {
     const stretch = stretches.find((s) => s.startPoint.id === startPoint.id && s.endPoint.id === endPoint.id);
 
     
     return (
         <table className='table'>
+            <thead>Szczegóły odcinka: </thead>
           <tbody>
-            <tr>
-                <th>start point:</th>
+            <tr className="border_bottom">
+                <th>Punkt początkowy:</th>
                 <td>{
                     stretch.startPoint.name || '-'
                 }</td>
             </tr>
 
-            <tr>
-                <th>end point:</th>
+            <tr className="border_bottom">
+                <th>Punkt końcowy:</th>
                 <td>{
                     stretch.endPoint.name || '-'
                 }</td>
             </tr>
 
-            <tr>
-                <th>middle point:</th>
+            <tr className="border_bottom">
+                <th>Punkt pośredni (przez):</th>
                 <td>{
                     stretch.middlePoint.name || stretch.middlePoint.name == '' ? stretch.middlePoint.name : '-'
                 }</td>
             </tr>
 
-            <tr>
-                <th>mountain area:</th>
+            <tr className="border_bottom">
+                <th>Teren górski:</th>
                 <td>
                   {stretch.mountainArea.name || '-'} 
                 </td>
             </tr>
 
-            <tr>
-                <th>distance:</th>
+            <tr className="border_bottom">
+                <th>Długość:</th>
                 <td>{
                     stretch.length || 0.0
-                }</td>
+                }km</td>
             </tr>
 
-            <tr>
-                <th>height difference:</th>
+            <tr className="border_bottom">
+                <th>Przewyższenia:</th>
                 <td>{
                     stretch.heightDifference || 0.0
-                }</td>
+                }m</td>
             </tr>
 
-            <tr>
-                <th>walking time:</th>
+            <tr className="border_bottom">
+                <th>Czas przejścia:</th>
                 <td>{
                     stretch.walkingTime || 0.0
                 }</td>
             </tr>
 
-            <tr>
-                <th>score:</th>
+            <tr className="border_bottom">
+                <th>Punkty:</th>
                 <td>{
                     stretch.score || 0.0
                 }</td>

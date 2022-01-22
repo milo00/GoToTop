@@ -97,6 +97,8 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 			</label>
 			<label htmlFor="startPoint">Punkt początkowy: </label>
 			<Select
+				id="startPoint"
+				name="startPoint"
 				className="select"
 				theme={customTheme}
 				options={startPoints}
@@ -120,8 +122,10 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 			<label id="new" htmlFor="new2">
 				nowy
 			</label>
-			<label htmlFor="startPoint">Punkt końcowy: </label>
+			<label htmlFor="endPoint">Punkt końcowy: </label>
 			<Select
+				id="endPoint"
+				name="endPoint"
 				className="select"
 				theme={customTheme}
 				options={endPoints}
@@ -163,7 +167,7 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 			<label id="new" htmlFor="new2">
 				nowy
 			</label>
-			<label htmlFor="startPoint">Punkt końcowy: </label>
+			<label htmlFor="endPoint">Punkt końcowy: </label>
 			<AddFormNewPoint />
 		</div>
 	);

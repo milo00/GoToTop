@@ -2,15 +2,16 @@ import React, {useState} from "react";
 import useAxios from "../../utils/useAxios";
 import SerachForEdit from "./SerachForEdit";
 import Header from "../../components/SearchStretch/Header"
+import EditForm from "./EditForm"
+
 
 const URI_STRETCHES = "http://localhost:8080/scoredStretch";
 
 const Edit = () => {
-
     const {response, error, loading} = useAxios({method: "get", url: URI_STRETCHES});
     const stretches = response;
     const [isSelected, setIsSelected] = useState(false);
-    const [stretchToEdit, setstretchToEdit] = useState();
+    const [stretchToEdit, setStretchToEdit] = useState();
 
 
     if (loading) {
@@ -28,32 +29,47 @@ const Edit = () => {
             return {value: stretch.id, label: stretch.name};
         });
 
-		const handleOnSelected = () => {
+        
+        const handleOnSelected = (stretch) => {
+            setStretchToEdit(stretch)
+            if (stretchToEdit != null) {
+                setIsSelected(true);
+                console.log('ok')
+            } else {
+                console.log('dupa2')
+            }
+        }
 
-		}
-
-		const handleOnSubmit = () => {
-
-		}
-
+        const handleOnSubmit = () => {}
 
         let content;
         if (!isSelected) {
-            content = <><Header title='MODYFIKUJ ISTNIEJĄCY ODCINEK' subtitle='Podaj szczegóły:'/>
-                <SerachForEdit stretches={stretches}
-                    startPoints={startPoints}
-                    handleOnSelected={handleOnSelected}/></>
+            return (
+                <><Header title='MODYFIKUJ ISTNIEJĄCY ODCINEK' subtitle='Podaj szczegóły:'/>
+                    <SerachForEdit stretches={stretches}
+                        startPoints={startPoints}
+                        handleOnSelected={handleOnSelected}/>
+                </>
+            );
 
         } else {
-            content = <>
-                EditForm stretch={stretchToEdit}
-                handleOnSubmit={handleOnSubmit} </>
-
+            if (stretchToEdit != null) {
+                return (
+                    <p>Loading...</p>
+                );
+            } else {
+                return (
+                    <>
+                        <EditForm stretch={stretchToEdit}
+                            handleOnSubmit={handleOnSubmit}/>
+                    </>
+                );
+            }
         }
 
 
         return (
-            <></>
+            <>{content}</>
 
         );
     }

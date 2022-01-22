@@ -1,18 +1,27 @@
-
 import React, {useState} from "react";
 import Select from "react-select";
 
+function getRoutePoint(stretches, id) {
+	const pointWithrepetitions = stretches
+		.filter((stretch) => stretch.startPoint.id == id)
+		.map((stretch) => stretch.startPoint);
 
-function SerachForEdit({stretches, startPoints}) {
+	return pointWithrepetitions.find(
+		(ele, ind) =>
+			ind ===
+			pointWithrepetitions.findIndex(
+				(elem) => elem.id == ele.id && elem.name == ele.name
+			)
+	);
+}
+
+
+function SerachForEdit({stretches, startPoints, handleOnSelected}) {
 
     const [endPoints, setEndPoints] = useState([]);
     const [customPlaceholder, setCustomPlaceholder] = useState("Najpier wybierz punkt początkowy");
     const [errorMsg, setErrorMsg] = useState();
-    const [startPoint, setStartPoint] = useState();
-    const [endPoint, setEndPoint] = useState();
-    const [middlePoint, setMiddlePoint] = useState('-');
-
-    const values = [startPoint, endPoint, middlePoint];
+    const [value, setValue] = useState();
 
 
     function customTheme(theme) {
@@ -26,59 +35,84 @@ function SerachForEdit({stretches, startPoints}) {
         };
     }
 
+    function getRoutePoint(stretches, id) {
+        const pointWithrepetitions = stretches
+            .map((stretch) => stretch.startPoint)
+            .find((stretch) => stretch.id == id);
+
+            return pointWithrepetitions;
+    
+        /*return pointWithrepetitions.filter(
+            (ele, ind) =>
+                ind ===
+                pointWithrepetitions.findIndex(
+                    (elem) => elem.id == ele.id && elem.name == ele.name
+                )
+        );*/
+    }
+
+    
+
 
     const handleChangeStartPoint = (selectedOption) => {
+
         let end = stretches.filter((element) => element.startPoint.id == selectedOption.value).map((stretch) => stretch.endPoint).map((point) => {
             return {value: point.id, label: point.name};
         });
 
-        console.log(end);
 
         end = end.filter((ele, ind) => ind === end.findIndex((elem) => elem.value === ele.value && elem.label === ele.label));
 
+        setValue(null);
         setEndPoints(end);
         setCustomPlaceholder("Wybierz punkt końcowy");
     };
 
 
     const handleChangeEndPoint = (selectedOption) => {
-        
-    };
 
-    const allFieldsFilled = values.every((field) => {
+        console.log(selectedOption)
+        setValue(selectedOption)
+    }
+
+    /*const allFieldsFilled = values.every((field) => {
         const value = `${field}`.trim();
         return value !== '' && value !== '0';
-    });
+    });*/
 
-    const submitHandler = (event) => {
+    const submitHandler = (e) => {
 
-        event.preventDefault();
+        e.preventDefault();
         
+        let start = getRoutePoint(stretches, e.target.startPoint.value)
+        let end = getRoutePoint(stretches, e.target.endPoint.value)
+        
+        console.log(start)
 
-        if (allFieldsFilled) {
+           
+        const stretch = stretches.find((s) => s.startPoint.id === start.id && s.endPoint.id === end.id);
 
-            const stretchToEdit = stretches.find((s) => s.startPoint.id === startPoint.id && s.endPoint.id === endPoint.id);
-
-            if (stretchToEdit != null) {
-            }
-
-        } else {
-            setErrorMsg('You need to fill all fields!')
-        }
+        console.log(stretch);
+        if(stretch != null) {
+            console.log(stretch);
+            this.handleOnSelected(stretch);
+        }      
 
 
     }
 
     return (
+        <form onSubmit={submitHandler}>
         <div className="form">
             <div className="form-control">
                 <label htmlFor="startPoint">Punkt początkowy:
                 </label>
                 <Select className="select"
                     theme={customTheme}
+                    id = "startPoint"
+                    name = "startPoint"
                     options={startPoints}
                     isSearchable
-                    value={startPoint}
                     placeholder="Wybierz punkt początkowy"
                     onChange={handleChangeStartPoint}/>
             </div>
@@ -87,22 +121,23 @@ function SerachForEdit({stretches, startPoints}) {
                 </label>
                 <Select className="select"
                     theme={customTheme}
+                    id="endPoint"
+                    name="endPoint"
                     options={endPoints}
                     isSearchable
                     placeholder={customPlaceholder}
-                    value={endPoint}
+                    value={value}
                     onChange={handleChangeEndPoint}/>
             </div>
             <div className="form-control">
                 <label htmlFor="middlePoint">Punkt pośredni:
                 </label>
-                <input type="text" id="middlePoint" name="middlePoint" value={middlePoint}/>
+                <input type="text" id="middlePoint" name="middlePoint"/>
             </div>
-            <button onClick={
-                () => submitHandler
-            }>MODYFIKUJ
+            <button type="submit">MODYFIKUJ
             </button>
         </div>
+        </form>
     );
 }
 

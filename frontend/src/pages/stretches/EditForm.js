@@ -18,6 +18,8 @@ const EditForm = ({ stretches, startPoints, stretchToEdit }) => {
 		"Najpier wybierz punkt początkowy"
 	);
 
+	console.log(stretchToEdit);
+
     const [stretch, setStretch] = useState({
         middlePoint: stretchToEdit ? stretchToEdit.middlePoint : '',
         distance: stretchToEdit ? stretchToEdit.length : '',
@@ -58,37 +60,7 @@ const EditForm = ({ stretches, startPoints, stretchToEdit }) => {
 	return (
 		<div>
 			<div className="form">
-				<div className="new-checkox-included">
-					<input type="checkbox" id="new1" name="new1" value="new1" />
-					<label id="new" for="new1">
-						nowy
-					</label>
-					<label htmlFor="startPoint">Punkt początkowy: </label>
-					<Select
-						className="select"
-						theme={customTheme}
-						options={startPoints}
-						isSearchable
-						placeholder="Wybierz punkt początkowy"
-						onChange={handleChange}
-					/>
-				</div>
-				<div className="new-checkox-included">
-					<input type="checkbox" id="new1" name="new1" value="new1" />
-					<label id="new" for="new1">
-						nowy
-					</label>
-					<label htmlFor="endPoint">Punkt końcowy: </label>
-					<Select
-						className="select"
-						theme={customTheme}
-						options={endPoints}
-						isSearchable
-						placeholder={customPlaceholder}
-						value={value}
-						onChange={handleChange2}
-					/>
-				</div>
+				
 				<div className="form-control">
 					<label htmlFor="middlePoint">Punkt pośredni: </label>
 					<input type="text" id="middlePoint" name="middlePoint" />

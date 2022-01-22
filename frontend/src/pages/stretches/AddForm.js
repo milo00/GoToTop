@@ -20,6 +20,7 @@ const AddForm = ({ stretches, startPoints }) => {
 		e.preventDefault();
 		if (e.target.startPoint) {
 			console.log(getRoutePoint(stretches, e.target.startPoint.value));
+			console.log(e.target.score.value)
 		}
 	};
 	return (

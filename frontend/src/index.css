@@ -183,13 +183,13 @@ tbody:before {
 }
 
 .table tr {
-	border-bottom: 1pt solid lightgray;
 	font-weight: 300;
 }
 
 .table td {
 	text-align: end;
-	margin-left: 10rem;
+	padding-left: 10rem;
+	padding-bottom: 1rem;
 }
 
 .form label {

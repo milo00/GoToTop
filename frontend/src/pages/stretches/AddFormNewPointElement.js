@@ -64,8 +64,6 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 					return { value: point.id, label: point.name };
 				});
 
-			console.log(end);
-
 			end = end.filter(
 				(ele, ind) =>
 					ind ===
@@ -167,7 +165,7 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 				nowy
 			</label>
 			<label htmlFor="startPoint">Punkt początkowy: </label>
-			<AddFormNewPoint />
+			<AddFormNewPoint id="1" />
 		</div>
 	);
 
@@ -188,7 +186,7 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 				nowy
 			</label>
 			<label htmlFor="endPoint">Punkt końcowy: </label>
-			<AddFormNewPoint />
+			<AddFormNewPoint id="2" />
 		</div>
 	);
 

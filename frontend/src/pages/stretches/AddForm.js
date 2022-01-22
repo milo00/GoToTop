@@ -1,4 +1,5 @@
 import React from "react";
+import { useState } from "react";
 import AddFormNewPointElement from "./AddFormNewPointElement";
 
 function getRoutePoint(stretches, id) {
@@ -12,22 +13,62 @@ function getRoutePoint(stretches, id) {
 			pointWithrepetitions.findIndex(
 				(elem) => elem.id == ele.id && elem.name == ele.name
 			)
-	);
+	)[0];
 }
 
 const AddForm = ({ stretches, startPoints }) => {
+	const [stretch, setStretch] = useState();
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		// if (e.target.startPoint) {
-		// 	console.log(getRoutePoint(stretches, e.target.startPoint.value));
-		// } else {
-		// 	console.log("no startPoint");
-		// }
-		// if (e.target.endPoint) {
-		// 	console.log(getRoutePoint(stretches, e.target.endPoint.value));
-		// } else {
-		// 	console.log("no startPoint");
-		// }
+
+		let startPoint = null;
+		let endPoint = null;
+		let middlePoint = "";
+		let length = null;
+		let heightDifference = null;
+		let score = null;
+		let walkingTime = null;
+		if (e.target.startPoint) {
+			startPoint = getRoutePoint(stretches, e.target.startPoint.value);
+		} else {
+			startPoint = {
+				name: e.target.name1.value,
+				longitude: Number(e.target.longitude1.value),
+				latitude: Number(e.target.latitude1.value),
+				altitude: Number(e.target.altitude1.value),
+			};
+		}
+		if (e.target.endPoint) {
+			endPoint = getRoutePoint(stretches, e.target.endPoint.value);
+		} else {
+			endPoint = {
+				name: e.target.name2.value,
+				longitude: Number(e.target.longitude2.value),
+				latitude: Number(e.target.latitude2.value),
+				altitude: Number(e.target.altitude2.value),
+			};
+		}
+		if (e.target.middlePoint.value) {
+			middlePoint = e.target.middlePoint.value;
+		} else {
+			console.log("no middlePoint");
+		}
+
+		length = Number(e.target.length.value);
+		heightDifference = Number(e.target.heightDifference.value);
+		score = Number(e.target.score.value);
+		walkingTime = e.target.walkingTime.value;
+
+		setStretch({
+			startPoint: startPoint,
+			endPoint: endPoint,
+			middlePoint: middlePoint,
+			length: length,
+			heightDifference: heightDifference,
+			score: score,
+			walkingTime: walkingTime,
+		});
 	};
 	return (
 		<form onSubmit={handleSubmit}>
@@ -43,21 +84,27 @@ const AddForm = ({ stretches, startPoints }) => {
 				</div>
 				<div className="form-control">
 					<label htmlFor="length">Długość: </label>
-					<input type="number" step="0.01" id="length" name="length" />
+					<input type="number" required step="0.01" id="length" name="length" />
 				</div>
 				<div className="form-control">
 					<label htmlFor="heightDifference">Suma przewyższeń: </label>
-					<input type="number" id="heightDifference" name="heightDifference" />
+					<input
+						type="number"
+						required
+						id="heightDifference"
+						name="heightDifference"
+					/>
 				</div>
 				<div className="form-control">
 					<label htmlFor="score">Punkty: </label>
-					<input type="number" id="score" name="score" />
+					<input type="number" required id="score" name="score" />
 				</div>
 				<div className="form-control">
 					<label htmlFor="walkingTime">Czas przejścia: </label>
-					<input type="time" id="walkingTime" name="walkingTime" />
+					<input type="time" required id="walkingTime" name="walkingTime" />
 				</div>
 				<button type="submit">DODAJ</button>
+				<h4>{JSON.stringify(stretch)}</h4>
 			</div>
 		</form>
 	);

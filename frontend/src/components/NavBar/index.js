@@ -34,7 +34,7 @@ const Navbar = () => {
 
 				<NavBtn style={{ justifyContent: "flex-end" }}>
 					<img src={require("../../images/logout.png")} alt="home" />
-					<NavBtnLink to="/logout">wyloguj</NavBtnLink>
+					<NavBtnLink to="/logout">WYLOGUJ</NavBtnLink>
 				</NavBtn>
 			</Nav>
 		</>

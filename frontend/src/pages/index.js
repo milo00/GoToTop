@@ -7,10 +7,10 @@ const Home = () => {
 			<div
 				className="conteiner"
 				style={{
-					height: "70vh",
+					height: "60vh",
 				}}
 			>
-				<img src={require("../images/logo.png")} alt="logo" width={"40%"} />
+				<img src={require("../images/logo.png")} alt="logo" width={"50%"} />
 			</div>
 			<section
 				style={{
@@ -18,10 +18,10 @@ const Home = () => {
 				}}
 			>
 				<NavBtn>
-					<NavBtnLink to="/search">Wyszukaj Trasę</NavBtnLink>
+					<NavBtnLink to="/search">WYSZUKAJ TRASĘ</NavBtnLink>
 				</NavBtn>
 				<NavBtn>
-					<NavBtnLink to="/profile">Zaloguj</NavBtnLink>
+					<NavBtnLink to="/profile">ZALOGUJ</NavBtnLink>
 				</NavBtn>
 			</section>
 		</>

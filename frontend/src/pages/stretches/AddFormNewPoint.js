@@ -1,49 +1,50 @@
 import React from "react";
 
-const AddFormNewPoint = () => {
+const AddFormNewPoint = (id) => {
+	id = id.id;
 	return (
 		<div>
 			<div className="form-control">
-				<label htmlFor="name">Nazwa: </label>
-				<input className="new-point" type="text" id="name" name="name" />
-			</div>
-			<div className="form-control">
-				<label htmlFor="heightDifference">Długość geograficzna: </label>
+				<label htmlFor={"name" + String(id)}>Nazwa: </label>
 				<input
+					required
 					className="new-point"
-					type="number"
-					step="0.000001"
-					id="heightDifference"
-					name="heightDifference"
+					type="text"
+					id={"name" + id}
+					name={"name" + id}
 				/>
 			</div>
 			<div className="form-control">
-				<label htmlFor="score">Szerokość geograficzna: </label>
+				<label htmlFor={"longitude" + id}>Długość geograficzna: </label>
 				<input
+					required
 					className="new-point"
 					type="number"
 					step="0.000001"
-					id="score"
-					name="score"
+					id={"longitude" + id}
+					name={"longitude" + id}
 				/>
 			</div>
 			<div className="form-control">
-				<label htmlFor="walkingTime">Wysokość: </label>
+				<label htmlFor={"latitude" + id}>Szerokość geograficzna: </label>
 				<input
+					required
+					className="new-point"
+					type="number"
+					step="0.000001"
+					id={"latitude" + id}
+					name={"latitude" + id}
+				/>
+			</div>
+			<div className="form-control">
+				<label htmlFor={"altitude" + id}>Wysokość: </label>
+				<input
+					required
 					className="new-point"
 					type="number"
 					step="0.01"
-					id="height"
-					name="height"
-				/>
-			</div>
-			<div className="form-control">
-				<label htmlFor="monutainAreas">Tereny: </label>
-				<input
-					className="new-point"
-					type="text"
-					id="monutainAreas"
-					name="monutainAreas"
+					id={"altitude" + id}
+					name={"altitude" + id}
 				/>
 			</div>
 		</div>

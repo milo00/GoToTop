@@ -13,6 +13,8 @@ function customTheme(theme) {
 	};
 }
 
+let previousNew2State = null;
+
 const AddFormNewPointElement = ({ stretches, startPoints }) => {
 	const [endPoints, setEndPoints] = useState([]);
 	const [customPlaceholder, setCustomPlaceholder] = useState(
@@ -42,7 +44,11 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 
 			setEndPoints(allPoints);
 			setCustomPlaceholder("Wybierz punkt końcowy");
-		} else if (!new1 && !new2) {
+		} else if (
+			!new1 &&
+			!new2 &&
+			(!previousNew2State || previousNew2State == null)
+		) {
 			setEndPoints([]);
 			setValue(null);
 			setCustomPlaceholder("Najpier wybierz punkt początkowy");
@@ -90,7 +96,10 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 				id="new1"
 				name="new1"
 				value="new1"
-				onClick={() => setNew1(!new1)}
+				onClick={() => {
+					setNew1(!new1);
+					previousNew2State = null;
+				}}
 			/>
 			<label id="new" htmlFor="new1">
 				nowy
@@ -117,7 +126,11 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 				id="new2"
 				name="new2"
 				value="new2"
-				onClick={() => setNew2(!new2)}
+				onClick={() => {
+					setNew2(!new2);
+					previousNew2State =
+						previousNew2State == null ? false : !previousNew2State;
+				}}
 			/>
 			<label id="new" htmlFor="new2">
 				nowy
@@ -145,7 +158,10 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 				id="new1"
 				name="new1"
 				value="new1"
-				onClick={() => setNew1(!new1)}
+				onClick={() => {
+					setNew1(!new1);
+					previousNew2State = null;
+				}}
 			/>
 			<label id="new" htmlFor="new1">
 				nowy
@@ -162,7 +178,11 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 				id="new2"
 				name="new2"
 				value="new2"
-				onClick={() => setNew2(!new2)}
+				onClick={() => {
+					setNew2(!new2);
+					previousNew2State =
+						previousNew2State == null ? false : !previousNew2State;
+				}}
 			/>
 			<label id="new" htmlFor="new2">
 				nowy

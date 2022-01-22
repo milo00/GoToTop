@@ -18,9 +18,16 @@ function getRoutePoint(stretches, id) {
 const AddForm = ({ stretches, startPoints }) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (e.target.startPoint) {
-			console.log(getRoutePoint(stretches, e.target.startPoint.value));
-		}
+		// if (e.target.startPoint) {
+		// 	console.log(getRoutePoint(stretches, e.target.startPoint.value));
+		// } else {
+		// 	console.log("no startPoint");
+		// }
+		// if (e.target.endPoint) {
+		// 	console.log(getRoutePoint(stretches, e.target.endPoint.value));
+		// } else {
+		// 	console.log("no startPoint");
+		// }
 	};
 	return (
 		<form onSubmit={handleSubmit}>

@@ -49,8 +49,6 @@ Global Styles
 
 button.button__back {
 	float: left;
-	margin: 3rem;
-	margin-top: 1.2rem;
 	max-width: fit-content;
 	color: #707070;
 	background-color: #fff;
@@ -161,10 +159,6 @@ button.button__back {
 	padding: 1rem 2rem;
 	border-radius: 25px;
 	color: #707070;
-}
-
-.table tr {
-	border-bottom: 2px solid #57b42f;
 }
 
 .table tr.border_bottom td,

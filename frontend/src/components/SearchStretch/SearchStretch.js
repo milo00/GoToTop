@@ -8,7 +8,6 @@ import StartList from './StartList.js';
 import classes from './SearchStretch.module.css'
 import EndList from './EndList.js';
 import ScoredStretch from './ScoredStretch/ScoredStretch.js';
-import Map from './Map/Map.js';
 
 const URI_STRETCHES = 'http://localhost:8080/scoredStretch';
 
@@ -61,7 +60,6 @@ function SearchStretchController() {
     }
 
     let content;
-    const map = <Map/>
     const button = <button className='button__back' onClick={backButtonHandler}>Cofnij</button>
     switch (mode) {
         case 2: content = <>{button}<section><Header title={
@@ -70,7 +68,9 @@ function SearchStretchController() {
                 subtitle={'Wybierz punkt końcowy:'}/>
              <section className = 'search__conteiner'><EndList getEndPoint={saveEndPointHandler}
                 stretches={response}
-                startPoint={selectedStartPoint}/> {map}</section></section></>
+                startPoint={selectedStartPoint}/> 
+                
+                </section></section></>
 
             break;
         case 3: content = <>{button}<section><Header title={
@@ -78,12 +78,13 @@ function SearchStretchController() {
             }/>
             <section className = 'search__conteiner'><ScoredStretch stretches={response}
                 startPoint={selectedStartPoint}
-                endPoint={selectedEndPoint}/> {map}</section>
+                endPoint={selectedEndPoint}/>
+                </section>
              </section></>
             break;
         default: content = <><Header title={'Wybierz punkt początkowy'}/>
             <section className = 'search__conteiner'><StartList getStartPoint={saveStartPointHandler}
-                stretches={response}/> {map} </section></>
+                stretches={response}/> </section></>
             break;
     }
 

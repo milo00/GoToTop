@@ -68,7 +68,7 @@ button.button__back {
 	overflow: auto;
 	overflow-x: hidden;
 	width: 50em;
-	max-height: 25em;
+	max-height: 30rem;
 	margin: 0 3rem 0 0;
 }
 
@@ -105,12 +105,6 @@ button.button__back {
 	float: left;
 }
 
-.map img {
-	max-height: 35rem;
-	max-width: 35rem;
-	margin: auto;
-}
-
 .title {
 	margin-left: 5rem;
 	margin-top: 1.75rem;
@@ -140,10 +134,17 @@ button.button__back {
 	font-family: "Poppins", sans-serif;
 }
 
+.map {
+	height: 30rem;
+	width: 50%;
+	overflow: hidden;
+	border-radius: 25px;
+}
+
+
 .table {
 	background: var(--clr-white);
-	width: fit-content;
-	max-height: 50em;
+	max-height: 30rem;
 	margin: 2rem;
 	margin-bottom: 4rem;
 	padding: 1rem 2rem;

@@ -2,12 +2,6 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
-function getRoutePoint(stretches, id) {
-	return stretches
-		.map((stretch) => stretch.startPoint)
-		.find((stretch) => stretch.id == id);
-}
-
 function SerachForEdit({ stretches, startPoints }) {
 	const [endPoints, setEndPoints] = useState([]);
 	const [middlePoints, setMiddlePoints] = useState([]);

@@ -73,9 +73,10 @@ const AddForm = ({ stretches, startPoints, onAddStretch }) => {
 			startPoint: startPoint,
 			endPoint: endPoint,
 			middlePoint: middlePoint,
-			length: length,
-			heightDifference: heightDifference,
 			score: score,
+			length: length,
+			//heightDifference: heightDifference,
+			
 			walkingTime: walkingTime
 		};
 

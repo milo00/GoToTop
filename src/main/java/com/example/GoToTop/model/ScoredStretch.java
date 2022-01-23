@@ -1,5 +1,7 @@
 package com.example.GoToTop.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Optional;
@@ -20,6 +22,7 @@ public class ScoredStretch {
     private MountainArea mountainArea;
 
     public ScoredStretch() {
+        System.out.println("dupa4");
 
     }
 
@@ -43,6 +46,7 @@ public class ScoredStretch {
         this.mountainArea = common.get();
     }
 
+    @JsonCreator
     public ScoredStretch(RoutePoint startPoint, RoutePoint endPoint, String middlePoint, int score, float length,
             Time walkingTime) {
         Optional<MountainArea> common = findCommonArea(startPoint, endPoint);

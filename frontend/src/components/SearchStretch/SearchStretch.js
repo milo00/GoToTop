@@ -8,6 +8,7 @@ import StartList from './StartList.js';
 import classes from './SearchStretch.module.css'
 import EndList from './EndList.js';
 import ScoredStretch from './ScoredStretch/ScoredStretch.js';
+import Map from './Map/Map.js';
 
 const URI_STRETCHES = 'http://localhost:8080/scoredStretch';
 
@@ -60,9 +61,7 @@ function SearchStretchController() {
     }
 
     let content;
-    const map = <div className='map'><img src={
-      require('../../images/map.png')
-    } alt='map'/></div>;
+    const map = <Map/>
     const button = <button className='button__back' onClick={backButtonHandler}>Cofnij</button>
     switch (mode) {
         case 2: content = <>{button}<section><Header title={

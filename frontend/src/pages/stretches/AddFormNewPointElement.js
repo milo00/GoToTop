@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Select, { InputActionMeta } from "react-select";
+import Select from "react-select";
 import AddFormNewPoint from "./AddFormNewPoint";
 
 function customTheme(theme) {
@@ -15,76 +15,61 @@ function customTheme(theme) {
 
 let previousNew2State = null;
 
-const AddFormNewPointElement = ({ stretches, startPoints }) => {
-	const [endPoints, setEndPoints] = useState([]);
-	const [customPlaceholder, setCustomPlaceholder] = useState(
-		"Najpier wybierz punkt początkowy"
-	);
-	const [value, setValue] = useState();
+const AddFormNewPointElement = ({ routePoints }) => {
+	const [endPoints, setEndPoints] = useState(routePoints);
+	const [startPoints, setStartPoints] = useState(routePoints);
 	const [new1, setNew1] = useState(false);
 	const [new2, setNew2] = useState(false);
 
-	useEffect(() => {
-		if (new1 && !new2) {
-			const stretchStartRoutePoints = stretches
-				.map((stretch) => stretch.startPoint)
-				.filter(
-					(ele, ind) =>
-						ind ===
-						stretches.findIndex(
-							(elem) =>
-								elem.startPoint.id === ele.id &&
-								elem.startPoint.name === ele.name
-						)
-				);
+	// useEffect(() => {
+	// 	if (new1 && !new2) {
+	// 		const stretchStartRoutePoints = stretches
+	// 			.map((stretch) => stretch.startPoint)
+	// 			.filter(
+	// 				(ele, ind) =>
+	// 					ind ===
+	// 					stretches.findIndex(
+	// 						(elem) =>
+	// 							elem.startPoint.id === ele.id &&
+	// 							elem.startPoint.name === ele.name
+	// 					)
+	// 			);
 
-			const allPoints = stretchStartRoutePoints.map((stretch) => {
-				return { value: stretch.id, label: stretch.name };
-			});
+	// 		const allPoints = stretchStartRoutePoints.map((stretch) => {
+	// 			return { value: stretch.id, label: stretch.name };
+	// 		});
 
-			setEndPoints(allPoints);
-			setCustomPlaceholder("Wybierz punkt końcowy");
-		} else if (
-			!new1 &&
-			!new2 &&
-			(!previousNew2State || previousNew2State == null)
-		) {
-			setEndPoints([]);
-			setValue(null);
-			setCustomPlaceholder("Najpier wybierz punkt początkowy");
-		}
-	}, [new1, new2]);
+	// 		setEndPoints(allPoints);
+	// 		setCustomPlaceholder("Wybierz punkt końcowy");
+	// 	} else if (
+	// 		!new1 &&
+	// 		!new2 &&
+	// 		(!previousNew2State || previousNew2State == null)
+	// 	) {
+	// 		setEndPoints([]);
+	// 		setValue(null);
+	// 		setCustomPlaceholder("Najpier wybierz punkt początkowy");
+	// 	}
+	// }, [new1, new2]);
 
-	const handleChange = (selectedOption, { action }) => {
+	const handleStartPointChange = (selectedOption, { action }) => {
 		if (action == "select-option") {
-			let end = stretches
-				.filter((element) => element.startPoint.id == selectedOption.value)
-				.map((stretch) => stretch.endPoint)
-				.map((point) => {
-					return { value: point.id, label: point.name };
-				});
-
-			end = end.filter(
-				(ele, ind) =>
-					ind ===
-					end.findIndex(
-						(elem) => elem.value === ele.value && elem.label === ele.label
-					)
+			setEndPoints(
+				routePoints.filter(
+					(routePoint) => routePoint.value != selectedOption.value
+				)
 			);
-
-			setEndPoints(end);
-			setValue(null);
-			setCustomPlaceholder("Wybierz punkt końcowy");
-		}
-		if (action == "clear") {
-			setValue(null);
-			setEndPoints([]);
-			setCustomPlaceholder("Najpier wybierz punkt początkowy");
 		}
 	};
 
-	const handleChange2 = (selectedOption) => {
-		setValue(selectedOption);
+	const handleEndPointChange = (selectedOption, { action }) => {
+		if (action == "select-option") {
+			setStartPoints(
+				routePoints.filter(
+					(routePoint) => routePoint.value != selectedOption.value
+				)
+			);
+		}
 	};
 
 	const val1 = (
@@ -112,7 +97,7 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 				isSearchable
 				isClearable
 				placeholder="Wybierz punkt początkowy"
-				onChange={handleChange}
+				onChange={handleStartPointChange}
 			/>
 		</div>
 	);
@@ -142,9 +127,8 @@ const AddFormNewPointElement = ({ stretches, startPoints }) => {
 				options={endPoints}
 				isSearchable
 				isClearable
-				placeholder={customPlaceholder}
-				value={value}
-				onChange={handleChange2}
+				placeholder="Wybierz punkt końcowy"
+				onChange={handleEndPointChange}
 			/>
 		</div>
 	);

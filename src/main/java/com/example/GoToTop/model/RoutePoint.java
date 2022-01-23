@@ -27,7 +27,6 @@ public class RoutePoint {
         this.latitude = latitude;
         this.altitude = altitude;
         this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
-        this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
     }
 
     public RoutePoint(String name, float longitude, float latitude, float altitude, MountainArea ... mountainAreas) {
@@ -36,7 +35,6 @@ public class RoutePoint {
         this.latitude = latitude;
         this.altitude = altitude;
         this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
-        this.mountainAreas.forEach(x -> x.getRoutePoints().add(this));
     }
 
     @Column(unique = true)

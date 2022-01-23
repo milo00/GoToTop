@@ -12,7 +12,6 @@ public class MountainArea {
 
     private Long id;
     private String name;
-    private Set<RoutePoint> routePoints;
 
     public MountainArea() {
     }
@@ -20,12 +19,10 @@ public class MountainArea {
     public MountainArea(Long id, String name) {
         this.id = id;
         this.name = name;
-        this.routePoints = new HashSet<>();
     }
 
     public MountainArea(String name) {
         this.name = name;
-        this.routePoints = new HashSet<>();
     }
 
     @Column(unique = true)
@@ -35,15 +32,6 @@ public class MountainArea {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "mountainAreas", cascade = CascadeType.ALL)
-    public Set<RoutePoint> getRoutePoints() {
-        return routePoints;
-    }
-
-    public void setRoutePoints(Set<RoutePoint> routePoints) {
-        this.routePoints = routePoints;
     }
 
     public void setId(Long id) {

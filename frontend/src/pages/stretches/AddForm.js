@@ -4,9 +4,9 @@ import AddFormNewPointElement from "./AddFormNewPointElement";
 import moment from "moment";
 
 function getDateFromHours(time) {
-    time = time.split(':');
-    let now = new Date();
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), ...time);
+	time = time.split(":");
+	let now = new Date();
+	return new Date(now.getFullYear(), now.getMonth(), now.getDate(), ...time);
 }
 
 function getRoutePoint(stretches, id) {
@@ -76,8 +76,8 @@ const AddForm = ({ stretches, startPoints, onAddStretch }) => {
 			score: score,
 			length: length,
 			//heightDifference: heightDifference,
-			
-			walkingTime: walkingTime
+
+			walkingTime: walkingTime,
 		};
 
 		console.log(JSON.stringify(stretch));
@@ -86,10 +86,7 @@ const AddForm = ({ stretches, startPoints, onAddStretch }) => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<div className="form">
-				<AddFormNewPointElement
-					stretches={stretches}
-					startPoints={startPoints}
-				/>
+				<AddFormNewPointElement routePoints={startPoints} />
 
 				<div className="form-control">
 					<label htmlFor="middlePoint">Punkt pośredni: </label>
@@ -117,7 +114,6 @@ const AddForm = ({ stretches, startPoints, onAddStretch }) => {
 					<input type="time" required id="walkingTime" name="walkingTime" />
 				</div>
 				<button type="submit">DODAJ</button>
-				
 			</div>
 		</form>
 	);

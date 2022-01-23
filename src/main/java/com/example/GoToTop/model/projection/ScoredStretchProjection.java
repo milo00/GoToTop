@@ -3,8 +3,8 @@ import java.sql.Time;
 
 public interface ScoredStretchProjection {
    Long getId();
-   RoutePointWithoutAreaProjection getStartPoint();
-   RoutePointWithoutAreaProjection getEndPoint();
+   RoutePointProjection getStartPoint();
+   RoutePointProjection getEndPoint();
    String getMiddlePoint();
    int getScore();
    float getLength();

@@ -61,14 +61,26 @@ public class ScoredStretchService {
     }
 
     @Transactional
-    public void updateScoredStretch(Long id, Optional<Integer> score, Optional<Float> length,
-                                    Optional<Float> heightDifference, Optional<Time> walkingTime,
-                                    Optional<Long> mountainAreaId) {
+    public void updateScoredStretch(Long id, Optional<String> middlePoint, Optional<Integer> score, Optional<Float> length,
+                                    Optional<Float> heightDifference, Optional<Time> walkingTime) {
         Optional<ScoredStretch> scoredStretchById = scoredStretchRepository.findById(id);
         if (scoredStretchById.isEmpty()) {
             throw new IllegalStateException("stretch does not exist");
         } else {
+
             ScoredStretch scoredStretchToUpdate = scoredStretchById.get();
+
+            if(middlePoint.isPresent() && !middlePoint.get().equals(scoredStretchToUpdate.getMiddlePoint()) && middlePoint.get().length()>0){
+                RoutePoint startPoint = scoredStretchToUpdate.getStartPoint();
+                RoutePoint endPoint = scoredStretchToUpdate.getEndPoint();
+                Optional<ScoredStretch> scoredStretchByKey = scoredStretchRepository.findStretchByKey(startPoint,
+                        endPoint, middlePoint.get());
+                if (scoredStretchByKey.isPresent()) {
+                    throw new IllegalStateException("stretch with given name already exist");
+                }else {
+                    scoredStretchToUpdate.setMiddlePoint(middlePoint.get());
+                }
+            }
             if (score.isPresent() && !score.get().equals(scoredStretchToUpdate.getScore()) && score.get() > 0) {
                 scoredStretchToUpdate.setScore(score.get());
             }
@@ -84,14 +96,6 @@ public class ScoredStretchService {
 
             if (walkingTime.isPresent() && !walkingTime.get().equals(scoredStretchToUpdate.getWalkingTime())) {
                 scoredStretchToUpdate.setWalkingTime(walkingTime.get());
-            }
-
-            if (mountainAreaId.isPresent() && !mountainAreaId.get().equals(scoredStretchToUpdate.getMountainArea().getId())) {
-                Optional<MountainArea> mountainAreaById = mountainAreaService.getMountainAreaById(mountainAreaId.get());
-                if (mountainAreaById.isEmpty()) {
-                    throw new IllegalStateException("such area does not exist");
-                }
-                scoredStretchToUpdate.setMountainArea(mountainAreaById.get());
             }
         }
     }

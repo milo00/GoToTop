@@ -1,14 +1,15 @@
 import React, {useState} from "react";
 import useAxios from "../../utils/useAxios";
 import SerachForEdit from "./SerachForEdit";
-import Header from "../../components/SearchStretch/Header";
+import Header from "../../components/UI/Header";
 import EditForm from "./EditForm";
 
 const URI_STRETCHES = "http://localhost:8080/scoredStretch";
 
 const Edit = () => {
     const {response, error, loading} = useAxios({method: "get", url: URI_STRETCHES});
-    const stretches = response;
+    const stretches = response;    
+    
 
     if (loading) {
         return <h1>Loading...</h1>;

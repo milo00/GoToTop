@@ -3,7 +3,7 @@ import GoToTopService from '../../api/gototop/GoToTopService.js'
 import RoutePointsList from './RoutePoints/RoutePointsList.js';
 import Select from 'react-select';
 import useAxios from '../../utils/useAxios.js'
-import Header from './Header.js';
+import Header from '../UI/Header.js';
 import StartList from './StartList.js';
 import classes from './SearchStretch.module.css'
 import EndList from './EndList.js';

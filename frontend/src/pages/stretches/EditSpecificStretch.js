@@ -1,106 +1,83 @@
-import React from "react";
-import {useParams} from "react-router-dom";
-import { useState } from "react";
+import React, {useCallback} from "react";
+import {Route, useParams} from "react-router-dom";
+import {useState} from "react";
 import moment from "moment";
-import Header from "../../components/SearchStretch/Header";
+import Header from "../../components/UI/Header";
+import {useNavigate, useLocation} from "react-router-dom";
+import EditForm from "./EditForm";
+import axios from "axios";
 
-function getDateFromHours(time) {
-    time = time.split(':');
-    let now = new Date();
-    return new Date(now.getFullYear(), now.getMonth(), now.getDate(), ...time);
-}
+const URI_STRETCHES = "http://localhost:8080/scoredStretch/";
 
 const EditSpecificStretch = ({stretches}) => {
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
+
     const {id} = useParams();
 
-	const stretchToEdit = stretches.find(s => s.id == id);
+    const navigate = useNavigate();
 
-    const [stretch, setStretch] = useState({
-		startPoint: stretchToEdit ? stretchToEdit.startPoint : "",
-		endPoint: stretchToEdit ? stretchToEdit.endPoint : "",
-        middlePoint: stretchToEdit ? stretchToEdit.middlePoint : "",
-        length: stretchToEdit ? stretchToEdit.length : "",
-        heightDifference: stretchToEdit ? stretchToEdit.heightDifference : "",
-        walkingTime: stretchToEdit ? stretchToEdit.walkingTime : "",
-        score: stretchToEdit ? stretchToEdit.score : ""
-    });
+    const stretchToEdit = stretches.find(s => s.id == id);
 
-	let {startPoint, endPoint, middlePoint, length, heightDifference, walkingTime, score} = stretch;
+    const editStretchHandler = useCallback(async (stretch) => {
 
-	const handleSubmit = (e) => {
-		e.preventDefault();
+        console.log(stretch);
 
-		let values = [middlePoint, length, heightDifference, walkingTime, score];
-		
-		if (e.target.middlePoint.value) {
-			middlePoint = e.target.middlePoint.value;
-		} else {
-			console.log("no middlePoint");
-		}
+        const formData = new FormData();
 
-		length = Number(e.target.length.value);
-		heightDifference = Number(e.target.heightDifference.value);
-		score = Number(e.target.score.value);
-		walkingTime = e.target.walkingTime.value;
-
-		walkingTime = moment(getDateFromHours(walkingTime)).format("hh:mm:ss");
-
-		const stretch = {
-			stretchId: id,
-			middlePoint: middlePoint,			
-			score: score,
-			length: length,
-			heightDifference: heightDifference,
-			walkingTime: walkingTime
-		};
-
-		console.log(stretch);
+        formData.append("middlePoint", stretch.middlePoint)
+        formData.append("score", stretch.score)
+        formData.append("length", stretch.length)
+        formData.append("heighDifference", stretch.heightDifference)
+        formData.append("walkingTime", stretch.walkingTime)
 
 
-	};
+        let uri = URI_STRETCHES + stretch.stretchId
+
+        setIsLoading(true);
+        setError(null);
+        try {
+            const response = await fetch(uri, {
+                method: 'PUT',
+                body: formData
+            });
+
+            if (! response.ok) {
+                throw new Error('Something went wrong!');
+            }
+
+            const data = await response.json();
+
+        } catch (error) {
+            setError(error.message);
+        }
+        setIsLoading(false);
+    }, []);
 
 
-    return (
-		<>
-		<Header title={startPoint.name + ' - ' + endPoint.name}/>
-        <form onSubmit={handleSubmit}>
-            <div className="form">
-				<div><p>Wprowdź dane, które chcesz zmodyfikować</p></div>
-                <div className="form-control">
-					
-                    <label htmlFor="middlePoint">Punkt pośredni:
-                    </label>
-                    <input type="text" id="middlePoint" name="middlePoint" defaultValue={middlePoint}/>
-                </div>
-                <div className="form-control">
-                    <label htmlFor="length">Długość:
-                    </label>
-                    <input type="number" required step="0.01" id="length" name="length" defaultValue={length}/>
-                </div>
-                <div className="form-control">
-                    <label htmlFor="heightDifference">Suma przewyższeń:
-                    </label>
-                    <input type="number" required id="heightDifference" name="heightDifference" defaultValue={heightDifference}/>
-                </div>
-                <div className="form-control">
-                    <label htmlFor="score">Punkty:
-                    </label>
-                    <input type="number" required id="score" name="score" defaultValue={score}/>
-                </div>
-                <div className="form-control">
-                    <label htmlFor="walkingTime">Czas przejścia:
-                    </label>
-                    <input type="time" required id="walkingTime" name="walkingTime" defaultValue={walkingTime}/>
-                </div>
-				<div>
-				<button className="cancel">ANULUJ</button>
-                <button className="submit" type="submit">ZATWIERDŹ</button>
-				</div>
+    /*
+            const [response, setResponse] = useState(null);
+            const [error, setError] = useState('');
+            const [loading, setloading] = useState(true);
 
-            </div>
-        </form>
-		</>
-    );
+            axios.put(uri, formData).then((res) => {
+                console.log(res);
+            }).catch((err) => {
+                setError(err);
+            }). finally(() => {
+                setloading(false);
+            });*/
+
+
+    return(< EditForm stretchToEdit = {
+        stretchToEdit
+    }
+    onEditHandle = {
+        editStretchHandler
+    } />)
 };
+
 
 export default EditSpecificStretch;

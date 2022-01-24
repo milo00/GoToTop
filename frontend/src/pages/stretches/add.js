@@ -25,11 +25,7 @@ const Add = () => {
         });
 
         async function addStretchHandler (stretch) {
-			console.log(stretch)
-
-            axios.post(URI_STRETCHES,stretch)
-	        .then(response => {console.log(response)});
-            /*
+            
             const response = await fetch(URI_STRETCHES, {
                 method: 'POST',
                 body: JSON.stringify(stretch),
@@ -39,7 +35,7 @@ const Add = () => {
             });
             console.log(response);
             const data = await response.json();
-            console.log(data);*/
+            console.log(data);
         }
 
         return (

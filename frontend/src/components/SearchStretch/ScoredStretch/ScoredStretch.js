@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import findDistance from '../../../utils/findDistance.js'
 import Map from '../Map/Map'
 
 

@@ -18,21 +18,17 @@ function EndList({stretches, getEndPoint, startPoint}) {
     startName={startPoint.name}
     showMarker='true'
     showRoute='false'
-    startLng={
-        startPoint.latitude
-    }
-    startLat={
-        startPoint.longitude
-    }
+    startLng={startPoint.latitude}
+    startLat={startPoint.longitude}
     zoom={15}/>
-    return(<> <RoutePointsList className='list__scrollable'
-                getCickedPointHandler={
-                    (point) => getEndPoint((point))}
-points = {
-    uniqueEndPoints
-} /> {
-    map
-} < />
+    return(
+    <> 
+        <RoutePointsList 
+            className='list__scrollable'
+            getCickedPointHandler={(point) => getEndPoint((point))}
+            points = { uniqueEndPoints} /> 
+        {map} 
+    </>
     );
 }
 

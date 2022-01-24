@@ -80,14 +80,12 @@ function SerachForEdit({ stretches, startPoints }) {
 			setCustomPlaceholderForMiddlePoint("Brak dostępnych punktów pośrednich");
 			setMiddlePointValue("");
 		} else {
-			console.log("in");
 			setCustomPlaceholderForMiddlePoint("Wybierz punkt pośredni");
 		}
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		console.log("jestem");
 
 		let id = stretches.find(
 			(element) =>
@@ -98,13 +96,9 @@ function SerachForEdit({ stretches, startPoints }) {
 		).id;
 
 		console.log(id);
+		console.log(stretches)
 		navigate("/stretches/edit/" + id);
 	};
-
-	/*const allFieldsFilled =endPointValues.every((field) => {
-        constendPointValue = `${field}`.trim();
-        returnendPointValue !== '' &&endPointValue !== '0';
-    });*/
 
 	return (
 		<form onSubmit={handleSubmit}>

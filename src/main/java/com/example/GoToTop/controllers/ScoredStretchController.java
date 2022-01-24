@@ -42,15 +42,16 @@ public class ScoredStretchController {
     //TODO add middle point, delete area??
     @PutMapping(path = {"{scoredStretchId}"})
     public void updateScoredStretch(@PathVariable("scoredStretchId") Long id,
+                                    @RequestParam(required = false) String middlePoint,
                                     @RequestParam(required = false) Integer score,
                                     @RequestParam(required = false) Float length,
                                     @RequestParam(required = false) Float heightDifference,
-                                    @RequestParam(required = false) Time walkingTime,
-                                    @RequestParam(required = false) Long mountainAreaId) {
-        scoredStretchService.updateScoredStretch(id, score == null ? Optional.empty() : Optional.of(score),
+                                    @RequestParam(required = false) Time walkingTime) {
+        scoredStretchService.updateScoredStretch(id,
+                middlePoint == null ? Optional.empty() : Optional.of(middlePoint),
+                score == null ? Optional.empty() : Optional.of(score),
                 length == null ? Optional.empty() : Optional.of(length),
                 heightDifference == null ? Optional.empty() : Optional.of(heightDifference),
-                walkingTime == null ? Optional.empty() : Optional.of(walkingTime),
-                mountainAreaId == null ? Optional.empty() : Optional.of(mountainAreaId));
+                walkingTime == null ? Optional.empty() : Optional.of(walkingTime));
     }
 }

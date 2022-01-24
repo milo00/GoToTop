@@ -48,11 +48,13 @@ const EditSpecificStretch = ({stretches}) => {
                 throw new Error('Something went wrong!');
             }
 
-            const data = await response.json();
-            console.log(data);
+            //const data = await response.json();
+            console.log(response);
+            //console.log(data);
 
         } catch (error) {
             setError(error.message);
+            console.log(error)
         }
         setIsLoading(false);
     }, []);

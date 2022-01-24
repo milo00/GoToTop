@@ -29,7 +29,6 @@ function SearchStretchController() {
 
     const saveStartPointHandler = (point) => {
 
-        console.log(point);
         setSelectedStartPoint(point);
         setMode(2);
 

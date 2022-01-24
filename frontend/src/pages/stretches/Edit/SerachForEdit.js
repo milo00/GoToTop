@@ -53,10 +53,8 @@ function SerachForEdit({ stretches, startPoints }) {
 	};
 
 	const handleChangeEndPoint = (selectedOption) => {
-		console.log(selectedOption);
 		setEndPointValue(selectedOption);
 
-		console.log(startPointValue.value);
 		let currentMiddlePoints = stretches
 			.filter(
 				(element) =>
@@ -95,8 +93,6 @@ function SerachForEdit({ stretches, startPoints }) {
 					(middlePointValue == "" ? "" : middlePointValue.label)
 		).id;
 
-		console.log(id);
-		console.log(stretches)
 		navigate("/stretches/edit/" + id);
 	};
 

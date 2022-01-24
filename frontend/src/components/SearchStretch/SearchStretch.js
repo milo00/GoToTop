@@ -18,13 +18,13 @@ function SearchStretchController() {
     const [mode, setMode] = useState([1])
     const [selectedStartPoint, setSelectedStartPoint] = useState([])
     const [selectedEndPoint, setSelectedEndPoint] = useState([])
+    const [selectedMiddlePoint, setSelectedMiddlePoint] = useState([])
 
-    const saveEndPointHandler = (point) => {
+    const savePointPropsHandler = (point, middlePoint) => {
 
-        console.log(point);
         setSelectedEndPoint(point);
+        setSelectedMiddlePoint(middlePoint);
         setMode(3);
-
     };
 
     const saveStartPointHandler = (point) => {
@@ -66,7 +66,7 @@ function SearchStretchController() {
                     selectedStartPoint.name
                 }
                 subtitle={'Wybierz punkt końcowy:'}/>
-             <section className = 'search__conteiner'><EndList getEndPoint={saveEndPointHandler}
+             <section className = 'search__conteiner'><EndList getPointProps={savePointPropsHandler}
                 stretches={response}
                 startPoint={selectedStartPoint}/> 
                 
@@ -78,7 +78,8 @@ function SearchStretchController() {
             }/>
             <section className = 'search__conteiner'><ScoredStretch stretches={response}
                 startPoint={selectedStartPoint}
-                endPoint={selectedEndPoint}/>
+                endPoint={selectedEndPoint}
+                middlePoint={selectedMiddlePoint}/>
                 </section>
              </section></>
             break;
@@ -93,6 +94,5 @@ function SearchStretchController() {
     )
 
 }
-
 
 export default SearchStretchController;

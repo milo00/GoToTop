@@ -10,7 +10,8 @@ function ScoredStretch({
     endPoint,
     middlePoint = ''
 }) {
-    const stretch = stretches.find((s) => s.startPoint.id === startPoint.id && s.endPoint.id === endPoint.id);
+    const stretch = stretches
+    .find((s) => s.startPoint.id === startPoint.id && s.endPoint.id === endPoint.id && s.middlePoint === middlePoint);
 
     const map = <Map showMarker={false} showRoute={true}
     startName={startPoint.name}
@@ -54,7 +55,7 @@ function ScoredStretch({
                     <tr className="border_bottom">
                         <th>Punkt pośredni (przez):</th>
                         <td>{
-                            stretch.middlePoint.name || stretch.middlePoint.name == '' ? stretch.middlePoint.name : '-'
+                            stretch.middlePoint != '' ? stretch.middlePoint : '-'
                         }</td>
                     </tr>
 

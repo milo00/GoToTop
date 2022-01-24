@@ -1,7 +1,6 @@
 import React from 'react';
 import GoogleMapReact from "google-map-react";
 import mapStyle from './mapStyle';
-import {useState} from "react";
 
 const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
 const DEFAULT_ZOOM = 10;
@@ -64,7 +63,7 @@ const Map = ({
                 if (status === maps.DirectionsStatus.OK) {
                     directionsRenderer.setDirections(result);
                 } else {
-                    console.error('error fetching directions ${result}');
+                    console.error('error fetching directions ' + result);
                 }
             });
 

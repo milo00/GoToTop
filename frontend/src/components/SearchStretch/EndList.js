@@ -2,6 +2,8 @@ import React from 'react';
 import RoutePointsList from './RoutePoints/RoutePointsList.js';
 import Map from '../UI/Map/Map'
 
+const SHOW_MARK_ZOOM = 13;
+
 function EndList({stretches, getEndPoint, startPoint}) {
 
 
@@ -11,16 +13,13 @@ function EndList({stretches, getEndPoint, startPoint}) {
     }).map(s => s.endPoint);
     const uniqueEndPoints = endPoints.filter((elem, idx) => idx === endPoints.findIndex(point => point.id === elem.id));
 
-
-    console.log('long' + startPoint.longitude);
-    console.log('lat' + startPoint.latitude);
     let map = <Map 
     startName={startPoint.name}
-    showMarker='true'
-    showRoute='false'
+    showMarker={true}
+    showRoute={false}
     startLng={startPoint.latitude}
     startLat={startPoint.longitude}
-    zoom={15}/>
+    zoom={SHOW_MARK_ZOOM}/>
     return(
     <> 
         <RoutePointsList 

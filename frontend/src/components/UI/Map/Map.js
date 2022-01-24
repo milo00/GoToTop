@@ -1,58 +1,30 @@
 import React from 'react';
 import GoogleMapReact from "google-map-react";
-import Marker from "google-map-react";
-import google from "google-map-react"
+import mapStyle from './mapStyle';
 import {useState} from "react";
 
 const API_KEY = process.env.REACT_APP_GOOGLE_API_KEY;
+const DEFAULT_ZOOM = 10;
+const DEFAULT_LABEL = '';
+const DEFAULT_START_POS ={lng: 20.09037, lat: 49.26123};
+const DEFAULT_END_POS ={lng: 20.08770, lat: 49.28219};
+const DEFAULT_STATE = false;
 
 const Map = ({
-    startName='',
-    endName='',
-    startLng = 20.09037,
-    startLat = 49.26123,
-    endLng = 20.087708,
-    endLat = 49.28219,
-    zoom = 10,
-    showMarker = false,
-    showRoute = false
+    startName = DEFAULT_LABEL,
+    startLng = DEFAULT_START_POS.lng,
+    startLat = DEFAULT_START_POS.lat,
+    endLng = DEFAULT_END_POS.lng,
+    endLat = DEFAULT_END_POS.lat,
+    zoom = DEFAULT_ZOOM,
+    showMarker = DEFAULT_STATE,
+    showRoute = DEFAULT_STATE
 }) => {
 
     console.log(startName)
     const startPoint = {lng: startLng, lat: startLat};
     const endPoint = {lng: endLng, lat: endLat};
-
-    const mapStyle = [
-            {
-                featureType: "poi",
-                elementType: "geometry",
-                stylers: [
-                    {
-                        color: "#eeeeee",
-                    },
-                ],
-            },
-            {
-                featureType: "poi",
-                elementType: "labels.text",
-                stylers: [
-                    {
-                        visibility: "off",
-                    },
-                ],
-            },
-            {
-                featureType: "water",
-                elementType: "labels.text.fill",
-                stylers: [
-                    {
-                        color: "#9e9e9e",
-                    },
-                ],
-            },
-        ];
-
-    
+   
 
     const apiIsLoaded = (map, maps) => {
 

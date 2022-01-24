@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Map from '../../UI/Map/Map'
 
+const SHOW_ROUTE_ZOOM = 13
 
 function ScoredStretch({
     stretches,
@@ -26,7 +27,7 @@ function ScoredStretch({
     endLat={
         endPoint.long
     }
-    zoom={12}
+    zoom={SHOW_ROUTE_ZOOM}
     labels/>
 
 

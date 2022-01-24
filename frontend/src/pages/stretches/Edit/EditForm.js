@@ -23,18 +23,14 @@ const EditForm = ({stretchToEdit, onEditHandle}) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		
-		if (e.target.middlePoint.value) {
-			middlePoint = e.target.middlePoint.value;
-		} else {
-			console.log("no middlePoint");
-		}
+		middlePoint = e.target.middlePoint.value;		
 
 		length = Number(e.target.length.value);
 		heightDifference = Number(e.target.heightDifference.value);
 		score = Number(e.target.score.value);
-		walkingTime = e.target.walkingTime.value;
+		walkingTime = e.target.walkingTime.value;   
 
-		walkingTime = moment(getDateFromString(walkingTime)).format("hh:mm:ss");
+		walkingTime = getDateFromString(walkingTime).toTimeString().split(' ')[0];
 
 		const stretch = {
 			stretchId: stretchToEdit.id,
@@ -49,9 +45,7 @@ const EditForm = ({stretchToEdit, onEditHandle}) => {
 
 		onEditHandle(stretch);
 
-        //navigate("/stretches/edit/" , {onEditHandler(stretch)});
-
-        
+        //navigate("/stretches/edit/" , {onEditHandler(stretch)});        
 
 
 	};

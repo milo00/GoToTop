@@ -1,6 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Map from '../../UI/Map/Map'
+import Map from '../../UI/Map/Map';
+import format from 'date-fns/format';
+import getDateFromString from '../../../utils/Util';
 
 const SHOW_ROUTE_ZOOM = 13
 
@@ -12,6 +14,8 @@ function ScoredStretch({
 }) {
     const stretch = stretches
     .find((s) => s.startPoint.id === startPoint.id && s.endPoint.id === endPoint.id && s.middlePoint === middlePoint);
+
+    console.log(stretch);
 
     const map = <Map showMarker={false} showRoute={true}
     startName={startPoint.name}
@@ -26,7 +30,7 @@ function ScoredStretch({
         endPoint.latitude
     }
     endLat={
-        endPoint.long
+        endPoint.longitude
     }
     zoom={SHOW_ROUTE_ZOOM}
     labels/>
@@ -83,7 +87,7 @@ function ScoredStretch({
                     <tr className="border_bottom">
                         <th>Czas przejścia:</th>
                         <td>{
-                            stretch.walkingTime || 0.0
+                            format(getDateFromString(stretch.walkingTime), 'hh:mm')
                         }</td>
                     </tr>
 

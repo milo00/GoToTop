@@ -20,7 +20,6 @@ const Map = ({
     showRoute = DEFAULT_STATE
 }) => {
 
-    console.log(startName)
     const startPoint = {lng: startLng, lat: startLat};
     const endPoint = {lng: endLng, lat: endLat};
    
@@ -50,6 +49,7 @@ const Map = ({
 
 
             directionsService.route({
+                
                 origin: {
                     lat: startPoint.lat,
                     lng: startPoint.lng

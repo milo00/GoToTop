@@ -70,7 +70,7 @@ public class ScoredStretchService {
 
             ScoredStretch scoredStretchToUpdate = scoredStretchById.get();
 
-            if(middlePoint.isPresent() && !middlePoint.get().equals(scoredStretchToUpdate.getMiddlePoint()) && middlePoint.get().length()>0){
+            if(middlePoint.isPresent() && !middlePoint.get().equals(scoredStretchToUpdate.getMiddlePoint())){
                 RoutePoint startPoint = scoredStretchToUpdate.getStartPoint();
                 RoutePoint endPoint = scoredStretchToUpdate.getEndPoint();
                 Optional<ScoredStretch> scoredStretchByKey = scoredStretchRepository.findStretchByKey(startPoint,

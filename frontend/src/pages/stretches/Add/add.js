@@ -9,9 +9,8 @@ const URI_STRETCHES = "http://localhost:8080/scoredStretch";
 
 const Add = () => {
 	const [errorPost, setErrorPost] = useState(null);
-	const [showAlert, setShowAlert] = useState(false);
-
-	let titleClass = "blurred";
+	const [showAlert, setShowAlert] = useState(true);
+	const [titleClass, setTitleClass] = useState("title");
 
 	const addStretchHandler = useCallback(async (stretch) => {
 		/*const {response, error, loading}  = useAxios({
@@ -21,20 +20,21 @@ const Add = () => {
             })*/
 
 		try {
-			const response = await fetch(URI_STRETCHES, {
-				method: "POST",
-				body: JSON.stringify(stretch),
-				headers: {
-					"Content-Type": "application/json",
-				},
-			});
+			// const response = await fetch(URI_STRETCHES, {
+			// 	method: "POST",
+			// 	body: JSON.stringify(stretch),
+			// 	headers: {
+			// 		"Content-Type": "application/json",
+			// 	},
+			// });
 
-			if (!response.ok) {
-				throw new Error("Error on posting!");
-			}
-			const data = await response.json();
+			// if (!response.ok) {
+			// 	throw new Error("Error on posting!");
+			// }
+			// const data = await response.json();
 
 			setShowAlert(true);
+			setTitleClass("blurred");
 		} catch (error) {
 			setErrorPost(error.message);
 		}
@@ -95,7 +95,7 @@ const Add = () => {
 						<hr />
 						<p> Z powodzeniem dodano nowy odcinek.</p>
 
-						<NavBtn>
+						<NavBtn className="btn">
 							<NavBtnLink to="/stretches">POWRÓT</NavBtnLink>
 						</NavBtn>
 					</Alert>

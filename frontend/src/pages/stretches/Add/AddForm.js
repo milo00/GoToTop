@@ -1,13 +1,7 @@
 import React from "react";
 import { useState } from "react";
-<<<<<<< HEAD
-import AddFormNewPointElement from "./AddFormNewPointElement";
-import moment from "moment";
-=======
 import AddFormNewPointElement from "./AddFormNewPointElement"
-import format from 'date-fns/format';
 import getDateFromString from "../../../utils/Util";
->>>>>>> fde4e7c8fc52af0059ce49942fa8d31c48b96fc4
 
 
 function getRoutePoint(stretches, id) {

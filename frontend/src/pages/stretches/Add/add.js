@@ -1,11 +1,46 @@
-import React, {useState} from "react";
-import useAxios from "../../utils/useAxios";
+import React, {useState, useCallback} from "react";
+import useAxios from "../../../utils/useAxios";
 import AddForm from "./AddForm";
 import axios from "axios";
 
 const URI_STRETCHES = "http://localhost:8080/scoredStretch";
 
 const Add = () => {
+
+    const [errorPost, setErrorPost] = useState(null);
+
+        const addStretchHandler = useCallback(async (stretch) => {
+
+            /*const {response, error, loading}  = useAxios({
+                method: 'post',
+                body: stretch,
+                headers: {'Content-Type':'application/json'}
+            })*/
+
+            try{
+            
+            const response = await fetch(URI_STRETCHES, {
+                method: 'POST',
+                body: JSON.stringify(stretch),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (! response.ok) {
+                throw new Error('Error on posting!');
+            }
+            const data = await response.json();
+            console.log(data);
+
+        } catch (error) {
+            setErrorPost(error.message);
+        }
+    }, []);
+
+
+    
+    //getting stretches to use them in form
     const {response, error, loading} = useAxios({method: "get", url: URI_STRETCHES});
     const stretches = response;
 
@@ -24,19 +59,7 @@ const Add = () => {
             return {value: stretch.id, label: stretch.name};
         });
 
-        async function addStretchHandler (stretch) {
-            
-            const response = await fetch(URI_STRETCHES, {
-                method: 'POST',
-                body: JSON.stringify(stretch),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            });
-            console.log(response);
-            const data = await response.json();
-            console.log(data);
-        }
+        
 
         return (
             <>

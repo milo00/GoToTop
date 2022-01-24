@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Map from '../Map/Map'
+import Map from '../../UI/Map/Map'
 
 
 function ScoredStretch({

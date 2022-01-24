@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import useAxios from "../../utils/useAxios";
+import useAxios from "../../../utils/useAxios";
 import SerachForEdit from "./SerachForEdit";
-import Header from "../../components/UI/Header";
+import Header from "../../../components/UI/Header";
 import EditForm from "./EditForm";
 
 const URI_STRETCHES = "http://localhost:8080/scoredStretch";

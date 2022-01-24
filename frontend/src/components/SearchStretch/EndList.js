@@ -1,6 +1,6 @@
 import React from 'react';
 import RoutePointsList from './RoutePoints/RoutePointsList.js';
-import Map from './Map/Map'
+import Map from '../UI/Map/Map'
 
 function EndList({stretches, getEndPoint, startPoint}) {
 

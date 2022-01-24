@@ -2,7 +2,7 @@ import React, {useCallback} from "react";
 import {Route, useParams} from "react-router-dom";
 import {useState} from "react";
 import moment from "moment";
-import Header from "../../components/UI/Header";
+import Header from "../../../components/UI/Header";
 import {useNavigate, useLocation} from "react-router-dom";
 import EditForm from "./EditForm";
 import axios from "axios";
@@ -49,26 +49,13 @@ const EditSpecificStretch = ({stretches}) => {
             }
 
             const data = await response.json();
+            console.log(data);
 
         } catch (error) {
             setError(error.message);
         }
         setIsLoading(false);
     }, []);
-
-
-    /*
-            const [response, setResponse] = useState(null);
-            const [error, setError] = useState('');
-            const [loading, setloading] = useState(true);
-
-            axios.put(uri, formData).then((res) => {
-                console.log(res);
-            }).catch((err) => {
-                setError(err);
-            }). finally(() => {
-                setloading(false);
-            });*/
 
 
     return(< EditForm stretchToEdit = {

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import AddFormNewPointElement from "./AddFormNewPointElement";
+import AddFormNewPointElement from "./AddFormNewPointElement"
 import moment from "moment";
 
 function getDateFromHours(time) {

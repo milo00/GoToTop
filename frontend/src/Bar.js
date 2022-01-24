@@ -7,9 +7,9 @@ import Search from "./pages/search";
 import Stretch from "./pages/stretches";
 import LogOut from "./pages/logout";
 import Remove from "./pages/stretches/remove";
-import Add from "./pages/stretches/add";
-import Edit from "./pages/stretches/edit";
-import EditSpecificStretch from "./pages/stretches/EditSpecificStretch";
+import Add from "./pages/stretches/Add/add";
+import Edit from "./pages/stretches/Edit/edit";
+import EditSpecificStretch from "./pages/stretches/Edit/EditSpecificStretch";
 import useAxios from "./utils/useAxios"
 
 const URI_STRETCHES = "http://localhost:8080/scoredStretch";

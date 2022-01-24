@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 import useAxios from "../../../utils/useAxios";
 import AddForm from "./AddForm";
-import axios from "axios";
 import { Alert } from "react-bootstrap";
 import { NavBtnLink, NavBtn } from "../../../components/NavBar/NavBarElements";
 

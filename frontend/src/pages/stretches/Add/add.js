@@ -9,7 +9,7 @@ const URI_STRETCHES = "http://localhost:8080/scoredStretch";
 
 const Add = () => {
 	const [errorPost, setErrorPost] = useState(null);
-	const [showAlert, setShowAlert] = useState(true);
+	const [showAlert, setShowAlert] = useState(false);
 	const [titleClass, setTitleClass] = useState("title");
 
 	const addStretchHandler = useCallback(async (stretch) => {
@@ -20,18 +20,18 @@ const Add = () => {
             })*/
 
 		try {
-			// const response = await fetch(URI_STRETCHES, {
-			// 	method: "POST",
-			// 	body: JSON.stringify(stretch),
-			// 	headers: {
-			// 		"Content-Type": "application/json",
-			// 	},
-			// });
+			const response = await fetch(URI_STRETCHES, {
+				method: "POST",
+				body: JSON.stringify(stretch),
+				headers: {
+					"Content-Type": "application/json",
+				},
+			});
 
-			// if (!response.ok) {
-			// 	throw new Error("Error on posting!");
-			// }
-			// const data = await response.json();
+			if (!response.ok) {
+				throw new Error("Error on posting!");
+			}
+			const data = await response.json();
 
 			setShowAlert(true);
 			setTitleClass("blurred");
@@ -78,7 +78,6 @@ const Add = () => {
 					<h3>Podaj szczegóły:</h3>
 
 					<AddForm
-						className="custom"
 						stretches={stretches}
 						startPoints={startPoints}
 						onAddStretch={(stretch) => addStretchHandler(stretch)}

@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import AddFormNewPointElement from "./AddFormNewPointElement"
+import AddFormNewPointElement from "./AddFormNewPointElement";
 import moment from "moment";
 
 function getDateFromHours(time) {
@@ -23,7 +23,7 @@ function getRoutePoint(stretches, id) {
 	)[0];
 }
 
-const AddForm = ({ stretches, startPoints, onAddStretch }) => {
+const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 	//const [stretch, setStretch] = useState();
 
 	const handleSubmit = (e) => {
@@ -83,40 +83,51 @@ const AddForm = ({ stretches, startPoints, onAddStretch }) => {
 		console.log(JSON.stringify(stretch));
 		onAddStretch(stretch);
 	};
-	return (
-		<form onSubmit={handleSubmit}>
-			<div className="form">
-				<AddFormNewPointElement routePoints={startPoints} />
 
-				<div className="form-control">
-					<label htmlFor="middlePoint">Punkt pośredni: </label>
-					<input type="text" id="middlePoint" name="middlePoint" />
+	if (show) {
+		return (
+			<form onSubmit={handleSubmit}>
+				<div className="form">
+					<AddFormNewPointElement routePoints={startPoints} />
+
+					<div className="form-control">
+						<label htmlFor="middlePoint">Punkt pośredni: </label>
+						<input type="text" id="middlePoint" name="middlePoint" />
+					</div>
+					<div className="form-control">
+						<label htmlFor="length">Długość: </label>
+						<input
+							type="number"
+							required
+							step="0.01"
+							id="length"
+							name="length"
+						/>
+					</div>
+					<div className="form-control">
+						<label htmlFor="heightDifference">Suma przewyższeń: </label>
+						<input
+							type="number"
+							required
+							id="heightDifference"
+							name="heightDifference"
+						/>
+					</div>
+					<div className="form-control">
+						<label htmlFor="score">Punkty: </label>
+						<input type="number" required id="score" name="score" />
+					</div>
+					<div className="form-control">
+						<label htmlFor="walkingTime">Czas przejścia: </label>
+						<input type="time" required id="walkingTime" name="walkingTime" />
+					</div>
+					<button type="submit">DODAJ</button>
 				</div>
-				<div className="form-control">
-					<label htmlFor="length">Długość: </label>
-					<input type="number" required step="0.01" id="length" name="length" />
-				</div>
-				<div className="form-control">
-					<label htmlFor="heightDifference">Suma przewyższeń: </label>
-					<input
-						type="number"
-						required
-						id="heightDifference"
-						name="heightDifference"
-					/>
-				</div>
-				<div className="form-control">
-					<label htmlFor="score">Punkty: </label>
-					<input type="number" required id="score" name="score" />
-				</div>
-				<div className="form-control">
-					<label htmlFor="walkingTime">Czas przejścia: </label>
-					<input type="time" required id="walkingTime" name="walkingTime" />
-				</div>
-				<button type="submit">DODAJ</button>
-			</div>
-		</form>
-	);
+			</form>
+		);
+	} else {
+		return <></>;
+	}
 };
 
 export default AddForm;

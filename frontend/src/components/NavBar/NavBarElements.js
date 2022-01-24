@@ -62,7 +62,6 @@ export const NavBtn = styled.nav`
 
 	/* Third Nav */
 	justify-content: center;
-	width: 100vw;
 
 	@media screen and (max-width: 768px) {
 		display: none;

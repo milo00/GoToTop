@@ -47,6 +47,71 @@ Global Styles
 ===============
 */
 
+.alert-conteiner {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 30vh;
+}
+
+.alert {
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	width: 40vw;
+	align-self: center;
+}
+
+.alert NavBtn {
+	display: block;
+}
+
+.alert h3 {
+	margin-top: 0;
+	color: inherit;
+	text-transform: none;
+	font-weight: 500;
+}
+
+.alert > p,
+.alert > ul {
+	margin-bottom: 1rem;
+	color: inherit;
+	font-weight: 300;
+}
+
+.alert .alert-heading {
+	color: inherit;
+}
+
+.alert > p + p {
+	margin-top: 5px;
+}
+
+.alert-dismissable,
+.alert-dismissible {
+	padding-right: 35px;
+}
+
+.alert-dismissable .close,
+.alert-dismissible .close {
+	position: relative;
+	top: -2px;
+	right: -21px;
+	color: inherit;
+}
+
+.alert-success {
+	background-color: #dff0d8;
+	border-color: #d6e9c6;
+	color: #57b42f;
+}
+
+.alert-success hr {
+	border-top-color: #c9e2b3;
+}
+
 button.button__back {
 	float: left;
 	max-width: fit-content;
@@ -114,15 +179,24 @@ button.button__back {
 	text-align: center;
 }
 
-.title h1 {
+.title h1,
+.blurred h1 {
 	font-weight: 300;
 	color: #57b42f;
 }
 
-.title h3 {
+.title h3,
+.blurred h3 {
 	font-weight: 300;
 	color: #707070;
 	text-transform: none;
+}
+
+.blurred {
+	margin-left: 5rem;
+	margin-top: 1.75rem;
+	filter: blur(5px);
+	-webkit-filter: blur(5px);
 }
 
 *,
@@ -140,7 +214,6 @@ button.button__back {
 	overflow: hidden;
 	border-radius: 25px;
 }
-
 
 .table {
 	background: var(--clr-white);
@@ -266,7 +339,7 @@ tbody:before {
 
 .form p {
 	text-align: center;
-	color:#707070;
+	color: #707070;
 }
 
 .form button.cancel {

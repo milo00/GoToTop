@@ -41,6 +41,8 @@ public class ScoredStretchService {
         } else if (scoredStretch.getMiddlePoint().isBlank()
                 && (scoredStretchRepository.countScoredStretchesWithTheSameStartAndEndPoint(scoredStretch.getStartPoint(), scoredStretch.getEndPoint()) > 1)) {
             throw new ScoredStretchConflictException("Cannot add new stretch with empty middle point if different middle point for this stretch already exists");
+        } else if (scoredStretchRepository.countScoredStretchesWithTheSameStartAndEndPoint(scoredStretch.getStartPoint(), scoredStretch.getEndPoint()) == 1) {
+            throw new ScoredStretchConflictException("Cannot add new stretch if the same stretch with empty middle point exists");
         } else {
             Optional<MountainArea> mountainAreaByKey = mountainAreaService.getMountainAreaByName(scoredStretch.getMountainArea().getName());
             if (mountainAreaByKey.isEmpty()) {

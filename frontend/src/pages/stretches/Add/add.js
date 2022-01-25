@@ -1,15 +1,21 @@
 import React, { useState, useCallback } from "react";
 import useAxios from "../../../utils/useAxios";
 import AddForm from "./AddForm";
-import { Alert } from "react-bootstrap";
-import { NavBtnLink, NavBtn } from "../../../components/NavBar/NavBarElements";
+import CustomAlert from "../CustomAlert";
 
 const URI_STRETCHES = "http://localhost:8080/scoredStretch";
 
 const Add = () => {
 	const [errorPost, setErrorPost] = useState(null);
-	const [showAlert, setShowAlert] = useState(false);
 	const [titleClass, setTitleClass] = useState("title");
+
+	const [alertClass, setAlertClass] = useState("alert alert-success");
+	const [alertBtnColor, setAlertBtnColor] = useState("#57b42f");
+	const [showAlert, setShowAlert] = useState(false);
+	const [alertTitle, setAlertTitle] = useState("Udało się!");
+	const [alertMessage, setAlertMessage] = useState(
+		"Z powodzeniem dodano nowy odcinek."
+	);
 
 	const addStretchHandler = useCallback(async (stretch) => {
 		try {
@@ -30,6 +36,48 @@ const Add = () => {
 			setShowAlert(true);
 			setTitleClass("blurred");
 		} catch (error) {
+			console.log(error.message);
+
+			if (error.message == "Stretch with given name already exists") {
+				console.log(alert);
+
+				setShowAlert(true);
+				setAlertClass("alert alert-warning");
+				setAlertBtnColor("#8a6d3b");
+				setTitleClass("blurred");
+				setAlertTitle("Coś poszło nie tak");
+				setAlertMessage(
+					"Nie można dodać podanego odcinka, ponieważ już istnieje. Jeżeli chcesz zmienić jego dane, przejdź do sekcji 'edytuj.'"
+				);
+			} else if (
+				error.message ==
+				"Cannot add new stretch if the same stretch with empty middle point exists"
+			) {
+				setShowAlert(true);
+				setAlertClass("alert alert-warning");
+				setAlertBtnColor("#8a6d3b");
+				setTitleClass("blurred");
+				setAlertTitle("Coś poszło nie tak");
+				setAlertMessage(
+					"Nie można dodać podanego odcinka, ponieważ istnieje już odcinek o podanym punkcie początkowym i końcowym, ale bez punktu pośredniego. Aby być w stanie dodać nowy odcinek, zedytuj punkt pośredni istniejącego odcinka."
+				);
+			} else if (
+				error.message ==
+				"Cannot add new stretch with empty middle point if different middle point for this stretch already exists"
+			) {
+				setShowAlert(true);
+				setAlertClass("alert alert-warning");
+				setAlertBtnColor("#8a6d3b");
+				setTitleClass("blurred");
+				setAlertTitle("Coś poszło nie tak");
+				setAlertMessage(
+					"Nie można dodać podanego odcinka, ponieważ istnieje już odcinek o podanym punkcie początkowym i końcowym. Aby być w stanie dodać nowy odcinek, dodaj punkt pośredni."
+				);
+			} else if (
+				error.message == "Points does not have the same mountain area"
+			) {
+				console.log(error.message);
+			}
 			console.log(error.message);
 			setErrorPost(error.message);
 		}
@@ -79,21 +127,13 @@ const Add = () => {
 						show={!showAlert}
 					/>
 				</section>
-				<div className="alert-conteiner">
-					<Alert
-						className="alert alert-success"
-						show={showAlert}
-						variant="success"
-					>
-						<h3 className="alert-heading">Udało się!</h3>
-						<hr />
-						<p> Z powodzeniem dodano nowy odcinek.</p>
-
-						<NavBtn className="btn">
-							<NavBtnLink to="/stretches">POWRÓT</NavBtnLink>
-						</NavBtn>
-					</Alert>
-				</div>
+				<CustomAlert
+					className={alertClass}
+					title={alertTitle}
+					message={alertMessage}
+					show={showAlert}
+					btnColor={alertBtnColor}
+				/>
 			</>
 		);
 	}

@@ -115,6 +115,16 @@ Global Styles
 	border-top-color: #c9e2b3;
 }
 
+.alert-warning {
+	background-color: #fcf8e3;
+	border-color: #faebcc;
+	color: #8a6d3b;
+}
+
+.alert-warning hr {
+	border-top-color: #f7e1b5;
+}
+
 button.button__back {
 	float: left;
 	max-width: fit-content;

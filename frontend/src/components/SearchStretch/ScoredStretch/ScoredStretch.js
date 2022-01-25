@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Map from "../../UI/Map/Map";
 import format from "date-fns/format";
 import getDateFromString from "../../../utils/Util";

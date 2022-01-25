@@ -34,6 +34,11 @@ public class ScoredStretchService {
     }
 
     public void addNewScoredStretch(ScoredStretch scoredStretch) {
+        if (scoredStretch.getMountainArea() == null) {
+            throw new MountainAreaNotFoundException("Points does not have the same mountain area");
+        }
+
+
         Optional<ScoredStretch> scoredStretchByKey = scoredStretchRepository.findStretchByKey(scoredStretch.getStartPoint(),
                 scoredStretch.getEndPoint(), scoredStretch.getMiddlePoint());
         if (scoredStretchByKey.isPresent()) {
@@ -44,11 +49,6 @@ public class ScoredStretchService {
         } else if (scoredStretchRepository.countScoredStretchesWithTheSameStartAndEndPoint(scoredStretch.getStartPoint(), scoredStretch.getEndPoint()) == 1) {
             throw new ScoredStretchConflictException("Cannot add new stretch if the same stretch with empty middle point exists");
         } else {
-            Optional<MountainArea> mountainAreaByKey = mountainAreaService.getMountainAreaByName(scoredStretch.getMountainArea().getName());
-            if (mountainAreaByKey.isEmpty()) {
-                throw new MountainAreaNotFoundException("Area does not exist");
-            }
-
             scoredStretchRepository.save(scoredStretch);
         }
     }
@@ -81,8 +81,6 @@ public class ScoredStretchService {
             ScoredStretch scoredStretchToUpdate = scoredStretchById.get();
 
             if (middlePoint.isPresent() && !middlePoint.get().equals(scoredStretchToUpdate.getMiddlePoint())) {
-
-
                 RoutePoint startPoint = scoredStretchToUpdate.getStartPoint();
                 RoutePoint endPoint = scoredStretchToUpdate.getEndPoint();
                 Optional<ScoredStretch> scoredStretchByKey = scoredStretchRepository.findStretchByKey(startPoint,
@@ -97,16 +95,15 @@ public class ScoredStretchService {
                 }
             }
 
-            if (score.isPresent() && !score.get().equals(scoredStretchToUpdate.getScore()) && score.get() > 0) {
+            if (score.isPresent() && !score.get().equals(scoredStretchToUpdate.getScore())) {
                 scoredStretchToUpdate.setScore(score.get());
             }
 
-            if (length.isPresent() && !length.get().equals(scoredStretchToUpdate.getLength()) && length.get() > 0) {
+            if (length.isPresent() && !length.get().equals(scoredStretchToUpdate.getLength())) {
                 scoredStretchToUpdate.setLength(length.get());
             }
 
-            if (heightDifference.isPresent() && !heightDifference.get().equals(scoredStretchToUpdate.getHeightDifference())
-                    && heightDifference.get() > 0) {
+            if (heightDifference.isPresent() && !heightDifference.get().equals(scoredStretchToUpdate.getHeightDifference())) {
                 scoredStretchToUpdate.setHeightDifference(heightDifference.get());
             }
 

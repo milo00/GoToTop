@@ -6,7 +6,6 @@ import CustomAlert from "../CustomAlert";
 const URI_STRETCHES = "http://localhost:8080/scoredStretch";
 
 const Add = () => {
-	const [errorPost, setErrorPost] = useState(null);
 	const [titleClass, setTitleClass] = useState("title");
 
 	const [alertClass, setAlertClass] = useState("alert alert-success");
@@ -76,10 +75,16 @@ const Add = () => {
 			} else if (
 				error.message == "Points does not have the same mountain area"
 			) {
-				console.log(error.message);
+				setShowAlert(true);
+				setAlertClass("alert alert-warning");
+				setAlertBtnColor("#8a6d3b");
+				setTitleClass("blurred");
+				setAlertTitle("Coś poszło nie tak");
+				setAlertMessage(
+					"Nie można dodać podanego odcinka, ponieważ jego punkty znajdują się w innych terenach górskich."
+				);
 			}
 			console.log(error.message);
-			setErrorPost(error.message);
 		}
 	}, []);
 

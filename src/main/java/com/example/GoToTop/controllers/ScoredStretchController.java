@@ -35,13 +35,8 @@ public class ScoredStretchController {
     public ResponseEntity registerNewScoredStretch(@RequestBody ScoredStretch scoredStretch)
             throws ScoredStretchAlreadyExistsException, MountainAreaNotFoundException, ScoredStretchConflictException {
 
-        try{
-            scoredStretchService.addNewScoredStretch(scoredStretch);
-        } catch (IllegalArgumentException e){
-            System.out.println("*******************************************");
-        }
+        scoredStretchService.addNewScoredStretch(scoredStretch);
         return new ResponseEntity<>(HttpStatus.CREATED);
-
     }
 
     @DeleteMapping(path = "{scoredStretchId}")

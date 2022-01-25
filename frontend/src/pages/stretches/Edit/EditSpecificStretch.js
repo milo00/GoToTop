@@ -1,17 +1,23 @@
 import React, { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
-import { Alert } from "react-bootstrap";
 import EditForm from "./EditForm";
-import { NavBtn, NavBtnLink } from "../../../components/NavBar/NavBarElements";
+import CustomAlert from "../CustomAlert";
 
 const URI_STRETCHES = "http://localhost:8080/scoredStretch/";
 
 const EditSpecificStretch = ({ stretches }) => {
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState(null);
+
 	const [titleClass, setTitleClass] = useState("title");
+
+	const [alertClass, setAlertClass] = useState("alert alert-success");
+	const [alertBtnColor, setAlertBtnColor] = useState("#57b42f");
 	const [showAlert, setShowAlert] = useState(false);
+	const [alertTitle, setAlertTitle] = useState("Udało się!");
+	const [alertMessage, setAlertMessage] = useState(
+		"Z powodzeniem zedytowano odcinek."
+	);
 
 	const { id } = useParams();
 
@@ -31,7 +37,6 @@ const EditSpecificStretch = ({ stretches }) => {
 		let uri = URI_STRETCHES + stretch.stretchId;
 
 		setIsLoading(true);
-		setError(null);
 		try {
 			const response = await fetch(uri, {
 				method: "PUT",
@@ -40,17 +45,38 @@ const EditSpecificStretch = ({ stretches }) => {
 
 			const data = await response.text();
 
-			
 			if (!response.ok) {
 				throw new Error(data);
 			}
 
 			console.log(response);
-			setShowAlert(true);
-			setTitleClass("blurred");
 		} catch (error) {
-			setError(error.message);
-			console.log(error);
+			if (error.message == "Stretch with given name already exists") {
+				console.log(alert);
+
+				setShowAlert(true);
+				setAlertClass("alert alert-warning");
+				setAlertBtnColor("#8a6d3b");
+				setTitleClass("blurred");
+				setAlertTitle("Coś poszło nie tak");
+				setAlertMessage(
+					"Nie można zedytować podanego odcinka, ponieważ istnieje inny odcinek o takim samym punkcie początkowym, końcowym oraz środkowym."
+				);
+			} else if (
+				error.message ==
+				"Cannot delete middle point if different middle point for the stretch still exists"
+			) {
+				console.log(alert);
+
+				setShowAlert(true);
+				setAlertClass("alert alert-warning");
+				setAlertBtnColor("#8a6d3b");
+				setTitleClass("blurred");
+				setAlertTitle("Coś poszło nie tak");
+				setAlertMessage(
+					"Nie można zedytować podanego odcinka, ponieważ istnieje inny odcinek o podanym punkcie początkowym i końcowym. Aby można było poprawnie je zidentyfikować, dodaj punkt pośredni"
+				);
+			}
 		}
 		setIsLoading(false);
 	}, []);
@@ -68,21 +94,13 @@ const EditSpecificStretch = ({ stretches }) => {
 				onEditHandle={editStretchHandler}
 				show={!showAlert}
 			/>
-			<div className="alert-conteiner">
-				<Alert
-					className="alert alert-success"
-					show={showAlert}
-					variant="success"
-				>
-					<h3 className="alert-heading">Udało się!</h3>
-					<hr />
-					<p> Z powodzeniem zedytowano odcinek.</p>
-
-					<NavBtn className="btn">
-						<NavBtnLink to="/stretches">POWRÓT</NavBtnLink>
-					</NavBtn>
-				</Alert>
-			</div>
+			<CustomAlert
+				className={alertClass}
+				title={alertTitle}
+				message={alertMessage}
+				show={showAlert}
+				btnColor={alertBtnColor}
+			/>
 		</>
 	);
 };

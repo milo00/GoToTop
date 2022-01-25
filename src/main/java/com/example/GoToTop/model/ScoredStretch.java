@@ -51,10 +51,6 @@ public class ScoredStretch {
             Time walkingTime) {
         Optional<MountainArea> common = findCommonArea(startPoint, endPoint);
 
-        if (common.isEmpty()) {
-            System.out.println("**********************************************************************");
-            throw new IllegalArgumentException("Points does not have the same mountain area");
-        }
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.middlePoint = middlePoint;
@@ -62,7 +58,7 @@ public class ScoredStretch {
         this.length = length;
         this.heightDifference = Math.abs(startPoint.getAltitude() - endPoint.getAltitude());
         this.walkingTime = walkingTime;
-        this.mountainArea = common.get();
+        this.mountainArea = common.isEmpty() ? null : common.get();
     }
 
     private Optional<MountainArea> findCommonArea(RoutePoint startPoint, RoutePoint endPoint) {

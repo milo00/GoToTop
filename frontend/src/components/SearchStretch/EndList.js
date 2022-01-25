@@ -14,8 +14,8 @@ function EndList({stretches, getPointProps, startPoint}) {
     startName={startPoint.name}
     showMarker={true}
     showRoute={false}
-    startLng={startPoint.latitude}
-    startLat={startPoint.longitude}
+    startLng={startPoint.longitude}
+    startLat={startPoint.latitude}
     zoom={SHOW_MARK_ZOOM}/>
 
     return(

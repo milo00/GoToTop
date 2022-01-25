@@ -20,12 +20,12 @@ const Bar = () => {
     const stretches = response;
 
     if (loading) {
-        return (<h1>Loading...</h1>);
+        return (<h3 className="loading">Loading...</h3>);
     } else if (error) {
         return (
-            <error>
-                <p>{error}</p>
-            </error>
+            <div className="error">
+                <h3>{error}</h3>
+            </div>
         );
     } else {
 	return (

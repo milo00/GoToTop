@@ -39,7 +39,7 @@ function ScoredStretch({
     return (
         <>
             <table className='table'>
-                <thead>Szczegóły odcinka:
+                <thead><p>Szczegóły odcinka:</p>
                 </thead>
                 <tbody>
                     <tr className="border_bottom">

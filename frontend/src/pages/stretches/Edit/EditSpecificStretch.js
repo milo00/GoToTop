@@ -38,8 +38,11 @@ const EditSpecificStretch = ({ stretches }) => {
 				body: formData,
 			});
 
+			const data = await response.text();
+
+			
 			if (!response.ok) {
-				throw new Error("Something went wrong!");
+				throw new Error(data);
 			}
 
 			console.log(response);
@@ -71,7 +74,7 @@ const EditSpecificStretch = ({ stretches }) => {
 					show={showAlert}
 					variant="success"
 				>
-					<h3 class="alert-heading">Udało się!</h3>
+					<h3 className="alert-heading">Udało się!</h3>
 					<hr />
 					<p> Z powodzeniem zedytowano odcinek.</p>
 

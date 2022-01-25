@@ -12,11 +12,6 @@ const Add = () => {
 	const [titleClass, setTitleClass] = useState("title");
 
 	const addStretchHandler = useCallback(async (stretch) => {
-		/*const {response, error, loading}  = useAxios({
-                method: 'post',
-                body: stretch,
-                headers: {'Content-Type':'application/json'}
-            })*/
 
 		try {
 			const response = await fetch(URI_STRETCHES, {
@@ -27,14 +22,18 @@ const Add = () => {
 				},
 			});
 
-			if (!response.ok) {
-				throw new Error("Error on posting!");
-			}
-			const data = await response.json();
+			const data = await response.text();
 
-			setShowAlert(true);
+			
+			if (!response.ok) {
+				throw new Error(data);
+			}			
+
+			setShowAlert(true);			
 			setTitleClass("blurred");
+
 		} catch (error) {
+			console.log(error.message);
 			setErrorPost(error.message);
 		}
 	}, []);
@@ -48,11 +47,11 @@ const Add = () => {
 
 	if (loading) {
 		return <h1>Loading...</h1>;
-	} else if (error) {
+	} else if (error) {		
 		return (
-			<error>
-				<p>{error}</p>
-			</error>
+			<div className="error">
+				<h3>{error}</h3>
+			</div>
 		);
 	} else {
 		const stretchStartRoutePoints = stretches

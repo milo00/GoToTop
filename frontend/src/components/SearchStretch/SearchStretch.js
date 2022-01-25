@@ -14,6 +14,7 @@ const URI_STRETCHES = 'http://localhost:8080/scoredStretch';
 function SearchStretchController() {
 
     const {response, error, loading} = useAxios({method: 'get', url: URI_STRETCHES});
+    
 
     const [mode, setMode] = useState([1])
     const [selectedStartPoint, setSelectedStartPoint] = useState([])
@@ -40,9 +41,7 @@ function SearchStretchController() {
 
     if (loading) {
         return (
-            <section className={
-                classes.StretchLoading
-            }>
+            <section className='loading'>
                 <p>Loading...</p>
             </section>
         );
@@ -50,10 +49,8 @@ function SearchStretchController() {
 
     if (error) {
         return (
-            <error className={
-                classes.StretchError
-            }>
-                <p>{error}</p>
+            <error className='error'>
+                <p>{error.message}</p>
             </error>
         );
     }

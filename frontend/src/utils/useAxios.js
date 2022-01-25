@@ -14,7 +14,11 @@ const useAxios = ({ url, method, body = null, headers = null }) => {
                 setResponse(res.data);
             })
             .catch((err) => {
-                setError(err);
+                if(!err.response){
+                    setError('Network Error - check your connection!')
+                }else{
+                    setError(err);
+                }
             })
             .finally(() => {
                 setloading(false);

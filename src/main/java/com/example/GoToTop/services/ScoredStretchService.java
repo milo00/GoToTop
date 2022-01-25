@@ -1,5 +1,9 @@
 package com.example.GoToTop.services;
 
+import com.example.GoToTop.exceptions.MountainAreaNotFoundException;
+import com.example.GoToTop.exceptions.ScoredStretchAlreadyExistsException;
+import com.example.GoToTop.exceptions.ScoredStretchConflictException;
+import com.example.GoToTop.exceptions.ScoredStretchNotFoundException;
 import com.example.GoToTop.model.MountainArea;
 import com.example.GoToTop.model.RoutePoint;
 import com.example.GoToTop.model.ScoredStretch;
@@ -33,20 +37,24 @@ public class ScoredStretchService {
         Optional<ScoredStretch> scoredStretchByKey = scoredStretchRepository.findStretchByKey(scoredStretch.getStartPoint(),
                 scoredStretch.getEndPoint(), scoredStretch.getMiddlePoint());
         if (scoredStretchByKey.isPresent()) {
-            throw new IllegalStateException("stretch with given name already exist");
-        }
+            throw new ScoredStretchAlreadyExistsException("Stretch with given name already exists");
+        } else if (scoredStretch.getMiddlePoint().isBlank()
+                && (scoredStretchRepository.countScoredStretchesWithTheSameStartAndEndPoint(scoredStretch.getStartPoint(), scoredStretch.getEndPoint()) > 1)) {
+            throw new ScoredStretchConflictException("Cannot add new stretch with empty middle point if different middle point for this stretch already exists");
+        } else {
+            Optional<MountainArea> mountainAreaByKey = mountainAreaService.getMountainAreaByName(scoredStretch.getMountainArea().getName());
+            if (mountainAreaByKey.isEmpty()) {
+                throw new MountainAreaNotFoundException("Area does not exist");
+            }
 
-        Optional<MountainArea> mountainAreaByKey = mountainAreaService.getMountainAreaByName(scoredStretch.getMountainArea().getName());
-        if (mountainAreaByKey.isEmpty()) {
-            throw new IllegalStateException("given area does not exist");
+            scoredStretchRepository.save(scoredStretch);
         }
-        scoredStretchRepository.save(scoredStretch);
     }
 
     public void deleteScoredStretch(Long id) {
         Optional<ScoredStretch> scoredStretchById = scoredStretchRepository.findById(id);
         if (scoredStretchById.isEmpty()) {
-            throw new IllegalStateException("stretch does not exist");
+            throw new ScoredStretchNotFoundException("Stretch does not exist");
         }
         scoredStretchRepository.delete(scoredStretchById.get());
     }
@@ -55,7 +63,7 @@ public class ScoredStretchService {
         Optional<ScoredStretch> scoredStretchById = scoredStretchRepository.findStretchByKey(startPoint,
                 endPoint, middlePoint);
         if (scoredStretchById.isEmpty()) {
-            throw new IllegalStateException("stretch does not exist");
+            throw new ScoredStretchNotFoundException("Stretch does not exist");
         }
         scoredStretchRepository.delete(scoredStretchById.get());
     }
@@ -65,22 +73,28 @@ public class ScoredStretchService {
                                     Optional<Float> heightDifference, Optional<Time> walkingTime) {
         Optional<ScoredStretch> scoredStretchById = scoredStretchRepository.findById(id);
         if (scoredStretchById.isEmpty()) {
-            throw new IllegalStateException("stretch does not exist");
+            throw new ScoredStretchNotFoundException("Stretch does not exist");
         } else {
 
             ScoredStretch scoredStretchToUpdate = scoredStretchById.get();
 
-            if(middlePoint.isPresent() && !middlePoint.get().equals(scoredStretchToUpdate.getMiddlePoint())){
+            if (middlePoint.isPresent() && !middlePoint.get().equals(scoredStretchToUpdate.getMiddlePoint())) {
+
+
                 RoutePoint startPoint = scoredStretchToUpdate.getStartPoint();
                 RoutePoint endPoint = scoredStretchToUpdate.getEndPoint();
                 Optional<ScoredStretch> scoredStretchByKey = scoredStretchRepository.findStretchByKey(startPoint,
                         endPoint, middlePoint.get());
                 if (scoredStretchByKey.isPresent()) {
-                    throw new IllegalStateException("stretch with given name already exist");
-                }else {
+                    throw new ScoredStretchAlreadyExistsException("Stretch with given name already exists");
+                } else if (middlePoint.get().isBlank()
+                        && (scoredStretchRepository.countScoredStretchesWithTheSameStartAndEndPoint(startPoint, endPoint) > 1)) {
+                    throw new ScoredStretchConflictException("Cannot delete middle point if different middle point for the stretch still exists");
+                } else {
                     scoredStretchToUpdate.setMiddlePoint(middlePoint.get());
                 }
             }
+
             if (score.isPresent() && !score.get().equals(scoredStretchToUpdate.getScore()) && score.get() > 0) {
                 scoredStretchToUpdate.setScore(score.get());
             }
@@ -99,4 +113,5 @@ public class ScoredStretchService {
             }
         }
     }
+
 }

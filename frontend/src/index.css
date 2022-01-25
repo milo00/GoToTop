@@ -459,6 +459,12 @@ main {
 }
 
 .loading {
+	color: #707070;
+	text-align: center;
+}
+
+.error {
+	color: red;
 	text-align: center;
 }
 

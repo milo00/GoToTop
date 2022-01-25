@@ -11,7 +11,7 @@ import java.util.List;
 @Configuration
 public class MountainAreaConfig {
 
-    //  @Bean
+//    @Bean
     CommandLineRunner commandLineRunnerMountainAreas(MountainAreaRepository repository) {
         return args -> repository.saveAll(List.of(
                 new MountainArea("Tatry Wysokie"),

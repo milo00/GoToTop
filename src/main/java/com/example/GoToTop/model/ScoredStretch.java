@@ -7,13 +7,13 @@ import java.sql.Time;
 import java.util.Optional;
 
 @Entity
-@Table
+@Table(uniqueConstraints =
+@UniqueConstraint(columnNames = {"start_point_id", "end_point_id", "middlePoint"}))
 @Access(AccessType.PROPERTY)
 public class ScoredStretch {
     private Long id;
     private RoutePoint startPoint;
     private RoutePoint endPoint;
-    //TODO: middlePoint should be string or point?
     private String middlePoint;
     private int score;
     private float length;

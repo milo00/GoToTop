@@ -20,16 +20,16 @@ public class RoutePoint {
     public RoutePoint() {
     }
 
-    public RoutePoint(Long id, String name, float longitude, float latitude, float altitude, MountainArea ... mountainAreas) {
+    public RoutePoint(Long id, String name, float latitude, float longitude, float altitude, MountainArea... mountainAreas) {
         this.id = id;
         this.name = name;
-        this.longitude = longitude;
         this.latitude = latitude;
+        this.longitude = longitude;
         this.altitude = altitude;
         this.mountainAreas = Stream.of(mountainAreas).collect(Collectors.toSet());
     }
 
-    public RoutePoint(String name, float longitude, float latitude, float altitude, MountainArea ... mountainAreas) {
+    public RoutePoint(String name, float latitude, float longitude, float altitude, MountainArea... mountainAreas) {
         this.name = name;
         this.longitude = longitude;
         this.latitude = latitude;

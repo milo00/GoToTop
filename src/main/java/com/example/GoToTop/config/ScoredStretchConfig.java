@@ -26,7 +26,7 @@ public class ScoredStretchConfig {
         this.routePointRepository = routePointRepository;
     }
 
-  //  @Bean
+//    @Bean
     CommandLineRunner commandLineRunnerScoredStretch(ScoredStretchRepository repository) {
         return args -> repository.saveAll(List.of(
                 new ScoredStretch(routePointRepository.findByName("Rusinowa Polana").get(),

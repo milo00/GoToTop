@@ -12,7 +12,6 @@ const Add = () => {
 	const [titleClass, setTitleClass] = useState("title");
 
 	const addStretchHandler = useCallback(async (stretch) => {
-
 		try {
 			const response = await fetch(URI_STRETCHES, {
 				method: "POST",
@@ -24,14 +23,12 @@ const Add = () => {
 
 			const data = await response.text();
 
-			
 			if (!response.ok) {
 				throw new Error(data);
-			}			
+			}
 
-			setShowAlert(true);			
+			setShowAlert(true);
 			setTitleClass("blurred");
-
 		} catch (error) {
 			console.log(error.message);
 			setErrorPost(error.message);
@@ -47,7 +44,7 @@ const Add = () => {
 
 	if (loading) {
 		return <h1>Loading...</h1>;
-	} else if (error) {		
+	} else if (error) {
 		return (
 			<div className="error">
 				<h3>{error}</h3>
@@ -88,7 +85,7 @@ const Add = () => {
 						show={showAlert}
 						variant="success"
 					>
-						<h3 class="alert-heading">Udało się!</h3>
+						<h3 className="alert-heading">Udało się!</h3>
 						<hr />
 						<p> Z powodzeniem dodano nowy odcinek.</p>
 

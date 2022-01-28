@@ -13,44 +13,11 @@ function customTheme(theme) {
 	};
 }
 
-let previousNew2State = null;
-
 const AddFormNewPointElement = ({ routePoints }) => {
 	const [endPoints, setEndPoints] = useState(routePoints);
 	const [startPoints, setStartPoints] = useState(routePoints);
 	const [new1, setNew1] = useState(false);
 	const [new2, setNew2] = useState(false);
-
-	// useEffect(() => {
-	// 	if (new1 && !new2) {
-	// 		const stretchStartRoutePoints = stretches
-	// 			.map((stretch) => stretch.startPoint)
-	// 			.filter(
-	// 				(ele, ind) =>
-	// 					ind ===
-	// 					stretches.findIndex(
-	// 						(elem) =>
-	// 							elem.startPoint.id === ele.id &&
-	// 							elem.startPoint.name === ele.name
-	// 					)
-	// 			);
-
-	// 		const allPoints = stretchStartRoutePoints.map((stretch) => {
-	// 			return { value: stretch.id, label: stretch.name };
-	// 		});
-
-	// 		setEndPoints(allPoints);
-	// 		setCustomPlaceholder("Wybierz punkt końcowy");
-	// 	} else if (
-	// 		!new1 &&
-	// 		!new2 &&
-	// 		(!previousNew2State || previousNew2State == null)
-	// 	) {
-	// 		setEndPoints([]);
-	// 		setValue(null);
-	// 		setCustomPlaceholder("Najpier wybierz punkt początkowy");
-	// 	}
-	// }, [new1, new2]);
 
 	const handleStartPointChange = (selectedOption, { action }) => {
 		if (action == "select-option") {
@@ -81,7 +48,6 @@ const AddFormNewPointElement = ({ routePoints }) => {
 				value="new1"
 				onClick={() => {
 					setNew1(!new1);
-					previousNew2State = null;
 				}}
 			/>
 			<label id="new" htmlFor="new1">
@@ -111,8 +77,6 @@ const AddFormNewPointElement = ({ routePoints }) => {
 				value="new2"
 				onClick={() => {
 					setNew2(!new2);
-					previousNew2State =
-						previousNew2State == null ? false : !previousNew2State;
 				}}
 			/>
 			<label id="new" htmlFor="new2">
@@ -142,7 +106,6 @@ const AddFormNewPointElement = ({ routePoints }) => {
 				value="new1"
 				onClick={() => {
 					setNew1(!new1);
-					previousNew2State = null;
 				}}
 			/>
 			<label id="new" htmlFor="new1">
@@ -162,8 +125,6 @@ const AddFormNewPointElement = ({ routePoints }) => {
 				value="new2"
 				onClick={() => {
 					setNew2(!new2);
-					previousNew2State =
-						previousNew2State == null ? false : !previousNew2State;
 				}}
 			/>
 			<label id="new" htmlFor="new2">

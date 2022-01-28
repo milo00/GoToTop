@@ -1,8 +1,6 @@
 import React from "react";
-import { useState } from "react";
-import AddFormNewPointElement from "./AddFormNewPointElement"
+import AddFormNewPointElement from "./AddFormNewPointElement";
 import getDateFromString from "../../../utils/Util";
-
 
 function getRoutePoint(stretches, id) {
 	const pointWithrepetitions = stretches
@@ -62,7 +60,7 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 		score = Number(e.target.score.value);
 		walkingTime = e.target.walkingTime.value;
 
-		walkingTime = getDateFromString(walkingTime).toTimeString().split(' ')[0];
+		walkingTime = getDateFromString(walkingTime).toTimeString().split(" ")[0];
 
 		const stretch = {
 			startPoint: startPoint,
@@ -70,7 +68,7 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 			middlePoint: middlePoint,
 			score: score,
 			length: length,
-			//heightDifference: heightDifference,
+			heightDifference: heightDifference,
 
 			walkingTime: walkingTime,
 		};

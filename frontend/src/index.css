@@ -252,7 +252,6 @@ th {
 	color: #707070;
 }
 
-
 tbody:before {
 	content: "-";
 	display: block;
@@ -296,6 +295,11 @@ tbody:before {
 .select {
 	margin-left: 10rem;
 	width: 30vw;
+}
+
+.add-select {
+	margin-left: 12rem;
+	width: 28vw;
 }
 
 .form .form-control input {

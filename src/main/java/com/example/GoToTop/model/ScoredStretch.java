@@ -22,7 +22,6 @@ public class ScoredStretch {
     private MountainArea mountainArea;
 
     public ScoredStretch() {
-        System.out.println("dupa4");
 
     }
 
@@ -30,7 +29,7 @@ public class ScoredStretch {
                          float length, Time walkingTime) {
         Optional<MountainArea> common = findCommonArea(startPoint, endPoint);
 
-        System.out.println("dupa1");
+
         if (common.isEmpty()) {
             throw new IllegalArgumentException("Points does not have the same mountain area");
         }

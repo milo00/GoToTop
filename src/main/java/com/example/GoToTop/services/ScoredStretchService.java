@@ -21,12 +21,8 @@ import java.util.Optional;
 public class ScoredStretchService {
     private final ScoredStretchRepository scoredStretchRepository;
 
-    @Autowired
-    private final MountainAreaService mountainAreaService;
-
-    public ScoredStretchService(ScoredStretchRepository scoredStretchRepository, MountainAreaService mountainAreaService) {
+    public ScoredStretchService(ScoredStretchRepository scoredStretchRepository) {
         this.scoredStretchRepository = scoredStretchRepository;
-        this.mountainAreaService = mountainAreaService;
     }
 
     public List<ScoredStretchProjection> getScoredStretch() {
@@ -37,7 +33,6 @@ public class ScoredStretchService {
         if (scoredStretch.getMountainArea() == null) {
             throw new MountainAreaNotFoundException("Points does not have the same mountain area");
         }
-
 
         Optional<ScoredStretch> scoredStretchByKey = scoredStretchRepository.findStretchByKey(scoredStretch.getStartPoint(),
                 scoredStretch.getEndPoint(), scoredStretch.getMiddlePoint());

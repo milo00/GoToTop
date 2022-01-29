@@ -34,8 +34,6 @@ const AddFormNewPoint = (id) => {
 		);
 	}
 
-	console.log(areas);
-
 	return (
 		<div>
 			<div className="form-control">

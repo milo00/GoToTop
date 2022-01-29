@@ -7,7 +7,6 @@ import java.util.stream.Stream;
 
 @Entity
 @Table
-@Access(AccessType.PROPERTY)
 public class RoutePoint {
 
     private Long id;
@@ -70,7 +69,7 @@ public class RoutePoint {
         this.altitude = altitude;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany
     @JoinTable(
             name = "areas_of_points",
             joinColumns = @JoinColumn(name = "mountain_area_id"),
@@ -100,5 +99,17 @@ public class RoutePoint {
     )
     public Long getId() {
         return id;
+    }
+
+    @Override
+    public String toString() {
+        return "RoutePoint{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", longitude=" + longitude +
+                ", latitude=" + latitude +
+                ", altitude=" + altitude +
+                ", mountainAreas=" + mountainAreas +
+                '}';
     }
 }

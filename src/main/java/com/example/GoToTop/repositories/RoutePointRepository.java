@@ -15,4 +15,5 @@ public interface RoutePointRepository extends JpaRepository<RoutePoint, Long> {
     @Query("SELECT a FROM RoutePoint a")
     List<RoutePointProjection> findAllRoutes();
 
+    boolean existsByName(String name);
 }

@@ -5,6 +5,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.util.Arrays;
+
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -31,6 +33,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity databaseConnectionFailsException(Exception exception) {
+        System.out.println(exception.getMessage());
+        System.out.println(Arrays.toString(exception.getStackTrace()));
         return new ResponseEntity<>("Connectivity lost", HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

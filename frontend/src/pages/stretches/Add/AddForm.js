@@ -1,6 +1,9 @@
 import React from "react";
 import AddFormNewPointElement from "./AddFormNewPointElement";
 import getDateFromString from "../../../utils/Util";
+import useAxios from "../../../utils/useAxios";
+
+const URI_AREAS = "http://localhost:8080/mountainArea";
 
 function getRoutePoint(stretches, id) {
 	const pointWithrepetitions = stretches
@@ -17,7 +20,21 @@ function getRoutePoint(stretches, id) {
 }
 
 const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
-	//const [stretch, setStretch] = useState();
+	const { response, error, loading } = useAxios({
+		method: "get",
+		url: URI_AREAS,
+	});
+	const areas = response;
+
+	if (loading) {
+		return <h1>Loading...</h1>;
+	} else if (error) {
+		return (
+			<div className="error">
+				<h3>{error}</h3>
+			</div>
+		);
+	}
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -37,6 +54,9 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 				longitude: Number(e.target.longitude1.value),
 				latitude: Number(e.target.latitude1.value),
 				altitude: Number(e.target.altitude1.value),
+				mountainAreas: areas.filter(
+					(mountainArea) => mountainArea.id === e.target.mountainArea1.value
+				),
 			};
 		}
 		if (e.target.endPoint) {
@@ -47,6 +67,9 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 				longitude: Number(e.target.longitude2.value),
 				latitude: Number(e.target.latitude2.value),
 				altitude: Number(e.target.altitude2.value),
+				mountainAreas: areas.filter(
+					(mountainArea) => mountainArea.id == e.target.mountainArea2.value
+				),
 			};
 		}
 		if (e.target.middlePoint.value) {
@@ -69,7 +92,6 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 			score: score,
 			length: length,
 			heightDifference: heightDifference,
-
 			walkingTime: walkingTime,
 		};
 

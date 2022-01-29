@@ -9,7 +9,6 @@ import java.util.Optional;
 @Entity
 @Table(uniqueConstraints =
 @UniqueConstraint(columnNames = {"start_point_id", "end_point_id", "middlePoint"}))
-@Access(AccessType.PROPERTY)
 public class ScoredStretch {
     private Long id;
     private RoutePoint startPoint;
@@ -47,9 +46,10 @@ public class ScoredStretch {
 
     @JsonCreator
     public ScoredStretch(RoutePoint startPoint, RoutePoint endPoint, String middlePoint, int score, float length,
-            Time walkingTime) {
+                         Time walkingTime) {
         Optional<MountainArea> common = findCommonArea(startPoint, endPoint);
 
+        System.out.println(endPoint);
         this.startPoint = startPoint;
         this.endPoint = endPoint;
         this.middlePoint = middlePoint;

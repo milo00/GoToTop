@@ -21,6 +21,10 @@ public class RoutePointService {
         this.routePointRepository = routePointRepository;
     }
 
+    public boolean existsByName(String name){
+        return routePointRepository.existsByName(name);
+    }
+
     public List<RoutePointProjection> getRoutePoints() {return routePointRepository.findAllRoutes();}
 
     public void addNewRoutePoint(RoutePoint routePoint) {
@@ -60,8 +64,6 @@ public class RoutePointService {
             if(mountainAreas.isPresent() && mountainAreas.get().size()>0){
                 routePointToUpdate.setMountainAreas(mountainAreas.get());
             }
-
-
         }
     }
 }

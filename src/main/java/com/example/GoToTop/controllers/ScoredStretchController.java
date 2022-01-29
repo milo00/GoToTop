@@ -6,7 +6,9 @@ import com.example.GoToTop.exceptions.ScoredStretchConflictException;
 import com.example.GoToTop.exceptions.ScoredStretchNotFoundException;
 import com.example.GoToTop.model.ScoredStretch;
 import com.example.GoToTop.model.projection.ScoredStretchProjection;
+import com.example.GoToTop.services.RoutePointService;
 import com.example.GoToTop.services.ScoredStretchService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,9 +23,12 @@ import java.util.Optional;
 public class ScoredStretchController {
 
     private final ScoredStretchService scoredStretchService;
+    private final RoutePointService routePointService;
 
-    public ScoredStretchController(ScoredStretchService scoredStretchService) {
+    @Autowired
+    public ScoredStretchController(ScoredStretchService scoredStretchService, RoutePointService routePointService) {
         this.scoredStretchService = scoredStretchService;
+        this.routePointService = routePointService;
     }
 
     @GetMapping
@@ -34,6 +39,15 @@ public class ScoredStretchController {
     @PostMapping
     public ResponseEntity registerNewScoredStretch(@RequestBody ScoredStretch scoredStretch)
             throws ScoredStretchAlreadyExistsException, MountainAreaNotFoundException, ScoredStretchConflictException {
+        System.out.println(scoredStretch);
+
+        if (!routePointService.existsByName(scoredStretch.getStartPoint().getName())) {
+            routePointService.addNewRoutePoint(scoredStretch.getStartPoint());
+        }
+
+        if (!routePointService.existsByName(scoredStretch.getEndPoint().getName())) {
+            routePointService.addNewRoutePoint(scoredStretch.getEndPoint());
+        }
 
         scoredStretchService.addNewScoredStretch(scoredStretch);
         return new ResponseEntity<>(HttpStatus.CREATED);

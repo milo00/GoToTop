@@ -60,9 +60,10 @@ const AddFormNewPoint = (id) => {
 			<div className="form-control">
 				<label htmlFor={"latitude" + id}>Szerokość geograficzna: </label>
 				<input
+					minLength={1}
 					required
 					className="new-point"
-					type="number"
+					type="text"
 					step="0.000001"
 					id={"latitude" + id}
 					name={"latitude" + id}

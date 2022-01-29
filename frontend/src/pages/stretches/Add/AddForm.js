@@ -117,6 +117,7 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 							step="0.01"
 							id="length"
 							name="length"
+							min={0.01}
 						/>
 					</div>
 					<div className="form-control">
@@ -126,11 +127,12 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 							required
 							id="heightDifference"
 							name="heightDifference"
+							min={0}
 						/>
 					</div>
 					<div className="form-control">
 						<label htmlFor="score">Punkty: </label>
-						<input type="number" required id="score" name="score" />
+						<input type="number" required id="score" name="score" min={1} />
 					</div>
 					<div className="form-control">
 						<label htmlFor="walkingTime">Czas przejścia: </label>

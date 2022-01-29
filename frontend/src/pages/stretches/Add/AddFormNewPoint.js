@@ -49,10 +49,16 @@ const AddFormNewPoint = (id) => {
 			<div className="form-control">
 				<label htmlFor={"longitude" + id}>Długość geograficzna: </label>
 				<input
+					onInvalid={(e) =>
+						e.target.setCustomValidity(
+							"Podana wartość musi składać się wyłącznie z liczb. Należy podać dokładnie 6 liczb po przecinku."
+						)
+					}
+					onInput={(e) => e.target.setCustomValidity("")}
 					required
 					className="new-point"
-					type="number"
-					step="0.000001"
+					type="text"
+					pattern="[0-9]+[,.][0-9]{6}"
 					id={"longitude" + id}
 					name={"longitude" + id}
 				/>
@@ -60,10 +66,16 @@ const AddFormNewPoint = (id) => {
 			<div className="form-control">
 				<label htmlFor={"latitude" + id}>Szerokość geograficzna: </label>
 				<input
+					onInvalid={(e) =>
+						e.target.setCustomValidity(
+							"Podana wartość musi składać się wyłącznie z liczb. Należy podać dokładnie 6 liczb po przecinku."
+						)
+					}
+					onInput={(e) => e.target.setCustomValidity("")}
 					required
 					className="new-point"
-					type="number"
-					step="0.000001"
+					type="text"
+					pattern="[0-9]+[,.][0-9]{6}"
 					id={"latitude" + id}
 					name={"latitude" + id}
 				/>

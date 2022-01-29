@@ -8,15 +8,27 @@ const URI_STRETCHES = "http://localhost:8080/scoredStretch";
 const Add = () => {
 	const [titleClass, setTitleClass] = useState("title");
 
-	const [alertClass, setAlertClass] = useState("alert alert-success");
-	const [alertBtnColor, setAlertBtnColor] = useState("#57b42f");
+	const [alertClass, setAlertClass] = useState("alert alert-warning");
+	const [alertBtnColor, setAlertBtnColor] = useState("#8a6d3b");
 	const [showAlert, setShowAlert] = useState(false);
-	const [alertTitle, setAlertTitle] = useState("Udało się!");
-	const [alertMessage, setAlertMessage] = useState(
-		"Z powodzeniem dodano nowy odcinek."
-	);
+	const [alertTitle, setAlertTitle] = useState("Coś poszło nie tak");
+	const [alertMessage, setAlertMessage] = useState();
 
 	const addStretchHandler = useCallback(async (stretch) => {
+		if (stretch.startPoint == null || stretch.endPoint == null) {
+			setShowAlert(true);
+			setTitleClass("blurred");
+			setAlertMessage("Musisz wybrać punkt początkowy i końcowy.");
+			return;
+		}
+
+		if (stretch.mountainArea1 == null || stretch.mountainArea2 == null) {
+			setShowAlert(true);
+			setTitleClass("blurred");
+			setAlertMessage("Musisz wybrać teren górski nowego odcinka");
+			return;
+		}
+
 		try {
 			const response = await fetch(URI_STRETCHES, {
 				method: "POST",
@@ -33,7 +45,11 @@ const Add = () => {
 			}
 
 			setShowAlert(true);
+			setAlertClass("alert alert-success");
+			setAlertBtnColor("#57b42f");
 			setTitleClass("blurred");
+			setAlertTitle("Udało się!");
+			setAlertMessage("Z powodzeniem dodano nowy odcinek.");
 		} catch (error) {
 			console.log(error.message);
 
@@ -41,10 +57,7 @@ const Add = () => {
 				console.log(alert);
 
 				setShowAlert(true);
-				setAlertClass("alert alert-warning");
-				setAlertBtnColor("#8a6d3b");
 				setTitleClass("blurred");
-				setAlertTitle("Coś poszło nie tak");
 				setAlertMessage(
 					"Nie można dodać podanego odcinka, ponieważ już istnieje. Jeżeli chcesz zmienić jego dane, przejdź do sekcji 'edytuj.'"
 				);
@@ -53,10 +66,7 @@ const Add = () => {
 				"Cannot add new stretch if the same stretch with empty middle point exists"
 			) {
 				setShowAlert(true);
-				setAlertClass("alert alert-warning");
-				setAlertBtnColor("#8a6d3b");
 				setTitleClass("blurred");
-				setAlertTitle("Coś poszło nie tak");
 				setAlertMessage(
 					"Nie można dodać podanego odcinka, ponieważ istnieje już odcinek o podanym punkcie początkowym i końcowym, ale bez punktu pośredniego. Aby być w stanie dodać nowy odcinek, zedytuj punkt pośredni istniejącego odcinka."
 				);
@@ -65,10 +75,7 @@ const Add = () => {
 				"Cannot add new stretch with empty middle point if different middle point for this stretch already exists"
 			) {
 				setShowAlert(true);
-				setAlertClass("alert alert-warning");
-				setAlertBtnColor("#8a6d3b");
 				setTitleClass("blurred");
-				setAlertTitle("Coś poszło nie tak");
 				setAlertMessage(
 					"Nie można dodać podanego odcinka, ponieważ istnieje już odcinek o podanym punkcie początkowym i końcowym. Aby być w stanie dodać nowy odcinek, dodaj punkt pośredni."
 				);
@@ -76,10 +83,7 @@ const Add = () => {
 				error.message == "Points does not have the same mountain area"
 			) {
 				setShowAlert(true);
-				setAlertClass("alert alert-warning");
-				setAlertBtnColor("#8a6d3b");
 				setTitleClass("blurred");
-				setAlertTitle("Coś poszło nie tak");
 				setAlertMessage(
 					"Nie można dodać podanego odcinka, ponieważ jego punkty znajdują się w innych terenach górskich."
 				);
@@ -88,7 +92,6 @@ const Add = () => {
 		}
 	}, []);
 
-	//getting stretches to use them in form
 	const { response, error, loading } = useAxios({
 		method: "get",
 		url: URI_STRETCHES,

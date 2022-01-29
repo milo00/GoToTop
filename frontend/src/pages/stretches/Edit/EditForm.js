@@ -64,6 +64,7 @@ const EditForm = ({ stretchToEdit, onEditHandle, show }) => {
 						id="length"
 						name="length"
 						defaultValue={length}
+						min={0.01}
 					/>
 				</div>
 				<div className="form-control">
@@ -74,6 +75,7 @@ const EditForm = ({ stretchToEdit, onEditHandle, show }) => {
 						id="heightDifference"
 						name="heightDifference"
 						defaultValue={heightDifference}
+						min={0}
 					/>
 				</div>
 				<div className="form-control">
@@ -84,6 +86,7 @@ const EditForm = ({ stretchToEdit, onEditHandle, show }) => {
 						id="score"
 						name="score"
 						defaultValue={score}
+						min={1}
 					/>
 				</div>
 				<div className="form-control">
@@ -94,6 +97,7 @@ const EditForm = ({ stretchToEdit, onEditHandle, show }) => {
 						id="walkingTime"
 						name="walkingTime"
 						defaultValue={walkingTime}
+						min={"00:01"}
 					/>
 				</div>
 				<div>

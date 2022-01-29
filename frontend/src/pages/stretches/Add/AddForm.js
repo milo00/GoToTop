@@ -55,7 +55,7 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 				latitude: Number(e.target.latitude1.value),
 				altitude: Number(e.target.altitude1.value),
 				mountainAreas: areas.filter(
-					(mountainArea) => mountainArea.id === e.target.mountainArea1.value
+					(mountainArea) => mountainArea.id == e.target.mountainArea1.value
 				),
 			};
 		}
@@ -117,6 +117,7 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 							step="0.01"
 							id="length"
 							name="length"
+							min={0.01}
 						/>
 					</div>
 					<div className="form-control">
@@ -126,11 +127,12 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 							required
 							id="heightDifference"
 							name="heightDifference"
+							min={0}
 						/>
 					</div>
 					<div className="form-control">
 						<label htmlFor="score">Punkty: </label>
-						<input type="number" required id="score" name="score" />
+						<input type="number" required id="score" name="score" min={1} />
 					</div>
 					<div className="form-control">
 						<label htmlFor="walkingTime">Czas przejścia: </label>

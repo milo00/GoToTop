@@ -55,7 +55,7 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 				latitude: Number(e.target.latitude1.value),
 				altitude: Number(e.target.altitude1.value),
 				mountainAreas: areas.filter(
-					(mountainArea) => mountainArea.id === e.target.mountainArea1.value
+					(mountainArea) => mountainArea.id == e.target.mountainArea1.value
 				),
 			};
 		}

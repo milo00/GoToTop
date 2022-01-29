@@ -1,12 +1,13 @@
 import React, { useCallback } from "react";
 import { useParams } from "react-router-dom";
 import { useState } from "react";
+import useAxios from "../../../utils/useAxios";
 import EditForm from "./EditForm";
 import CustomAlert from "../CustomAlert";
 
 const URI_STRETCHES = "http://localhost:8080/scoredStretch/";
 
-const EditSpecificStretch = ({ stretches }) => {
+const EditSpecificStretch = () => {
 	const [isLoading, setIsLoading] = useState(false);
 
 	const [titleClass, setTitleClass] = useState("title");
@@ -18,10 +19,7 @@ const EditSpecificStretch = ({ stretches }) => {
 	const [alertMessage, setAlertMessage] = useState(
 		"Z powodzeniem zedytowano odcinek."
 	);
-
 	const { id } = useParams();
-
-	const stretchToEdit = stretches.find((s) => s.id == id);
 
 	const editStretchHandler = useCallback(async (stretch) => {
 		console.log(stretch);
@@ -48,6 +46,9 @@ const EditSpecificStretch = ({ stretches }) => {
 			if (!response.ok) {
 				throw new Error(data);
 			}
+
+			setShowAlert(true);
+			setTitleClass("blurred");
 
 			console.log(response);
 		} catch (error) {
@@ -80,6 +81,24 @@ const EditSpecificStretch = ({ stretches }) => {
 		}
 		setIsLoading(false);
 	}, []);
+
+	const { response, error, loading } = useAxios({
+		method: "get",
+		url: URI_STRETCHES,
+	});
+	const stretches = response;
+
+	if (loading) {
+		return <h1>Loading...</h1>;
+	} else if (error) {
+		return (
+			<div className="error">
+				<h3>{error}</h3>
+			</div>
+		);
+	}
+
+	const stretchToEdit = stretches.find((s) => s.id == id);
 
 	return (
 		<>

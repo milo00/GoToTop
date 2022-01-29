@@ -22,7 +22,10 @@ const Add = () => {
 			return;
 		}
 
-		if (stretch.mountainArea1 == null || stretch.mountainArea2 == null) {
+		if (
+			stretch.startPoint.mountainAreas.length == 0 ||
+			stretch.endPoint.mountainAreas.length == 0
+		) {
 			setShowAlert(true);
 			setTitleClass("blurred");
 			setAlertMessage("Musisz wybrać teren górski nowego odcinka");

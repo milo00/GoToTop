@@ -47,6 +47,65 @@ Global Styles
 ===============
 */
 
+/*switch button*/
+.switch-field {
+	padding: 40px;
+	  overflow: hidden;
+	
+  }
+
+  .switchButton__conteiner{
+	width: 100%;
+	height: fit-content;
+	background-color: white;
+	border-radius: 12px;
+  box-shadow: 0 1px 8px lightgray;
+}
+  
+
+  
+  .switch-field input {
+	  position: absolute !important;
+	  clip: rect(0, 0, 0, 0);
+	  height: 1px;
+	  width: 1px;
+	  border: 0;
+	  overflow: hidden;
+  }
+  
+  .switch-field label {
+	display: inline-block;
+	width: 50%;
+	background-color: white;
+	color: #57b42f;
+	font-size: 1.25rem;
+	font-weight: normal;
+	text-align: center;
+	padding: 1rem;
+	border-radius: 25%;
+	transition: all 0.1s ease-in-out;
+  }
+  
+  .switch-field label:hover {
+	  cursor: pointer;
+  }
+  
+  .switch-field input:checked + label {
+	background-color: #57b42f;
+	  color: #fff;
+	box-shadow: none;
+  }
+  
+  .switch-field label:first-of-type {
+	border-radius: 12px;
+  }
+  
+  .switch-field label:last-of-type {
+	border-radius: 0 12px 12px 0;
+  }
+
+  /*end*/
+
 .alert-conteiner {
 	display: flex;
 	justify-content: center;

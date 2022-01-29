@@ -1,9 +1,11 @@
 import { useState } from "react";
 import useAxios from "../../utils/useAxios.js";
 import Header from "../UI/Header.js";
-import StartList from "./StartList.js";
-import EndList from "./EndList.js";
+import StartList from "./StartPointList.js";
+import EndList from "./EndPointList.js";
 import ScoredStretch from "./ScoredStretch/ScoredStretch.js";
+import MountainAreaList from "../MountainAreas/MountainAreaList.js";
+import SwitchButton from "../Botton/SwitchButton.js";
 
 const URI_STRETCHES = "http://localhost:8080/scoredStretch";
 
@@ -14,23 +16,39 @@ function SearchStretchController() {
 	});
 
 	const [mode, setMode] = useState([1]);
+	const [isMountainListSelected, setMountainListSelected] = useState(false);
 	const [selectedStartPoint, setSelectedStartPoint] = useState([]);
 	const [selectedEndPoint, setSelectedEndPoint] = useState([]);
 	const [selectedMiddlePoint, setSelectedMiddlePoint] = useState([]);
+	const [selectedMountainArea, setSelectedMountainArea] = useState(null);
+
+	const buttonStateHandler = (buttonState) => {
+		setMountainListSelected(buttonState);
+	}
 
 	const savePointPropsHandler = (point, middlePoint) => {
 		setSelectedEndPoint(point);
 		setSelectedMiddlePoint(middlePoint);
-		setMode(3);
+		setMode(4);
 	};
 
 	const saveStartPointHandler = (point) => {
 		setSelectedStartPoint(point);
-		setMode(2);
+		setMode(3);
 	};
 
+	const saveMountainAreaHandler = (area) => {
+		console.log(area);
+		setSelectedMountainArea(area);		
+		setMode(2);
+	}
+
 	const backButtonHandler = () => {
+		if(mode === 2) {
+			setSelectedMountainArea(null);
+		}
 		setMode((prevMode) => prevMode - 1);
+		
 	};
 
 	if (loading) {
@@ -56,7 +74,26 @@ function SearchStretchController() {
 		</button>
 	);
 	switch (mode) {
-		case 2:
+		case 2: 
+				content = (
+					<>
+					{button}
+					<section>
+						<Header
+							title={"Wybierz punkt początkowy"}
+						/>
+						<section className="search__conteiner">
+						<StartList
+							getStartPoint={saveStartPointHandler}
+							stretches={response}
+							mountainArea={selectedMountainArea}
+						/>
+					</section>
+					</section>
+					</>
+				)
+				break;
+		case 3:
 			content = (
 				<>
 					{button}
@@ -77,7 +114,7 @@ function SearchStretchController() {
 			);
 
 			break;
-		case 3:
+		case 4:
 			content = (
 				<>
 					{button}
@@ -97,18 +134,35 @@ function SearchStretchController() {
 				</>
 			);
 			break;
+		
 		default:
-			content = (
+			let switchButton = <SwitchButton 
+						leftLabel={"Wybierz punkt początkowy"}
+						rightLabel={"Wybierz teren górski"}
+						currentState={isMountainListSelected}
+						currentStateHandler={buttonStateHandler}/>
+			content = isMountainListSelected ? (
 				<>
-					<Header title={"Wybierz punkt początkowy"} />
+					{switchButton}
+					<section className="search__conteiner">
+						<MountainAreaList
+							stretches={response}
+							getCickedAreaHandler={saveMountainAreaHandler}
+						/>
+					</section>
+					
+				</>
+			)
+			: (<>
+					{switchButton}
 					<section className="search__conteiner">
 						<StartList
 							getStartPoint={saveStartPointHandler}
 							stretches={response}
-						/>{" "}
+							mountainArea={selectedMountainArea}
+						/>
 					</section>
-				</>
-			);
+			</>);
 			break;
 	}
 

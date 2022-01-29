@@ -1,5 +1,5 @@
 import React from "react";
-import SearchStretchController from "../components/SearchStretch/SearchStretch";
+import SearchStretchController from "../components/SearchStretch/SearchScoredStretch";
 
 const Search = () => {
 	return <SearchStretchController />;

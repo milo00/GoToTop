@@ -134,7 +134,14 @@ const AddForm = ({ stretches, startPoints, onAddStretch, show }) => {
 					</div>
 					<div className="form-control">
 						<label htmlFor="walkingTime">Czas przejścia: </label>
-						<input type="time" required id="walkingTime" name="walkingTime" />
+						<input
+							type="time"
+							required
+							id="walkingTime"
+							name="walkingTime"
+							defaultValue={"00:00"}
+							min={"00:01"}
+						/>
 					</div>
 					<button type="submit">DODAJ</button>
 				</div>

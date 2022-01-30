@@ -1,5 +1,6 @@
 package com.example.GoToTop.services;
 
+import com.example.GoToTop.exceptions.RoutePointAlreadyExistsException;
 import com.example.GoToTop.model.MountainArea;
 import com.example.GoToTop.model.RoutePoint;
 import com.example.GoToTop.model.projection.RoutePointProjection;
@@ -30,7 +31,7 @@ public class RoutePointService {
     public void addNewRoutePoint(RoutePoint routePoint) {
         Optional<RoutePoint> routePointByName = routePointRepository.findByName(routePoint.getName());
         if (routePointByName.isPresent()) {
-            throw new IllegalStateException("route with given name already exist");
+            throw new RoutePointAlreadyExistsException("route point with name " + routePoint.getName() + " already exist");
         }
         routePointRepository.save(routePoint);
     }

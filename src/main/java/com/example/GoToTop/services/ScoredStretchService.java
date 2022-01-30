@@ -37,11 +37,12 @@ public class ScoredStretchService {
         Optional<ScoredStretch> scoredStretchByKey = scoredStretchRepository.findStretchByKey(scoredStretch.getStartPoint(),
                 scoredStretch.getEndPoint(), scoredStretch.getMiddlePoint());
         if (scoredStretchByKey.isPresent()) {
-            throw new ScoredStretchAlreadyExistsException("Stretch with given name already exists");
+            throw new ScoredStretchAlreadyExistsException("Stretch with given start, end and middle point already exists");
         } else if (scoredStretch.getMiddlePoint().isBlank()
                 && (scoredStretchRepository.countScoredStretchesWithTheSameStartAndEndPoint(scoredStretch.getStartPoint(), scoredStretch.getEndPoint()) > 1)) {
             throw new ScoredStretchConflictException("Cannot add new stretch with empty middle point if different middle point for this stretch already exists");
-        } else if (scoredStretchRepository.countScoredStretchesWithTheSameStartAndEndPoint(scoredStretch.getStartPoint(), scoredStretch.getEndPoint()) == 1) {
+        } else if (!scoredStretch.getMiddlePoint().isBlank() && scoredStretchRepository.existsScoredStretchWithEmptyMiddlePoint(scoredStretch.getStartPoint(),
+                scoredStretch.getEndPoint())) {
             throw new ScoredStretchConflictException("Cannot add new stretch if the same stretch with empty middle point exists");
         } else {
             scoredStretchRepository.save(scoredStretch);
@@ -65,7 +66,7 @@ public class ScoredStretchService {
         scoredStretchRepository.delete(scoredStretchById.get());
     }
 
-    @Transactional
+    //@Transactional
     public void updateScoredStretch(Long id, Optional<String> middlePoint, Optional<Integer> score, Optional<Float> length,
                                     Optional<Float> heightDifference, Optional<Time> walkingTime) {
         Optional<ScoredStretch> scoredStretchById = scoredStretchRepository.findById(id);
@@ -81,7 +82,7 @@ public class ScoredStretchService {
                 Optional<ScoredStretch> scoredStretchByKey = scoredStretchRepository.findStretchByKey(startPoint,
                         endPoint, middlePoint.get());
                 if (scoredStretchByKey.isPresent()) {
-                    throw new ScoredStretchAlreadyExistsException("Stretch with given name already exists");
+                    throw new ScoredStretchAlreadyExistsException("Stretch with given middle point already exists");
                 } else if (middlePoint.get().isBlank()
                         && (scoredStretchRepository.countScoredStretchesWithTheSameStartAndEndPoint(startPoint, endPoint) > 1)) {
                     throw new ScoredStretchConflictException("Cannot delete middle point if different middle point for the stretch still exists");
@@ -105,7 +106,11 @@ public class ScoredStretchService {
             if (walkingTime.isPresent() && !walkingTime.get().equals(scoredStretchToUpdate.getWalkingTime())) {
                 scoredStretchToUpdate.setWalkingTime(walkingTime.get());
             }
+
+
+            scoredStretchRepository.save(scoredStretchToUpdate);
         }
+
     }
 
 }

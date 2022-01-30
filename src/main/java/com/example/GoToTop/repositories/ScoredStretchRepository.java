@@ -11,11 +11,17 @@ import java.util.Optional;
 
 public interface ScoredStretchRepository extends JpaRepository<ScoredStretch, Long> {
 
+    @Query("SELECT a FROM ScoredStretch a WHERE a.id = ?1")
+    Optional<ScoredStretch> findById(Long id);
+
     @Query("SELECT a FROM ScoredStretch a WHERE a.startPoint = ?1 AND a.endPoint = ?2 AND a.middlePoint = ?3")
     Optional<ScoredStretch> findStretchByKey(RoutePoint startPoint, RoutePoint endPoint, String middlePoint);
 
     @Query("SELECT COUNT(a.id) FROM ScoredStretch a WHERE a.startPoint = ?1 AND a.endPoint = ?2")
     int countScoredStretchesWithTheSameStartAndEndPoint(RoutePoint startPoint, RoutePoint endPoint);
+
+    @Query("SELECT CASE WHEN COUNT(a)> 0 THEN TRUE ELSE FALSE END FROM ScoredStretch a WHERE a.startPoint = ?1 AND a.endPoint = ?2 AND a.middlePoint = NULL")
+    boolean existsScoredStretchWithEmptyMiddlePoint(RoutePoint startPoint, RoutePoint endPoint);
 
     @Query("SELECT a FROM ScoredStretch a")
     List<ScoredStretchProjection> findAllStretches();

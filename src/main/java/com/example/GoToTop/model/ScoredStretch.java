@@ -106,6 +106,21 @@ public class ScoredStretch {
         return score;
     }
 
+    @Override
+    public String toString() {
+        return "ScoredStretch{" +
+                "id=" + id +
+                ", startPoint=" + startPoint +
+                ", endPoint=" + endPoint +
+                ", middlePoint='" + middlePoint + '\'' +
+                ", score=" + score +
+                ", length=" + length +
+                ", heightDifference=" + heightDifference +
+                ", walkingTime=" + walkingTime +
+                ", mountainArea=" + mountainArea +
+                '}';
+    }
+
     public void setScore(int score) {
         this.score = score;
     }

@@ -39,7 +39,6 @@ public class ScoredStretchController {
     @PostMapping
     public ResponseEntity registerNewScoredStretch(@RequestBody ScoredStretch scoredStretch)
             throws ScoredStretchAlreadyExistsException, MountainAreaNotFoundException, ScoredStretchConflictException {
-        System.out.println(scoredStretch);
 
         if (!routePointService.existsByName(scoredStretch.getStartPoint().getName())) {
             routePointService.addNewRoutePoint(scoredStretch.getStartPoint());
@@ -58,7 +57,6 @@ public class ScoredStretchController {
         scoredStretchService.deleteScoredStretch(id);
     }
 
-    //TODO add middle point, delete area??
     @PutMapping(path = {"{scoredStretchId}"})
     public ResponseEntity updateScoredStretch(@PathVariable("scoredStretchId") Long id,
                                               @RequestParam(required = false) String middlePoint,

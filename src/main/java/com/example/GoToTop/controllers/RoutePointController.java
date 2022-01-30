@@ -33,7 +33,6 @@ public class RoutePointController {
         try {
             routePointService.addNewRoutePoint(routePoint);
         } catch (Exception e) {
-            System.out.println("dupa.");
         }
     }
 

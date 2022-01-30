@@ -1,5 +1,7 @@
 package com.example.GoToTop.services;
 
+import com.example.GoToTop.exceptions.MountainAreaAlreadyExistsException;
+import com.example.GoToTop.exceptions.MountainAreaNotFoundException;
 import com.example.GoToTop.model.projection.MountainAreaProjection;
 import com.example.GoToTop.repositories.MountainAreaRepository;
 import com.example.GoToTop.model.MountainArea;
@@ -19,16 +21,13 @@ public class MountainAreaService {
     }
 
     public List<MountainAreaProjection> getMountainArea() {
-        for (MountainAreaProjection mountainArea: mountainAreaRepository.findAreas()) {
-            System.out.println(mountainArea.getName() + mountainArea.getId());
-        }
         return mountainAreaRepository.findAreas();
     }
 
     public void addNewMountainArea(MountainArea mountainArea) {
         Optional<MountainArea> mountainAreaByName = mountainAreaRepository.findByName(mountainArea.getName());
         if (mountainAreaByName.isPresent()) {
-            throw new IllegalStateException("area with given name already exist");
+            throw new MountainAreaAlreadyExistsException("area with name: " + mountainArea.getName() + " already exist");
         }
         mountainAreaRepository.save(mountainArea);
     }
@@ -36,13 +35,9 @@ public class MountainAreaService {
     public void deleteMountainArea(Long id) {
         Optional<MountainArea> mountainAreaById = mountainAreaRepository.findById(id);
         if (mountainAreaById.isEmpty()) {
-            throw new IllegalStateException("area does not exist");
+            throw new MountainAreaNotFoundException("Area does not exist");
         }
         mountainAreaRepository.delete(mountainAreaById.get());
-    }
-
-    public Optional<MountainArea> getMountainAreaById(Long id) {
-        return mountainAreaRepository.findById(id);
     }
 
     public Optional<MountainArea> getMountainAreaByName(String name) {

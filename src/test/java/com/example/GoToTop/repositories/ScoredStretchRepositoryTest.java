@@ -40,10 +40,12 @@ class ScoredStretchRepositoryTest {
 
         mountainAreaRepository.save(new MountainArea("Tatry Wysokie"));
 
-        RoutePoint startPoint = new RoutePoint("Rusinowa Polana", 49.262862f, 20.090297f, 1210, mountainAreaRepository.findByName("Tatry Wysokie").get());
-        RoutePoint endPoint = new RoutePoint("Dolina Filipka", 49.282190f, 20.087708f, 959, mountainAreaRepository.findByName("Tatry Wysokie").get());
+        RoutePoint startPoint = new RoutePoint("Rusinowa Polana", 49.262862f, 20.090297f, 1210,
+                mountainAreaRepository.findByName("Tatry Wysokie").get());
+        RoutePoint endPoint = new RoutePoint("Dolina Filipka", 49.282190f, 20.087708f, 959,
+                mountainAreaRepository.findByName("Tatry Wysokie").get());
         String middlePoint = "";
-        routePointRepository.saveAll(List.of(startPoint,endPoint));
+        routePointRepository.saveAll(List.of(startPoint, endPoint));
 
         ScoredStretch scoredStretch = new ScoredStretch(routePointRepository.findByName("Rusinowa Polana").get(),
                 routePointRepository.findByName("Dolina Filipka").get(), middlePoint, 3, 2.7f,
@@ -53,7 +55,6 @@ class ScoredStretchRepositoryTest {
         Optional<ScoredStretch> expected = underTest.findStretchByKey(startPoint, endPoint, middlePoint);
 
         assertThat(expected).isPresent();
-
     }
 
     @Test
@@ -64,7 +65,7 @@ class ScoredStretchRepositoryTest {
         RoutePoint startPoint = new RoutePoint("Rusinowa Polana", 49.262862f, 20.090297f, 1210, mountainAreaRepository.findByName("Tatry Wysokie").get());
         RoutePoint endPoint = new RoutePoint("Dolina Filipka", 49.282190f, 20.087708f, 959, mountainAreaRepository.findByName("Tatry Wysokie").get());
         String middlePoint = "";
-        routePointRepository.saveAll(List.of(startPoint,endPoint));
+        routePointRepository.saveAll(List.of(startPoint, endPoint));
 
         Optional<ScoredStretch> expected = underTest.findStretchByKey(startPoint, endPoint, middlePoint);
         assertThat(expected).isEmpty();
@@ -78,7 +79,7 @@ class ScoredStretchRepositoryTest {
         RoutePoint endPoint = new RoutePoint("Dolina Filipka", 49.282190f, 20.087708f, 959, mountainAreaRepository.findByName("Tatry Wysokie").get());
         String middlePoint1 = "md1";
         String middlePoint2 = "md2";
-        routePointRepository.saveAll(List.of(startPoint,endPoint));
+        routePointRepository.saveAll(List.of(startPoint, endPoint));
 
         ScoredStretch scoredStretch1 = new ScoredStretch(routePointRepository.findByName("Rusinowa Polana").get(),
                 routePointRepository.findByName("Dolina Filipka").get(), middlePoint1, 3, 2.7f,
@@ -88,7 +89,7 @@ class ScoredStretchRepositoryTest {
                 Time.valueOf("00:55:00"));
         underTest.saveAll(List.of(scoredStretch1, scoredStretch2));
 
-        int howMany = underTest.countScoredStretchesWithTheSameStartAndEndPoint(startPoint,endPoint);
+        int howMany = underTest.countScoredStretchesWithTheSameStartAndEndPoint(startPoint, endPoint);
         assertThat(howMany).isEqualTo(2);
 
     }
@@ -99,9 +100,9 @@ class ScoredStretchRepositoryTest {
 
         RoutePoint startPoint = new RoutePoint("Rusinowa Polana", 49.262862f, 20.090297f, 1210, mountainAreaRepository.findByName("Tatry Wysokie").get());
         RoutePoint endPoint = new RoutePoint("Dolina Filipka", 49.282190f, 20.087708f, 959, mountainAreaRepository.findByName("Tatry Wysokie").get());
-        routePointRepository.saveAll(List.of(startPoint,endPoint));
+        routePointRepository.saveAll(List.of(startPoint, endPoint));
 
-        int howMany = underTest.countScoredStretchesWithTheSameStartAndEndPoint(startPoint,endPoint);
+        int howMany = underTest.countScoredStretchesWithTheSameStartAndEndPoint(startPoint, endPoint);
         assertThat(howMany).isEqualTo(0);
 
     }
